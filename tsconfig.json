@@ -1,0 +1,14 @@
+// https://www.typescriptlang.org/tsconfig
+
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "files": [],
+  "exclude": [],
+  "references": [
+    {"path": "./ui/style"},
+  ]
+}

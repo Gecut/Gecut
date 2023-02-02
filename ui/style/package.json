@@ -1,0 +1,29 @@
+{
+  "name": "@gecut/styles",
+  "version": "0.0.0",
+  "description": "Gecut Styles",
+  "private": true,
+  "keywords": [
+    "styles",
+    "esm",
+    "gecut"
+  ],
+  "type": "module",
+  "author": "MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
+  "license": "MIT",
+  "files": [
+    "**/**/*.{d.ts.map,d.ts,js.map,js,md}"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/gecut",
+    "directory": "ui/ui-kit"
+  },
+  "homepage": "https://github.com/gecut/gecut/tree/main/ui/ui-kit#readme",
+  "bugs": {
+    "url": "https://github.com/gecut/gecut/issues"
+  }
+}

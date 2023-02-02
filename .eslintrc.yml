@@ -1,0 +1,108 @@
+root: true
+
+ignorePatterns:
+  - .gitignore
+
+extends:
+  - eslint:recommended
+  - google
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/recommended
+  - plugin:import/typescript
+  - plugin:wc/best-practice
+  - plugin:lit/recommended
+
+env:
+  browser: true
+  es2022: true
+
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2022
+  sourceType: module
+
+plugins:
+  - '@typescript-eslint'
+  - import
+  - wc
+  - lit
+  - lit-a11y
+
+settings:
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
+
+rules:
+  indent:
+    - error
+    - tab
+    - ignoredNodes:
+        - TemplateLiteral > *
+  wc/guard-super-call: off
+  require-jsdoc: warn
+  valid-jsdoc: off
+  class-methods-use-this:
+    - error
+    - exceptMethods:
+        - connectedCallback
+        - disconnectedCallback
+        - performUpdate
+        - shouldUpdate
+        - firstUpdated
+        - update
+        - updated
+        - createRenderRoot
+        - render
+  '@typescript-eslint/member-ordering':
+    - 'error'
+    - default:
+        - signature
+        - constructor
+        - static-field
+        - public-field
+        - protected-field
+        - private-field
+        - field
+        - public-method
+        - static-method
+        - protected-method
+        - private-method
+        - method
+
+  # import
+  import/no-unresolved: warn
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - - sibling
+          - index
+        - type
+  import/consistent-type-specifier-style:
+    - error
+    - prefer-top-level
+
+  # eslint-plugin-lit
+  lit/no-template-bind: error
+  lit/no-duplicate-template-bindings: error
+  lit/no-useless-template-literals: error
+  lit/attribute-value-entities: error
+  lit/binding-positions: error
+  lit/no-invalid-html: error
+  lit/no-value-attribute: error
+  lit/no-invalid-escape-sequences: error
+  lit/no-legacy-template-syntax: error
+  lit/no-private-properties: error
+  lit/no-native-attributes: error
+
+  # eslint-plugin-lit-a11y
+  lit-a11y/anchor-has-content: warn
+  lit-a11y/click-events-have-key-events: warn
+  lit-a11y/mouse-events-have-key-events: warn
+  lit-a11y/valid-lang: error
+  lit-a11y/autocomplete-valid: error
