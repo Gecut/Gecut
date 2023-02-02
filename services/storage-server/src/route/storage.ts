@@ -9,6 +9,18 @@ import type {
 
 nanoServer.route('GET', '/storage', getStorage);
 
+/**
+ * It requires a token, requires a query parameter called `name`,
+ *  and returns the storage object
+ *
+ * @param {AlwatrConnection} connection - AlwatrConnection -
+ * this is the connection object that is
+ * passed to the function. It contains the request and
+ * response objects, as well as some helper
+ * methods.
+ *
+ * @returns The storage object.
+ */
 function getStorage(connection: AlwatrConnection): AlwatrServiceResponse {
   logger.logMethod('getStorage');
 

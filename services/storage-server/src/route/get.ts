@@ -9,6 +9,15 @@ import type {
 
 nanoServer.route('GET', '/', getDocument);
 
+/**
+ * It gets a document from a storage engine
+ *
+ * @param {AlwatrConnection} connection - AlwatrConnection -
+ * The connection object that contains the
+ * request and response objects.
+ *
+ * @returns A function that takes a connection and returns a service response.
+ */
 function getDocument(connection: AlwatrConnection): AlwatrServiceResponse {
   logger.logMethod('getDocument');
 

@@ -9,6 +9,13 @@ import type {
 
 nanoServer.route('DELETE', 'all', deleteDocument);
 
+/**
+ * It deletes a document from a storage engine
+ *
+ * @param {AlwatrConnection} connection - AlwatrConnection
+ *
+ * @returns A function that takes a connection and returns a response.
+ */
 function deleteDocument(connection: AlwatrConnection): AlwatrServiceResponse {
   logger.logMethodArgs('deleteDocument', {method: connection.method});
 
