@@ -1,0 +1,37 @@
+import {config, logger} from '../config.js';
+import {nanoServer} from '../lib/nano-server.js';
+import {storageProvider} from '../lib/storage-provider.js';
+
+import type {
+  AlwatrConnection,
+  AlwatrServiceResponse,
+} from '@alwatr/nano-server';
+
+nanoServer.route('GET', '/has', has);
+
+/**
+ * It checks if a file exists in a storage engine
+ *
+ * @param {AlwatrConnection} connection - AlwatrConnection -
+ * The connection object that is passed to
+ * the service.
+ *
+ * @returns A function that takes a connection and returns a response.
+ */
+function has(connection: AlwatrConnection): AlwatrServiceResponse {
+  logger.logMethod('has');
+
+  connection.requireToken(config.nanoServer.accessToken);
+
+  const params = connection.requireQueryParams<{storage: string; id: string}>({
+    storage: 'string',
+    id: 'string',
+  });
+
+  const storageEngine = storageProvider.get({name: params.storage});
+
+  return {
+    ok: true,
+    data: {has: storageEngine.has(params.id)},
+  };
+}
