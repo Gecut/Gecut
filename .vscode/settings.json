@@ -42,5 +42,6 @@
     "vazirmatn",
     "Zamanian",
     "zindex"
-  ]
+  ],
+  "docwriter.style": "JSDoc"
 }
