@@ -8,7 +8,5 @@
   },
   "files": [],
   "exclude": [],
-  "references": [
-    {"path": "./ui/style"},
-  ]
+  "references": [{"path": "./services/storage-server"}]
 }
