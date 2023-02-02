@@ -37,7 +37,7 @@ settings:
 rules:
   indent:
     - error
-    - tab
+    - 2
     - ignoredNodes:
         - TemplateLiteral > *
   wc/guard-super-call: off
