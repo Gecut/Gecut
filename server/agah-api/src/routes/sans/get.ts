@@ -2,9 +2,7 @@ import {logger} from '../../config.js';
 import {nanoServer} from '../../libs/nano-server.js';
 import {storageClient} from '../../libs/storage.js';
 
-import type {
-  AlwatrServiceResponse,
-} from '@alwatr/nano-server';
+import type {AlwatrServiceResponse} from '@alwatr/nano-server';
 import type {SansInterface} from '../../types/sans.js';
 
 nanoServer.route('GET', '/sans', getSansList);
