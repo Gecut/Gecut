@@ -12,6 +12,7 @@
   },
   "workspaces": [
     "services/*",
+    "server/*",
     "ui/*"
   ],
   "scripts": {

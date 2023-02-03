@@ -8,5 +8,9 @@
   },
   "files": [],
   "exclude": [],
-  "references": [{"path": "./services/storage-server"}]
+  "references": [
+    {"path": "./services/storage-server"},
+
+    {"path": "./server/agah-api"}
+  ]
 }

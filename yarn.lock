@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@alwatr/fetch@^0.28.0":
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/@alwatr/fetch/-/fetch-0.28.0.tgz#1ddd850527248c31f478d2788b93106222a89ca2"
+  integrity sha512-ywqxgryLOpCt8pOBw/riOGx/CfvQK0yKv8+Zff+rZ8EqBaJb2APEtLThs5Ot1tWJgdje44z+NcScyZwn4DFdFw==
+  dependencies:
+    "@alwatr/logger" "^0.28.0"
+    tslib "^2.4.1"
+
 "@alwatr/logger@^0.28.0":
   version "0.28.0"
   resolved "https://registry.yarnpkg.com/@alwatr/logger/-/logger-0.28.0.tgz#e444dc5165ed4ef73453edc8c272ce947ed2c975"
@@ -25,6 +33,15 @@
   dependencies:
     "@alwatr/logger" "^0.28.0"
     "@alwatr/math" "^0.28.0"
+    tslib "^2.4.1"
+
+"@alwatr/storage-client@^0.28.0":
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/@alwatr/storage-client/-/storage-client-0.28.0.tgz#ecdb94b5b1009d215835c7068786a9e1c09bcc58"
+  integrity sha512-S3fbZI8D2zike9zHw87+LMGGFTGb7kAfd+8itvN8nFzx7VdSMtpL7HrwlEh6uEm7Mzw8f64AQWBmm82cm6C8Lw==
+  dependencies:
+    "@alwatr/fetch" "^0.28.0"
+    "@alwatr/logger" "^0.28.0"
     tslib "^2.4.1"
 
 "@alwatr/storage-engine@^0.28.0":
