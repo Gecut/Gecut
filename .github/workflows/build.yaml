@@ -10,12 +10,16 @@ on:
       - next*
       - main
       - release/*
+      - dependabot/*
+      - feat/*
 
   push:
     branches:
       - next*
       - main
       - release/*
+      - dependabot/*
+      - feat/*
 
 env:
   NODE_VERSION: latest
