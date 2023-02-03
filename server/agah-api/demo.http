@@ -1,0 +1,26 @@
+@apiUrl = http://127.0.0.1:8000
+@apiVersion = v0
+@token = YOUR_SECRET_TOKEN
+
+### Home
+GET {{apiUrl}}/{{apiVersion}}
+
+### Get Sans List
+GET {{apiUrl}}/{{apiVersion}}/sans
+
+### Add Sans
+POST {{apiUrl}}/{{apiVersion}}/sans
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "date": "Fri Feb 05 2023 14:12:01 GMT+0330 (Iran Standard Time)",
+  "groupsNumber": 3,
+  "groupsCapacityNumber": 4,
+  "guestsNumber": 6,
+  "confirmedGuestsNumber": 13,
+  "inactive": false
+}
+
+### Health
+GET {{apiUrl}}/{{apiVersion}}/health
