@@ -41,7 +41,7 @@ rules:
     - ignoredNodes:
         - TemplateLiteral > *
   wc/guard-super-call: off
-  require-jsdoc: warn
+  require-jsdoc: off
   valid-jsdoc: off
   class-methods-use-this:
     - error
@@ -55,6 +55,9 @@ rules:
         - updated
         - createRenderRoot
         - render
+  '@typescript-eslint/consistent-type-imports':
+    - error
+    - separate-type-imports
   '@typescript-eslint/member-ordering':
     - 'error'
     - default:
