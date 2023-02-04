@@ -1,5 +1,4 @@
 // https://www.typescriptlang.org/tsconfig
-
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
@@ -8,5 +7,9 @@
   },
   "files": [],
   "exclude": [],
-  "references": [{"path": "./services/storage-server"}]
+  "references": [
+    {"path": "./services/storage-server"},
+
+    {"path": "./ui/agah-pwa"}
+  ]
 }
