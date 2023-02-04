@@ -57,7 +57,8 @@ rules:
         - render
   '@typescript-eslint/consistent-type-imports':
     - error
-    - separate-type-imports
+    - prefer: type-imports
+      fixStyle: separate-type-imports
   '@typescript-eslint/member-ordering':
     - 'error'
     - default:

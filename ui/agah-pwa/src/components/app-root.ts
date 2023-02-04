@@ -3,7 +3,6 @@ import {
   customElement,
   html,
   css,
-  PropertyValues,
   cache,
   state,
 } from '@alwatr/element';
@@ -16,6 +15,7 @@ import '@alwatr/font/vazirmatn.css';
 import routes from '../routes.js';
 
 import type {RoutesConfig} from '@alwatr/router';
+import type {PropertyValues} from '@alwatr/element';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('app-root')
