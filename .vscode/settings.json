@@ -14,7 +14,6 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "files.exclude": {
     "**/*.map": true,
-    "**/*.d.ts": true,
     "**/*.tsbuildinfo": true
   },
   "cSpell.language": "en,fa,fa-IR",
