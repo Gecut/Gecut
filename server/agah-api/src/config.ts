@@ -1,4 +1,5 @@
 import {createLogger} from '@alwatr/logger';
+import {AlwatrTokenGenerator} from '@alwatr/token';
 
 export const logger = createLogger('com-api');
 
@@ -15,6 +16,12 @@ export const config = {
     accessToken: process.env.ACCESS_TOKEN ?? 'YOUR_SECRET_TOKEN',
     allowAllOrigin: true,
   },
+  token: new AlwatrTokenGenerator({
+    secret: 'alwatr-secret-key',
+    encoding: 'base64url',
+    duration: '1y',
+    algorithm: 'sha512',
+  }),
 };
 
 logger.logProperty('config', config);
