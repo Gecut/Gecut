@@ -53,6 +53,15 @@
     exit-hook "^3.2.0"
     tslib "^2.4.1"
 
+"@alwatr/token@^0.28.0":
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/@alwatr/token/-/token-0.28.0.tgz#1cc52c2f960e8d401a0b8e844bdfc3bbc5484f7d"
+  integrity sha512-9uf39dBXGP5f0Jm2X8GmJp4StuWSegT8rhNh1Cf4PJ3C75BOBF94j9thx3XMQsDuyQG6u1RH9vvQzEPFIbZyHA==
+  dependencies:
+    "@alwatr/logger" "^0.28.0"
+    "@alwatr/math" "^0.28.0"
+    tslib "^2.4.1"
+
 "@alwatr/type@^0.28.0":
   version "0.28.0"
   resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-0.28.0.tgz#c22fc894f097f1179a2cd4d7eb474d32207a1dcd"
