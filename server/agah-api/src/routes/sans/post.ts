@@ -1,6 +1,7 @@
-import {config, logger} from '../../config.js';
+import {logger} from '../../config.js';
 import {nanoServer} from '../../libs/nano-server.js';
 import {storageClient} from '../../libs/storage.js';
+import {requireUserVerify} from '../../libs/require-user-verify.js';
 
 import type {
   AlwatrConnection,
@@ -9,27 +10,63 @@ import type {
 import type {SansInterface} from '../../types/sans.js';
 
 nanoServer.route('POST', '/sans', addSans);
+
 /**
- * It adds a Sans to the database
+ * It adds a new sans to the database
+ *
  * @param {AlwatrConnection} connection - AlwatrConnection
- * @returns A function that returns a promise that resolves
- *  to an AlwatrServiceResponse.
+ *
+ * @returns SansInterface
  */
 async function addSans(
   connection: AlwatrConnection,
 ): Promise<AlwatrServiceResponse> {
   logger.logMethod('addSans');
 
-  connection.requireToken(config.nanoServer.accessToken);
+  const param = connection.requireQueryParams<{id: string}>({id: 'string'});
+  const token = connection.getToken();
+  const jsonBody = await connection.requireJsonBody<Partial<SansInterface>>();
 
-  const bodyJson = await connection.requireJsonBody<SansInterface>();
+  const userVerifyResult = await requireUserVerify(param.id, token);
 
-  bodyJson.id ??= 'auto_increment';
+  if (userVerifyResult.ok === false) {
+    return userVerifyResult;
+  }
+
+  if (userVerifyResult.data.user.role !== 'admin') {
+    return {
+      ok: false,
+      statusCode: 403,
+      errorCode: 'you_can_not_create_sans',
+    };
+  }
+
+  const sans: SansInterface = {
+    id: 'auto_increment',
+    date: new Date().getTime(),
+    inactive: false,
+
+    duration: 90,
+    groupsNumber: 1,
+    groupsCapacityNumber: 1,
+    gender: 'unknown',
+
+    ageLimit: {
+      min: 1,
+      max: 100,
+    },
+
+    ...jsonBody,
+  };
+
+  delete sans.hallCapacityNumber;
+  delete sans.confirmedGuestsNumber;
+  delete sans.guestsNumber;
 
   try {
     return {
       ok: true,
-      data: await storageClient.set(bodyJson, 'sans'),
+      data: await storageClient.set(sans, 'sans'),
     };
   } catch (_err) {
     const err = _err as Error;
