@@ -1,6 +1,9 @@
 @apiUrl = http://127.0.0.1:8000
 @apiVersion = v0
 @token = YOUR_SECRET_TOKEN
+@userId = iW700
+@userToken =u14-95_LhMCd-W3Fcp0RIudWouL0Tt1NR9WEJ31bhalx-7m_hW5j_vRH6wiuaDLLkL6qi3aDMQCnlZ65B3LmTg
+@userPhone = 09155595488
 
 ### Home
 GET {{apiUrl}}/{{apiVersion}}
@@ -8,18 +11,64 @@ GET {{apiUrl}}/{{apiVersion}}
 ### Get Sans List
 GET {{apiUrl}}/{{apiVersion}}/sans
 
+### Get User Data
+GET {{apiUrl}}/{{apiVersion}}/user?id={{userId}}
+Authorization: Bearer {{userToken}}
+
 ### Add Sans
-POST {{apiUrl}}/{{apiVersion}}/sans
+POST {{apiUrl}}/{{apiVersion}}/sans?id={{userId}}
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "groupsNumber": 3,
+  "groupsCapacityNumber": 4,
+  "duration": 60,
+  "inactive": false
+}
+
+### Create User
+POST {{apiUrl}}/{{apiVersion}}/authentication/sign-up
+Content-Type: application/json
+
+{
+  "phone": "09151154220",
+  "firstName": "سید مهدیار",
+  "lastName": "زمانیان",
+  "sansCode": "0",
+  "age": 18
+}
+
+### Create Admin User
+POST {{apiUrl}}/{{apiVersion}}/authentication/sign-up
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "date": "Fri Feb 05 2023 14:12:01 GMT+0330 (Iran Standard Time)",
-  "groupsNumber": 3,
-  "groupsCapacityNumber": 4,
-  "guestsNumber": 6,
-  "confirmedGuestsNumber": 13,
-  "inactive": false
+  "phone": "09155595488",
+  "firstName": "سید محمدمهدی",
+  "lastName": "زمانیان",
+  "sansCode": "0",
+  "role": "admin",
+  "age": 18
+}
+
+### Edit User
+POST {{apiUrl}}/{{apiVersion}}/user
+Content-Type: application/json
+
+{
+  "id": "t7423",
+  "status":"confirmed"
+}
+
+### User Sign In
+POST {{apiUrl}}/{{apiVersion}}/authentication/sign-in
+Content-Type: application/json
+
+{
+  "id": "iW700",
+  "phone":"09151154220"
 }
 
 ### Health
