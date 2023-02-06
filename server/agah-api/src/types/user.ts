@@ -1,6 +1,9 @@
 import type {AlwatrDocumentObject} from '@alwatr/type';
 
+export type Gender = 'male' | 'female' | 'unknown';
+
 export type CallsNumber =
+  | 'no-call'
   | 'first-call'
   | 'second-call'
   | 'third-call'
@@ -23,6 +26,13 @@ export type UserInterface = AlwatrDocumentObject & {
   callsNumber: CallsNumber;
   smsAddressSent: boolean;
   deleted: boolean;
-  groupCode: number | null;
-  sansCode: number;
+  groupId: string | null;
+  sansCode: string;
+  auth: string;
+  role: 'admin' | 'user';
+  gender: Gender;
+};
+
+export type UserResponseData = UserInterface & {
+  group: Record<string, Omit<UserInterface, 'auth'>>;
 };
