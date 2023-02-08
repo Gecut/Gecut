@@ -1,8 +1,8 @@
 {
   "name": "@gecut/monorepo",
-  "description": "The gecut Library",
-  "repository": "https://github.com/gecut/gecut/",
-  "author": "MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
+  "description": "The Gecut Library",
+  "repository": "https://github.com/Gecut/Gecut/",
+  "author": "S. MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
   "license": "MIT",
   "type": "module",
   "private": true,
