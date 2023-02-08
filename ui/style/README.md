@@ -1,1 +1,0 @@
-# Gecut Styles - `@gecut/styles`

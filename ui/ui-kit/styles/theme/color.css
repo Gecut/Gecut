@@ -44,25 +44,17 @@
   --sys-color-primary: hsl(var(--sys-color-primary-hsl));
   --sys-color-on-primary: hsl(var(--sys-color-on-primary-hsl));
   --sys-color-primary-container: hsl(var(--sys-color-primary-container-hsl));
-  --sys-color-on-primary-container: hsl(
-    var(--sys-color-on-primary-container-hsl)
-  );
+  --sys-color-on-primary-container: hsl(var(--sys-color-on-primary-container-hsl));
 
   --sys-color-secondary: hsl(var(--sys-color-secondary-hsl));
   --sys-color-on-secondary: hsl(var(--sys-color-on-secondary-hsl));
-  --sys-color-secondary-container: hsl(
-    var(--sys-color-secondary-container-hsl)
-  );
-  --sys-color-on-secondary-container: hsl(
-    var(--sys-color-on-secondary-container-hsl)
-  );
+  --sys-color-secondary-container: hsl(var(--sys-color-secondary-container-hsl));
+  --sys-color-on-secondary-container: hsl(var(--sys-color-on-secondary-container-hsl));
 
   --sys-color-tertiary: hsl(var(--sys-color-tertiary-hsl));
   --sys-color-on-tertiary: hsl(var(--sys-color-on-tertiary-hsl));
   --sys-color-tertiary-container: hsl(var(--sys-color-tertiary-container-hsl));
-  --sys-color-on-tertiary-container: hsl(
-    var(--sys-color-on-tertiary-container-hsl)
-  );
+  --sys-color-on-tertiary-container: hsl(var(--sys-color-on-tertiary-container-hsl));
 
   --sys-color-background: hsl(var(--sys-color-background-hsl));
   --sys-color-on-background: hsl(var(--sys-color-on-background-hsl));
