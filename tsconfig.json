@@ -10,6 +10,8 @@
   "references": [
     {"path": "./services/storage-server"},
 
-    {"path": "./ui/agah-pwa"}
+    {"path": "./ui/agah-pwa"},
+    {"path": "./ui/iconsax-cdn"},
+    {"path": "./ui/ui-kit"}
   ]
 }
