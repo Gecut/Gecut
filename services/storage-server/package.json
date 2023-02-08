@@ -1,6 +1,6 @@
 {
   "name": "@gecut/storage-server",
-  "version": "0.28.0",
+  "version": "0.0.0",
   "description": "Gecut Storage Server, Elegant micro in-memory json-like storage nanoservice with disk backed, Fastest NoSQL Database.",
   "type": "module",
   "keywords": [
@@ -18,7 +18,7 @@
     "typescript",
     "gecut"
   ],
-  "author": "MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
+  "author": "S. MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
   "license": "MIT",
   "private": true,
   "engines": {
