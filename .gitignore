@@ -18,9 +18,6 @@ Desktop.ini
 *.map
 *.d.ts
 *.js
-!ui/**/*.map
-!ui/**/*.d.ts
-!ui/**/*.js
 !*.config.js
 dist
 build
