@@ -12,5 +12,6 @@
     ]
   },
   "include": ["src/**/*.ts"],
-  "exclude": []
+  "exclude": [],
+  "references": [{"path": "../ui-kit"}, {"path": "../iconsax-cdn"}]
 }

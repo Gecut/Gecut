@@ -6,30 +6,29 @@ import {
   cache,
   state,
 } from '@alwatr/element';
-import {l10n} from '@alwatr/i18n';
 import {router} from '@alwatr/router';
+import homeIcon from '@gecut/iconsax-cdn/twotone/home.svg?raw';
 
-import '@alwatr/icon';
+import '@gecut/ui-kit/icon/icon.js';
+import '@gecut/ui-kit/styles/token.css';
+import '@gecut/ui-kit/styles/pwa.css';
+import '@gecut/ui-kit/styles/theme/palette-dynamic.css';
+import '@gecut/ui-kit/styles/theme/color.css';
 import '@alwatr/font/vazirmatn.css';
 
 import routes from '../routes.js';
+import '../styles/palette.css';
 
 import type {RoutesConfig} from '@alwatr/router';
 import type {PropertyValues} from '@alwatr/element';
 import type {LitRenderType} from '../types/lit-render.js';
 
+console.log(homeIcon);
+
 @customElement('app-root')
 export class AppRoot extends AlwatrSmartElement {
   constructor() {
     super();
-
-    l10n.config.defaultLocale = {
-      code: 'fa-IR',
-      direction: 'rtl',
-      language: 'fa',
-    };
-    l10n.setLocal();
-    l10n.resourceChangeSignal.addListener(() => this.requestUpdate());
 
     router.signal.addListener((route) => {
       this._logger.logMethodArgs('routeChanged', {route});
@@ -53,6 +52,11 @@ export class AppRoot extends AlwatrSmartElement {
       flex-direction: column;
       flex-grow: 1;
     }
+
+    gecut-icon {
+      font-size: 100px;
+      color: red;
+    }
   `;
 
   @state()
@@ -65,6 +69,7 @@ export class AppRoot extends AlwatrSmartElement {
 
   override render(): LitRenderType {
     return html`
+      <gecut-icon .svgContent=${homeIcon}></gecut-icon>
       <div class="page-container">${cache(router.outlet(this.routes))}</div>
     `;
   }
