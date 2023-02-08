@@ -1,0 +1,39 @@
+{
+  "name": "@gecut/ui-kit",
+  "version": "0.0.0",
+  "description": "Gecut UI Elements Kit",
+  "private": true,
+  "keywords": [
+    "element",
+    "ui-kit",
+    "ui",
+    "lit",
+    "lit-element",
+    "web-component",
+    "typescript",
+    "esm",
+    "gecut"
+  ],
+  "type": "module",
+  "author": "S. MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
+  "license": "MIT",
+  "files": [
+    "**/**/*.{d.ts.map,d.ts,js.map,js,md}"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gecut/Gecut",
+    "directory": "ui/ui-kit"
+  },
+  "homepage": "https://github.com/Gecut/Gecut/tree/main/ui/ui-kit#readme",
+  "bugs": {
+    "url": "https://github.com/Gecut/Gecut/issues"
+  },
+  "dependencies": {
+    "@alwatr/element": "^0.28.0",
+    "tslib": "^2.5.0"
+  },
+}
