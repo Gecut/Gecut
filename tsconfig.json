@@ -13,6 +13,6 @@
     {"path": "./ui/ui-kit"},
     {"path": "./ui/iconsax-cdn"},
 
-    {"path": "./uniquely/ui"},
+    {"path": "./uniquely/ui/agah-pwa"},
   ]
 }
