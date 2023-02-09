@@ -11,8 +11,10 @@
     "npm": ">=7.0.0"
   },
   "workspaces": [
+    "ui/*",
     "services/*",
-    "ui/*"
+
+    "uniquely/ui/*"
   ],
   "scripts": {
     "l": "yarn lint",

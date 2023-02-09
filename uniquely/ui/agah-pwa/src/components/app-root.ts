@@ -7,7 +7,7 @@ import {
   state,
 } from '@alwatr/element';
 import {router} from '@alwatr/router';
-import homeIcon from '@gecut/iconsax-cdn/twotone/home.svg?raw';
+import homeIcon from '@gecut/iconsax-cdn/twotone/home?raw';
 
 import '@gecut/ui-kit/icon/icon.js';
 import '@gecut/ui-kit/styles/token.css';
