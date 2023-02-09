@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const preDIR = '.';
 const srcDIR = 'src';
-const distDIR = 'dist';
+const distDIR = 'src';
 
 const iconTypeList = fs
   .readdirSync(`${preDIR}/${srcDIR}/`)

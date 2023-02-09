@@ -16,7 +16,7 @@
     "npm": ">=7.0.0"
   },
   "exports": {
-    "./*": "./dist/*"
+    "./*": "./src/*.svg"
   },
   "repository": {
     "type": "git",
