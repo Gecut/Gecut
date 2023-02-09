@@ -13,7 +13,6 @@
   "workspaces": [
     "ui/*",
     "services/*",
-
     "uniquely/ui/*"
   ],
   "scripts": {

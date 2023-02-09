@@ -60,8 +60,10 @@ import editOutlineIcon from '@gecut/iconsax-cdn/outline/edit?raw';
 import userSearchOutlineIcon from '@gecut/iconsax-cdn/outline/user-search?raw';
 import copyOutlineIcon from '@gecut/iconsax-cdn/outline/copy?raw';
 import callOutlineIcon from '@gecut/iconsax-cdn/outline/call-calling?raw';
+// eslint-disable-next-line max-len
 import userOctagonOutlineIcon from '@gecut/iconsax-cdn/outline/user-octagon?raw';
 import calendarOutlineIcon from '@gecut/iconsax-cdn/outline/calendar?raw';
+// eslint-disable-next-line max-len
 import messageAddOutlineIcon from '@gecut/iconsax-cdn/outline/message-add-1?raw';
 
 import eyeTwoToneIcon from '@gecut/iconsax-cdn/twotone/eye?raw';
@@ -71,8 +73,10 @@ import editTwoToneIcon from '@gecut/iconsax-cdn/twotone/edit?raw';
 import userSearchTwoToneIcon from '@gecut/iconsax-cdn/twotone/user-search?raw';
 import copyTwoToneIcon from '@gecut/iconsax-cdn/twotone/copy?raw';
 import callTwoToneIcon from '@gecut/iconsax-cdn/twotone/call-calling?raw';
+// eslint-disable-next-line max-len
 import userOctagonTwoToneIcon from '@gecut/iconsax-cdn/twotone/user-octagon?raw';
 import calendarTwoToneIcon from '@gecut/iconsax-cdn/twotone/calendar?raw';
+// eslint-disable-next-line max-len
 import messageAddTwoToneIcon from '@gecut/iconsax-cdn/twotone/message-add-1?raw';
 
 import '@gecut/ui-kit/icon/icon';
