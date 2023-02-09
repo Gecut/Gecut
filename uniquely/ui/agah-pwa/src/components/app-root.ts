@@ -7,11 +7,11 @@ import {
   state,
 } from '@alwatr/element';
 import {router} from '@alwatr/router';
-import homeIcon from '@gecut/iconsax-cdn/twotone/home?raw';
 
 import '@gecut/ui-kit/icon/icon.js';
 import '@gecut/ui-kit/styles/token.css';
 import '@gecut/ui-kit/styles/pwa.css';
+import '@gecut/ui-kit/styles/mobile-only.css';
 import '@gecut/ui-kit/styles/theme/palette-dynamic.css';
 import '@gecut/ui-kit/styles/theme/color.css';
 import '@alwatr/font/vazirmatn.css';
@@ -22,8 +22,6 @@ import '../styles/palette.css';
 import type {RoutesConfig} from '@alwatr/router';
 import type {PropertyValues} from '@alwatr/element';
 import type {LitRenderType} from '../types/lit-render.js';
-
-console.log(homeIcon);
 
 @customElement('app-root')
 export class AppRoot extends AlwatrSmartElement {
@@ -43,19 +41,12 @@ export class AppRoot extends AlwatrSmartElement {
       display: flex;
       flex-direction: column;
       height: 100%;
-      max-width: calc(70 * var(--sys-spacing-track));
-      margin: auto;
     }
 
     .page-container {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-    }
-
-    gecut-icon {
-      font-size: 100px;
-      color: red;
     }
   `;
 
@@ -69,7 +60,6 @@ export class AppRoot extends AlwatrSmartElement {
 
   override render(): LitRenderType {
     return html`
-      <gecut-icon .svgContent=${homeIcon}></gecut-icon>
       <div class="page-container">${cache(router.outlet(this.routes))}</div>
     `;
   }
