@@ -10,8 +10,8 @@ on:
       - '**.ts'
       - '**.js'
     branches:
-      - next*
-      - main
+      - develop*
+      - master
       - release/*
       - dependabot/*
       - feat/*
@@ -21,8 +21,8 @@ on:
       - '**.ts'
       - '**.js'
     branches:
-      - next*
-      - main
+      - develop*
+      - master
       - release/*
       - dependabot/*
       - feat/*
