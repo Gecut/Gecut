@@ -1,0 +1,15 @@
+@import '@gecut/ui-kit/styles/token.css';
+@import './palette.css';
+@import '@gecut/ui-kit/styles/pwa.css';
+@import '@gecut/ui-kit/styles/mobile-only.css';
+@import '@alwatr/font/vazirmatn.css';
+@import './colors.css';
+
+html {
+  background: linear-gradient(15deg, hsla(var(--ref-palette-primary5)), hsla(var(--ref-palette-primary10)));
+}
+
+body {
+  background: transparent;
+  --_max-mobile-size: calc(54 * var(--sys-spacing-track));
+}
