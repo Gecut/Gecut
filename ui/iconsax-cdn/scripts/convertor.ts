@@ -41,6 +41,10 @@ for (const icon of Object.values(icons).flat()) {
   iconSource = iconSource.replace(` viewBox="0 0 24 24"`, '');
   iconSource = iconSource.replace(`<svg`, '<svg viewBox="0 0 24 24"');
   iconSource = iconSource.replaceAll(`#292D32`, `currentColor`);
+  iconSource = iconSource.replaceAll(
+    ` stroke-width="1.5"`,
+    ' stroke-width="var(--_size, 1.5)"',
+  );
 
   fs.writeFileSync(dist, iconSource);
 

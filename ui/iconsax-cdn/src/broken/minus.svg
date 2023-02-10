@@ -1,1 +1,1 @@
-<svg viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12h2M6 12h5.66"/></svg>
+<svg viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="var(--_size, 1.5)" d="M16 12h2M6 12h5.66"/></svg>
