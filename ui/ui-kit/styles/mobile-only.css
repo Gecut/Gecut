@@ -1,4 +1,4 @@
 body {
-  max-width: var(--sys-breakpoint-handset);
+  max-width: var(--_max-mobile-size, var(--sys-breakpoint-handset));
   margin: 0 auto;
 }
