@@ -8,16 +8,9 @@ import {
 } from '@alwatr/element';
 import {router} from '@alwatr/router';
 
-import '@gecut/ui-kit/icon/icon.js';
-import '@gecut/ui-kit/styles/token.css';
-import '@gecut/ui-kit/styles/pwa.css';
-import '@gecut/ui-kit/styles/mobile-only.css';
-import '@gecut/ui-kit/styles/theme/palette-dynamic.css';
-import '@gecut/ui-kit/styles/theme/color.css';
-import '@alwatr/font/vazirmatn.css';
+import '../styles/index.css';
 
 import routes from '../routes.js';
-import '../styles/palette.css';
 
 import type {RoutesConfig} from '@alwatr/router';
 import type {PropertyValues} from '@alwatr/element';
