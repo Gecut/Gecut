@@ -9,6 +9,8 @@ import {random} from '@alwatr/math';
 import {range} from 'lit/directives/range.js';
 import {styleMap} from 'lit/directives/style-map.js';
 
+import '@gecut/ui-kit/icon/icon.js';
+
 import eyeLinearIcon from '@gecut/iconsax-cdn/linear/eye?raw';
 import peopleLinearIcon from '@gecut/iconsax-cdn/linear/people?raw';
 import clockLinearIcon from '@gecut/iconsax-cdn/linear/clock?raw';
@@ -79,7 +81,6 @@ import calendarTwoToneIcon from '@gecut/iconsax-cdn/twotone/calendar?raw';
 // eslint-disable-next-line max-len
 import messageAddTwoToneIcon from '@gecut/iconsax-cdn/twotone/message-add-1?raw';
 
-import '@gecut/ui-kit/icon/icon';
 
 import type {LitRenderType} from '../types/lit-render.js';
 
