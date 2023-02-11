@@ -14,6 +14,7 @@
     "ui/*",
     "services/*",
     "uniquely/ui/*"
+    "server/*"
   ],
   "scripts": {
     "l": "yarn lint",

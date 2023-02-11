@@ -47,6 +47,6 @@ for (const icon of Object.values(icons).flat()) {
   );
 
   fs.writeFileSync(dist, iconSource);
-
-  console.log(dist);
 }
+
+console.log(`${icons.length} Passed convert icons`);
