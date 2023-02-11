@@ -43,6 +43,6 @@ for (const icon of Object.values(icons).flat()) {
   iconSource = iconSource.replaceAll(`#292D32`, `currentColor`);
 
   fs.writeFileSync(dist, iconSource);
-
-  console.log(dist);
 }
+
+console.log(`${icons.length} Passed convert icons`);

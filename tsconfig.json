@@ -12,7 +12,7 @@
     {"path": "./services/storage-server"},
 
     {"path": "./server/agah-api"},
-    
+
     {"path": "./ui/iconsax-cdn"},
     {"path": "./ui/ui-kit"}
   ]
