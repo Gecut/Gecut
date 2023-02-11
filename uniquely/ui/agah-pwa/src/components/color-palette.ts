@@ -81,7 +81,6 @@ import calendarTwoToneIcon from '@gecut/iconsax-cdn/twotone/calendar?raw';
 // eslint-disable-next-line max-len
 import messageAddTwoToneIcon from '@gecut/iconsax-cdn/twotone/message-add-1?raw';
 
-
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('color-palette')

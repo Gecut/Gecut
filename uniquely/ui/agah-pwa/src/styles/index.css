@@ -6,7 +6,11 @@
 @import './colors.css';
 
 html {
-  background: linear-gradient(15deg, hsla(var(--ref-palette-primary5)), hsla(var(--ref-palette-primary10)));
+  background: linear-gradient(
+    15deg,
+    hsla(var(--ref-palette-primary5)),
+    hsla(var(--ref-palette-primary10))
+  );
 }
 
 body {
