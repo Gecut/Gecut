@@ -8,7 +8,6 @@ import {
   unsafeCSS,
 } from '@alwatr/element';
 import baseElementStyle from '../../styles/element.css?inline';
-import surfaceStyle from '../../styles/surface.css?inline';
 import maleIcon from '/icons/gender/man-outline.svg?raw';
 import femaleIcon from '/icons/gender/woman-outline.svg?raw';
 

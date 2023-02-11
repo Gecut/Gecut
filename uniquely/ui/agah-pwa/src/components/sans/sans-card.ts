@@ -3,12 +3,10 @@ import {
   css,
   customElement,
   html,
-  ifDefined,
   property,
   unsafeCSS,
 } from '@alwatr/element';
 import baseElementStyle from '../../styles/element.css?inline';
-import surfaceStyle from '../../styles/surface.css?inline';
 
 import type {UserInterface} from '../../types/user.js';
 import type {LitRenderType} from '../../types/lit-render.js';
@@ -17,7 +15,6 @@ import type {LitRenderType} from '../../types/lit-render.js';
 export class SansCard extends AlwatrDummyElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
-    unsafeCSS(surfaceStyle),
     css`
       :host {
         --_surface-color-bg: var(--sys-color-primary-container-hsl);
@@ -29,6 +26,8 @@ export class SansCard extends AlwatrDummyElement {
         flex-direction: column;
         padding: 0;
         border-radius: var(--sys-radius-medium);
+        color: hsl(var(--_surface-color-on));
+        background-color: hsl(var(--_surface-color-bg));
         user-select: none;
         overflow: hidden;
         cursor: pointer;
