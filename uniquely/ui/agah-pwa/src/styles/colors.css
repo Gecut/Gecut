@@ -7,12 +7,12 @@
   --sys-color-secondary-hsl: var(--ref-palette-secondary30);
   --sys-color-on-secondary-hsl: var(--ref-palette-secondary100);
   --sys-color-secondary-container-hsl: var(--ref-palette-secondary60);
-  --sys-color-on-secondary-container-hsl: var(--ref-palette-secondary10);
+  --sys-color-on-secondary-container-hsl: var(--ref-palette-secondary20);
 
-  --sys-color-tertiary-hsl: var(--ref-palette-tertiary50);
+  --sys-color-tertiary-hsl: var(--ref-palette-tertiary40);
   --sys-color-on-tertiary-hsl: var(--ref-palette-tertiary100);
   --sys-color-tertiary-container-hsl: var(--ref-palette-tertiary60);
-  --sys-color-on-tertiary-container-hsl: var(--ref-palette-tertiary10);
+  --sys-color-on-tertiary-container-hsl: var(--ref-palette-tertiary20);
 
   --sys-color-background-hsl: var(--ref-palette-neutral99);
   --sys-color-on-background-hsl: var(--ref-palette-neutral10);
@@ -26,9 +26,9 @@
   --sys-color-outline-hsl: var(--ref-palette-neutral-variant50);
   --sys-color-outline-variant-hsl: var(--ref-palette-neutral-variant80);
 
-  --sys-color-error-hsl: var(--ref-palette-error30);
-  --sys-color-error-container-hsl: var(--ref-palette-error90);
+  --sys-color-error-hsl: var(--ref-palette-error50);
   --sys-color-on-error-hsl: var(--ref-palette-error100);
+  --sys-color-error-container-hsl: var(--ref-palette-error90);
   --sys-color-on-error-container-hsl: var(--ref-palette-error10);
 
   --sys-color-inverse-primary-hsl: var(--ref-palette-primary80);
