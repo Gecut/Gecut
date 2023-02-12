@@ -29,6 +29,7 @@ export class Checkbox extends AlwatrDummyElement {
         align-items: center;
         justify-content: center;
         padding: 0;
+        flex: 0 0 auto;
         width: calc(4 * var(--sys-spacing-track));
         height: calc(4 * var(--sys-spacing-track));
         border-radius: var(--sys-radius-medium);
