@@ -5,8 +5,7 @@ import type {UserInterface} from '../types/user.js';
 export const groupIdRegex = /^([a-z]{2})([0-9]{3})+$/;
 
 export const rtlCharacterRegex =
-  // eslint-disable-next-line no-misleading-character-class
-  /^(([\\s,کگۀی،,تثجحخد,غيًٌٍَ,ُپٰچژ‌,ء-ةذ-عف-ٔ])|([۰-۹])|((،|؟|«|»|؛|٬)))+$/u;
+  /^(([\\s,کگۀی،,تثجحخد,غيًٌٍَ,ُپٰچژ‌,ء-ةذ-عف-ٔ])|([۰-۹])|((،|؟|«|»|؛|٬)))+$/;
 
 export function validateData<T extends keyof UserInterface>(
   name: T,

@@ -41,6 +41,7 @@ rules:
     - ignoredNodes:
         - TemplateLiteral > *
   wc/guard-super-call: off
+  no-misleading-character-class: off
   require-jsdoc: off
   valid-jsdoc: off
   class-methods-use-this:
