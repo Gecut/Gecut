@@ -3,6 +3,7 @@ import {html} from '@alwatr/element';
 import './pages/page-home';
 import './pages/page-sign-up';
 import './pages/page-sign-up-details';
+import './pages/page-user';
 import './components/color-palette';
 
 import type {Routes} from './types/route.js';
@@ -11,6 +12,10 @@ const routes: Routes = {
   'home': {
     icon: null,
     render: () => html`<page-home></page-home>`,
+  },
+  'user': {
+    icon: null,
+    render: () => html`<page-user></page-user>`,
   },
   'sign-up': {
     icon: null,
