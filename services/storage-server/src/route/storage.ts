@@ -1,6 +1,7 @@
 import {config, logger} from '../config.js';
 import {nanoServer} from '../lib/nano-server.js';
 import {storageProvider} from '../lib/storage-provider.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 import type {
   AlwatrConnection,
@@ -9,19 +10,12 @@ import type {
 
 nanoServer.route('GET', '/storage', getStorage);
 
-/**
- * It requires a token, requires a query parameter called `name`,
- *  and returns the storage object
- *
- * @param {AlwatrConnection} connection - AlwatrConnection -
- * this is the connection object that is
- * passed to the function. It contains the request and
- * response objects, as well as some helper
- * methods.
- *
- * @returns The storage object.
- */
-function getStorage(connection: AlwatrConnection): AlwatrServiceResponse {
+function getStorage(
+  connection: AlwatrConnection,
+): AlwatrServiceResponse<
+  Record<string, StringifyableRecord>,
+  StringifyableRecord
+> {
   logger.logMethod('getStorage');
 
   connection.requireToken(config.nanoServer.accessToken);
@@ -32,5 +26,5 @@ function getStorage(connection: AlwatrConnection): AlwatrServiceResponse {
 
   const storageEngine = storageProvider.get({name: params.name});
 
-  return {...storageEngine._storage};
+  return {...storageEngine._storage}; // prevent to modify storage by reply
 }

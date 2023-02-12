@@ -12,6 +12,7 @@ import type {
 } from '@alwatr/nano-server';
 import type {SansInterface} from '../../types/sans.js';
 import type {UserInterface} from '../../types/user.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('POST', '/authentication/sign-up', signUp);
 /**
@@ -24,7 +25,7 @@ nanoServer.route('POST', '/authentication/sign-up', signUp);
  */
 async function signUp(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse> {
+): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod('signUp');
 
   const sansList = await storageClient.getStorage<SansInterface>('sans');
@@ -111,7 +112,6 @@ async function signUp(
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }

@@ -1,6 +1,7 @@
 import {config, logger} from '../config.js';
 import {nanoServer} from '../lib/nano-server.js';
 import {storageProvider} from '../lib/storage-provider.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 import type {
   AlwatrConnection,
@@ -10,20 +11,9 @@ import type {AlwatrDocumentObject} from '@alwatr/storage-engine';
 
 nanoServer.route('PATCH', 'all', updateDocument);
 
-/**
- * It updates a document in a storage engine
- *
- * @param {AlwatrConnection} connection - AlwatrConnection
- *
- * @returns A promise that resolves to an object with the following properties:
- *   ok: boolean
- *   statusCode: number
- *   errorCode: string
- *   data: AlwatrDocumentObject
- */
 async function updateDocument(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse> {
+): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod('updateDocument');
 
   connection.requireToken(config.nanoServer.accessToken);

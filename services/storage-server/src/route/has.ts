@@ -6,19 +6,13 @@ import type {
   AlwatrConnection,
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('GET', '/has', has);
 
-/**
- * It checks if a file exists in a storage engine
- *
- * @param {AlwatrConnection} connection - AlwatrConnection -
- * The connection object that is passed to
- * the service.
- *
- * @returns A function that takes a connection and returns a response.
- */
-function has(connection: AlwatrConnection): AlwatrServiceResponse {
+function has(
+  connection: AlwatrConnection,
+): AlwatrServiceResponse<StringifyableRecord, StringifyableRecord> {
   logger.logMethod('has');
 
   connection.requireToken(config.nanoServer.accessToken);

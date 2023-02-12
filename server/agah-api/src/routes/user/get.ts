@@ -8,6 +8,7 @@ import type {
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
 import type {UserInterface, UserResponseData} from '../../types/user.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('GET', '/user', getUserData);
 /**
@@ -19,7 +20,7 @@ nanoServer.route('GET', '/user', getUserData);
  */
 async function getUserData(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse<UserResponseData>> {
+): Promise<AlwatrServiceResponse<UserResponseData, StringifyableRecord>> {
   logger.logMethod('getUserData');
 
   const param = connection.requireQueryParams<{id: string}>({id: 'string'});
@@ -59,7 +60,6 @@ async function getUserData(
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }

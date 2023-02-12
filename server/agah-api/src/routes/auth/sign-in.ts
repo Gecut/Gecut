@@ -7,6 +7,7 @@ import type {
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
 import type {UserInterface} from '../../types/user.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 type UserLoginType = {
   id: string;
@@ -25,7 +26,7 @@ nanoServer.route('POST', '/authentication/sign-in', signIn);
  */
 async function signIn(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse> {
+): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod('signIn');
 
   try {
@@ -65,7 +66,6 @@ async function signIn(
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }

@@ -9,6 +9,7 @@ import type {
 } from '@alwatr/nano-server';
 import type {SansInterface} from '../../types/sans.js';
 import type {UserInterface} from '../../types/user.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('PUT', '/user', editUser);
 /**
@@ -21,7 +22,7 @@ nanoServer.route('PUT', '/user', editUser);
  */
 async function editUser(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse> {
+): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod('editUser');
 
   const jsonBody = await connection.requireJsonBody<Partial<UserInterface>>();
@@ -70,7 +71,6 @@ async function editUser(
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }

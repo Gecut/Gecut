@@ -6,19 +6,13 @@ import type {
   AlwatrConnection,
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('GET', '/', getDocument);
 
-/**
- * It gets a document from a storage engine
- *
- * @param {AlwatrConnection} connection - AlwatrConnection -
- * The connection object that contains the
- * request and response objects.
- *
- * @returns A function that takes a connection and returns a service response.
- */
-function getDocument(connection: AlwatrConnection): AlwatrServiceResponse {
+function getDocument(
+  connection: AlwatrConnection,
+): AlwatrServiceResponse<StringifyableRecord, StringifyableRecord> {
   logger.logMethod('getDocument');
 
   if (!connection.url.search) {

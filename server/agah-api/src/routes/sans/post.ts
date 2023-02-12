@@ -8,6 +8,7 @@ import type {
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
 import type {SansInterface} from '../../types/sans.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('POST', '/sans', addSans);
 
@@ -20,7 +21,7 @@ nanoServer.route('POST', '/sans', addSans);
  */
 async function addSans(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse> {
+): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod('addSans');
 
   const param = connection.requireQueryParams<{id: string}>({id: 'string'});
@@ -78,7 +79,6 @@ async function addSans(
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }

@@ -5,6 +5,7 @@ import {storageClient} from '../../libs/storage.js';
 import type {AlwatrServiceResponse} from '@alwatr/nano-server';
 import type {SansInterface} from '../../types/sans.js';
 import type {UserInterface} from '../../types/user.js';
+import type {StringifyableRecord} from '@alwatr/type';
 
 nanoServer.route('GET', '/sans', getSansList);
 /**
@@ -12,7 +13,9 @@ nanoServer.route('GET', '/sans', getSansList);
  *
  * @returns A Promise that resolves to an AlwatrServiceResponse
  */
-async function getSansList(): Promise<AlwatrServiceResponse> {
+async function getSansList(): Promise<
+  AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>
+  > {
   logger.logMethod('getSansList');
 
   try {
@@ -45,7 +48,6 @@ async function getSansList(): Promise<AlwatrServiceResponse> {
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }

@@ -9,19 +9,9 @@ import type {
 
 nanoServer.route('GET', '/keys', getStorageKeys);
 
-/**
- * It requires a token, requires a query parameter
- * called `storage` and returns the keys of the storage
- * engine with that name
- *
- * @param {AlwatrConnection} connection - AlwatrConnection -
- * this is the connection object that is
- * passed to the service. It contains the request
- * , response, and other useful information.
- *
- * @returns An object with a boolean property called ok and a data property.
- */
-function getStorageKeys(connection: AlwatrConnection): AlwatrServiceResponse {
+function getStorageKeys(
+  connection: AlwatrConnection,
+): AlwatrServiceResponse<{keys: Array<string>}, never> {
   logger.logMethod('getStorageKeys');
 
   connection.requireToken(config.nanoServer.accessToken);
