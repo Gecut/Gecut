@@ -194,7 +194,7 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         >
           <span>ثبت نام</span>
         </gecut-button>
-        <gecut-button background="neutral" small>
+        <gecut-button href="/support" background="neutral" small>
           <span>تماس با پشتیبانی</span>
         </gecut-button>
       </div>

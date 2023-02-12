@@ -10,10 +10,8 @@ import peopleIcon from '@gecut/iconsax-cdn/broken/people?raw';
 import clockIcon from '@gecut/iconsax-cdn/broken/clock?raw';
 import callIcon from '@gecut/iconsax-cdn/broken/call-calling?raw';
 import messageAddIcon from '@gecut/iconsax-cdn/broken/message-add-1?raw';
-import logoImage from '/images/logo.png?inline';
 import iconImage from '/images/icon.png?inline';
 import baseElementStyle from '../styles/element.css?inline';
-import config from '../config.js';
 
 import '@gecut/ui-kit/icon/icon.js';
 
@@ -277,13 +275,13 @@ export class PageUser extends AlwatrDummyElement {
         </div>
 
         <div class="row">
-          <gecut-button background="error">
+          <gecut-button href="/support" background="error">
             <gecut-icon .svgContent=${clockIcon} slot="icon"></gecut-icon>
 
             <span>درخواست لغو بلیط</span>
           </gecut-button>
 
-          <gecut-button background="neutral">
+          <gecut-button href="/support" background="neutral">
             <gecut-icon .svgContent=${callIcon} slot="icon"></gecut-icon>
 
             <span>پشتیبانی</span>

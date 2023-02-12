@@ -114,7 +114,7 @@ export class PageHome extends AlwatrDummyElement {
           </gecut-button>
         </div>
 
-        <gecut-button background="neutral">
+        <gecut-button href="/support" background="neutral">
           <gecut-icon slot="icon" .svgContent=${callIcon}></gecut-icon>
 
           <span>پشتیبانی</span>
