@@ -44,11 +44,11 @@ export class Slider extends AlwatrDummyElement {
         min-height: calc(15 * var(--sys-spacing-track));
         min-width: calc(15 * var(--sys-spacing-track));
 
-        max-height: calc(30 * var(--sys-spacing-track));
-        max-width: calc(30 * var(--sys-spacing-track));
+        max-height: calc(23 * var(--sys-spacing-track));
+        max-width: calc(23 * var(--sys-spacing-track));
 
-        height: 25vh;
-        width: 25vh;
+        height: 23vh;
+        width: 23vh;
       }
 
       .title-text {
