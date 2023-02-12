@@ -33,10 +33,10 @@ export class GenderCard extends AlwatrDummyElement {
         overflow: hidden;
         cursor: pointer;
 
-        color: hsl(var(--_surface-color-on));
+        color: hsla(var(--_surface-color-on), 30%);
         background-color: hsl(var(--_surface-color-bg));
 
-        border: calc(0.5 * var(--sys-spacing-track)) solid
+        border: calc(0.25 * var(--sys-spacing-track)) solid
           hsla(var(--_surface-color-on), 30%);
 
         font-size: calc(8 * var(--sys-spacing-track));
@@ -50,7 +50,8 @@ export class GenderCard extends AlwatrDummyElement {
       }
 
       :host([selected]) {
-        border: calc(0.5 * var(--sys-spacing-track)) solid
+        color: var(--_surface-color-on);
+        border: calc(0.25 * var(--sys-spacing-track)) solid
           hsla(var(--_surface-color-on), 100%);
       }
     `,
