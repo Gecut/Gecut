@@ -117,7 +117,7 @@ export class Button extends AlwatrDummyElement {
         --_surface-color-bg: var(--sys-color-tertiary-hsl);
       }
       :host([background='error']) {
-        --_surface-color-bg: var(--sys-color-error-hsl);
+        --_surface-color-bg: var(--sys-color-on-error-container-hsl);
       }
     `,
     css`
