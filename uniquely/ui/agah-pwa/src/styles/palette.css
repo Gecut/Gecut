@@ -3,12 +3,12 @@
   --ref-palette-primary-chroma: 48%; /* maximum 48 */
   --ref-palette-secondary-hue: 195;
   --ref-palette-secondary-chroma: 48%;
-  --ref-palette-tertiary-hue: 44;
-  --ref-palette-tertiary-chroma: 78%;
+  --ref-palette-tertiary-hue: 42;
+  --ref-palette-tertiary-chroma: 100%;
   --ref-palette-neutral-hue: var(--ref-palette-primary-hue);
   --ref-palette-neutral-chroma: 8%;
   --ref-palette-neutral-variant-hue: var(--ref-palette-primary-hue);
-  --ref-palette-neutral-variant-chroma: 16%;
+  --ref-palette-neutral-variant-chroma: 24%;
   --ref-palette-error-hue: 355;
   --ref-palette-error-chroma: 88%;
 }
@@ -98,7 +98,7 @@
   --ref-palette-tertiary40: var(--ref-palette-tertiary-hue),
     var(--ref-palette-tertiary-chroma), 40%;
   --ref-palette-tertiary50: var(--ref-palette-tertiary-hue),
-    var(--ref-palette-tertiary-chroma), 50%;
+    var(--ref-palette-tertiary-chroma), 47%;
   --ref-palette-tertiary60: var(--ref-palette-tertiary-hue),
     var(--ref-palette-tertiary-chroma), 60%;
   --ref-palette-tertiary70: var(--ref-palette-tertiary-hue),
