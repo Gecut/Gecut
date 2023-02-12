@@ -4,6 +4,7 @@ import './pages/page-home';
 import './pages/page-sign-up';
 import './pages/page-sign-up-details';
 import './pages/page-user';
+import './pages/page-sans-list';
 import './components/color-palette';
 
 import type {Routes} from './types/route.js';
@@ -16,6 +17,10 @@ const routes: Routes = {
   'user': {
     icon: null,
     render: () => html`<page-user></page-user>`,
+  },
+  'sans-list': {
+    icon: null,
+    render: () => html`<page-sans-list></page-sans-list>`,
   },
   'sign-up': {
     icon: null,
