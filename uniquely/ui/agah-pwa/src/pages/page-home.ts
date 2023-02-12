@@ -101,7 +101,7 @@ export class PageHome extends AlwatrDummyElement {
         </gecut-button>
 
         <div class="row">
-          <gecut-button icon-button background="neutral">
+          <gecut-button href="/sans-list" icon-button background="neutral">
             <gecut-icon slot="icon" .svgContent=${clockIcon}></gecut-icon>
 
             <span>سانس اجرا</span>
