@@ -47,8 +47,8 @@ export class Slider extends AlwatrDummyElement {
         max-height: calc(23 * var(--sys-spacing-track));
         max-width: calc(23 * var(--sys-spacing-track));
 
-        height: 23vh;
-        width: 23vh;
+        height: 20vh;
+        width: 20vh;
       }
 
       .title-text {
@@ -98,7 +98,7 @@ export class Slider extends AlwatrDummyElement {
         flex-direction: column;
         border-radius: var(--sys-radius-large);
         box-shadow: inset 0 0 calc(0.25 * var(--sys-spacing-track))
-          var(--sys-color-surface);
+          hsla(var(--sys-color-surface-hsl), 50%);
         padding: 0 calc(1.5 * var(--sys-spacing-track));
         margin-top: calc(2 * var(--sys-spacing-track));
         width: 100%;
