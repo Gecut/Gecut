@@ -61,6 +61,7 @@ export class SansCard extends AlwatrDummyElement {
         padding: var(--sys-spacing-track);
         min-height: calc(7 * var(--sys-spacing-track));
         box-shadow: var(--sys-surface-elevation-4);
+        width: 100%;
 
         font-family: var(--sys-typescale-body-large-font-family-name);
         font-weight: var(--sys-typescale-body-large-font-weight);
