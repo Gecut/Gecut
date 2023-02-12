@@ -71,6 +71,7 @@ export default defineConfig({
       manifest: manifestJson,
       mode: 'production',
       outDir: DIST_PATH,
+      registerType: 'autoUpdate',
       useCredentials: true,
     }),
   ],
