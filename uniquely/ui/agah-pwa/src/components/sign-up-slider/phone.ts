@@ -29,7 +29,7 @@ export class PhoneSlider extends Slider {
       <div class="input-box">
         <input
           name="phone"
-          type="text"
+          type="number"
           autocomplete="off"
           placeholder="شماره تلفن همراه خود را وارد کنید"
           @input=${this.dataItemChange('phone')}

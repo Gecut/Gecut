@@ -44,16 +44,17 @@ export class PageSignUp extends AlwatrDummyElement {
 
       .slider {
         display: flex;
-        overflow-x: hidden;
-        flex-grow: 1;
         width: 100%;
         direction: ltr;
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 1 1 auto;
         overscroll-behavior: contain;
       }
       .slides {
         display: flex;
         flex-grow: 1;
+        height: max-content;
         width: max-content;
         transition-property: transform;
         transition-duration: var(--sys-motion-duration-medium);
@@ -61,13 +62,16 @@ export class PageSignUp extends AlwatrDummyElement {
       }
 
       .separator {
+        display: flex;
         flex-grow: 1;
+        width: 100%;
       }
 
       footer {
         direction: ltr;
         display: flex;
         width: 100%;
+        flex: 0 0 auto;
         gap: var(--sys-spacing-track);
         overflow: hidden;
         padding: var(--sys-spacing-track) calc(3 * var(--sys-spacing-track)) 0;
@@ -131,7 +135,9 @@ export class PageSignUp extends AlwatrDummyElement {
     window.addEventListener('keyup', () => {
       const sliderElement = this.renderRoot.querySelector('div.slider');
 
-      sliderElement?.scroll(0, 0);
+      sliderElement?.scroll({
+        left: 0,
+      });
     });
   }
 

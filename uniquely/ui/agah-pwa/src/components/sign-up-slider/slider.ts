@@ -102,7 +102,7 @@ export class Slider extends AlwatrDummyElement {
         padding: 0 calc(1.5 * var(--sys-spacing-track));
         margin-top: calc(2 * var(--sys-spacing-track));
         width: 100%;
-        min-height: calc(8 * var(--sys-spacing-track));
+        min-height: calc(7 * var(--sys-spacing-track));
         background-color: var(--sys-color-on-primary-container);
       }
       .input-box input {

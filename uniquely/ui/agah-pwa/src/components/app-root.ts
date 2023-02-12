@@ -34,13 +34,13 @@ export class AppRoot extends AlwatrSmartElement {
       display: flex;
       flex-direction: column;
       height: 100%;
-      overflow-y: auto;
     }
 
     .page-container {
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
+      flex: 0 1 100%;
+      height: 100%;
     }
   `;
 
