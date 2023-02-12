@@ -33,8 +33,8 @@
     "url": "https://github.com/Gecut/Gecut/issues"
   },
   "dependencies": {
-    "@alwatr/element": "^0.28.0",
-    "@alwatr/icon": "^0.28.0",
+    "@alwatr/element": "^0.29.0",
+    "@alwatr/icon": "^0.29.0",
     "tslib": "^2.5.0"
   }
 }

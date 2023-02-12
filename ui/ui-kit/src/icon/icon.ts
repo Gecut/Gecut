@@ -1,5 +1,7 @@
-import {customElement, property, unsafeSVG} from '@alwatr/element';
+import {customElement, html, property, unsafeSVG} from '@alwatr/element';
 import {AlwatrIcon} from '@alwatr/icon';
+
+import type {PropertyDeclaration} from '@alwatr/element';
 
 @customElement('gecut-icon')
 /**
@@ -15,19 +17,16 @@ import {AlwatrIcon} from '@alwatr/icon';
 export class Icon extends AlwatrIcon {
   @property({attribute: false}) svgContent?: string;
 
-  /**
-   * If the SVG content is not null, return the
-   * SVG content, otherwise return the default render
-   * function
-   *
-   * @returns The SVG content is being returned.
-   */
-  override render(): unknown {
-    if (this.svgContent != null) {
-      return unsafeSVG(this.svgContent);
-    }
+  override requestUpdate(
+    name?: PropertyKey | undefined,
+    oldValue?: unknown,
+    options?: PropertyDeclaration<unknown, unknown> | undefined,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
 
-    return super.render();
+    if (name === 'svgContent') {
+      this._svg = html`${unsafeSVG(this.svgContent)}`;
+    }
   }
 }
 
