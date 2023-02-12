@@ -25,7 +25,7 @@ export class Icon extends AlwatrIcon {
     super.requestUpdate(name, oldValue, options);
 
     if (name === 'svgContent') {
-      this._icon = html`${unsafeSVG(this.svgContent)}`;
+      this._svg = html`${unsafeSVG(this.svgContent)}`;
     }
   }
 }
