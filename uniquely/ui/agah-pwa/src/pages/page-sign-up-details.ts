@@ -25,7 +25,7 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         justify-content: space-between;
         align-items: center;
 
-        height: 100%;
+        height: 100vh;
 
         gap: var(--sys-spacing-track);
         padding: 2vh calc(3 * var(--sys-spacing-track));
