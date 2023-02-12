@@ -32,12 +32,11 @@ export class Button extends AlwatrDummyElement {
         justify-content: center;
         padding: 0;
         min-width: calc(12 * var(--sys-spacing-track));
-        min-height: calc(9.5 * var(--sys-spacing-track));
+        min-height: calc(8 * var(--sys-spacing-track));
         font-weight: 900;
-        font-family: var(--sys-typescale-title-medium-font-family-name);
-        font-size: var(--sys-typescale-title-medium-font-size);
-        letter-spacing: var(--sys-typescale-title-medium-letter-spacing);
-        line-height: var(--sys-typescale-title-medium-line-height);
+        font-family: var(--sys-typescale-body-large-font-family-name);
+        font-size: var(--sys-typescale-body-large-font-size);
+        letter-spacing: var(--sys-typescale-body-large-letter-spacing);
         line-height: normal;
         border-radius: var(--sys-radius-large);
         white-space: nowrap;
@@ -50,7 +49,7 @@ export class Button extends AlwatrDummyElement {
         align-items: center;
         justify-content: center;
         vertical-align: middle;
-        padding: calc(2 * var(--sys-spacing-track));
+        padding: calc(2 * var(--sys-spacing-track)) var(--sys-spacing-track);
         width: 100%;
         height: 100%;
         text-decoration: none;
@@ -58,34 +57,21 @@ export class Button extends AlwatrDummyElement {
       }
 
       :host([small]) {
-        min-height: calc(8 * var(--sys-spacing-track));
+        min-height: calc(6 * var(--sys-spacing-track));
 
-        font-family: var(--sys-typescale-title-small-font-family-name);
-        font-size: var(--sys-typescale-title-small-font-size);
-        letter-spacing: var(--sys-typescale-title-small-letter-spacing);
-        line-height: var(--sys-typescale-title-small-line-height);
-      }
-
-      :host([strong]) {
-        font-family: var(--sys-typescale-title-large-font-family-name);
-        font-size: var(--sys-typescale-title-large-font-size);
-        letter-spacing: var(--sys-typescale-title-large-letter-spacing);
-        line-height: var(--sys-typescale-title-large-line-height);
+        font-family: var(--sys-typescale-body-medium-font-family-name);
+        font-size: var(--sys-typescale-body-medium-font-size);
+        letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
       }
 
       :host([strong][small]) {
-        font-family: var(--sys-typescale-title-medium-font-family-name);
-        font-size: var(--sys-typescale-title-medium-font-size);
-        letter-spacing: var(--sys-typescale-title-medium-letter-spacing);
-        line-height: var(--sys-typescale-title-medium-line-height);
-      }
-
-      :host([icon-button]) {
-        min-height: calc(22 * var(--sys-spacing-track));
+        font-family: var(--sys-typescale-body-large-font-family-name);
+        font-size: var(--sys-typescale-body-large-font-size);
+        letter-spacing: var(--sys-typescale-body-large-letter-spacing);
       }
 
       :host([icon-button]) a {
-        gap: calc(2 * var(--sys-spacing-track));
+        gap: var(--sys-spacing-track);
         flex-direction: column;
         justify-content: space-between;
       }

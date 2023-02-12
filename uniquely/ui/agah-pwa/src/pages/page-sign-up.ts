@@ -33,12 +33,13 @@ export class PageSignUp extends AlwatrDummyElement {
       :host {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
 
         height: 100%;
 
-        gap: calc(2 * var(--sys-spacing-track));
+        gap: var(--sys-spacing-track);
+        padding: 2vh 0;
       }
 
       .slider {
@@ -47,8 +48,8 @@ export class PageSignUp extends AlwatrDummyElement {
         flex-grow: 1;
         width: 100%;
         direction: ltr;
+        overflow: hidden;
         overscroll-behavior: contain;
-        overflow: visible;
       }
       .slides {
         display: flex;
@@ -58,11 +59,9 @@ export class PageSignUp extends AlwatrDummyElement {
         transition-duration: var(--sys-motion-duration-medium);
         transition-timing-function: var(--sys-motion-easing-in-out);
       }
-      .slides > * {
-        direction: rtl;
-        flex-shrink: 0;
-        width: 100vw;
-        max-width: var(--_max-mobile-size);
+
+      .separator {
+        flex-grow: 1;
       }
 
       footer {
@@ -70,8 +69,12 @@ export class PageSignUp extends AlwatrDummyElement {
         display: flex;
         width: 100%;
         gap: var(--sys-spacing-track);
-        margin-top: calc(2 * var(--sys-spacing-track));
-        padding: calc(3 * var(--sys-spacing-track));
+        overflow: hidden;
+        padding: var(--sys-spacing-track) calc(3 * var(--sys-spacing-track)) 0;
+      }
+      footer gecut-button {
+        min-width: auto;
+        flex-grow: 1;
       }
       footer gecut-button.first {
         border-top-right-radius: 0;
@@ -83,7 +86,6 @@ export class PageSignUp extends AlwatrDummyElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-grow: 1;
         gap: calc(0.5 * var(--sys-spacing-track));
         padding: var(--sys-spacing-track);
       }
@@ -123,6 +125,16 @@ export class PageSignUp extends AlwatrDummyElement {
     'nickname-slider#fake-slider',
   ];
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    window.addEventListener('keyup', () => {
+      const sliderElement = this.renderRoot.querySelector('div.slider');
+
+      sliderElement?.scroll(0, 0);
+    });
+  }
+
   override render(): LitRenderType {
     const thisWidth = this.getBoundingClientRect().width;
     const slidesStyle = styleMap({
@@ -147,6 +159,8 @@ export class PageSignUp extends AlwatrDummyElement {
       <div class="slider">
         <div class="slides" style=${slidesStyle}>${slidesTemplate}</div>
       </div>
+
+      <div class="separator"></div>
 
       <footer>
         <gecut-button

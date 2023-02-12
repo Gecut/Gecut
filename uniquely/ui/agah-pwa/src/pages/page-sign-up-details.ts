@@ -22,14 +22,13 @@ export class PageSignUpDetails extends AlwatrDummyElement {
       :host {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
 
         height: 100%;
 
-        gap: calc(2 * var(--sys-spacing-track));
-
-        padding: calc(3 * var(--sys-spacing-track));
+        gap: var(--sys-spacing-track);
+        padding: 2vh calc(3 * var(--sys-spacing-track));
       }
 
       .row {
@@ -42,9 +41,12 @@ export class PageSignUpDetails extends AlwatrDummyElement {
       }
 
       .logo {
-        width: 16vw;
-        margin-bottom: calc(2 * var(--sys-spacing-track));
-        max-width: calc(10 * var(--sys-spacing-track));
+        display: flex;
+
+        margin: calc(2 * var(--sys-spacing-track)) 0;
+        max-height: calc(30 * var(--sys-spacing-track));
+        height: 20vh;
+        width: auto;
       }
 
       .details-box {
@@ -54,6 +56,7 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         color: var(--sys-color-on-primary);
         background-color: var(--sys-color-on-primary-container);
         border-radius: var(--sys-radius-medium);
+        overflow: hidden;
       }
 
       .i_read {
@@ -77,7 +80,7 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         gap: calc(1.5 * var(--sys-spacing-track));
         padding: var(--sys-spacing-track);
         width: 100%;
-        max-height: 60vh;
+        max-height: max-content;
         overflow-y: auto;
 
         font-family: var(--sys-typescale-body-medium-font-family-name);

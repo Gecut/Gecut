@@ -40,6 +40,7 @@ export class AppRoot extends AlwatrSmartElement {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+      max-height: 100%;
     }
   `;
 

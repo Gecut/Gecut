@@ -15,5 +15,5 @@ html {
 
 body {
   background: transparent;
-  --_max-mobile-size: calc(54 * var(--sys-spacing-track));
+  --_max-mobile-size: calc(51 * var(--sys-spacing-track));
 }

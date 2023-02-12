@@ -9,14 +9,20 @@ export class Slider extends AlwatrDummyElement {
     css`
       :host {
         display: flex;
+        direction: rtl;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        flex-grow: 1;
+        flex: 1 0 auto;
+
+        width: 100vw;
+        max-width: var(--_max-mobile-size);
+        max-height: calc(70 * var(--sys-spacing-track));
+        gap: var(--sys-spacing-track);
+        padding: 0 calc(4 * var(--sys-spacing-track));
+        margin: auto 0;
 
         opacity: 0;
-        gap: calc(2 * var(--sys-spacing-track));
-        padding: calc(4 * var(--sys-spacing-track));
         color: var(--sys-color-on-primary);
 
         transition-property: opacity;
@@ -32,7 +38,17 @@ export class Slider extends AlwatrDummyElement {
         --_size: 0.4px;
 
         color: var(--sys-color-primary-container);
-        font-size: calc(25 * var(--sys-spacing-track));
+
+        margin: var(--sys-spacing-track) 0;
+
+        min-height: calc(15 * var(--sys-spacing-track));
+        min-width: calc(15 * var(--sys-spacing-track));
+
+        max-height: calc(30 * var(--sys-spacing-track));
+        max-width: calc(30 * var(--sys-spacing-track));
+
+        height: 25vh;
+        width: 25vh;
       }
 
       .title-text {
@@ -50,10 +66,10 @@ export class Slider extends AlwatrDummyElement {
 
         text-align: center;
         font-weight: 300;
-        font-family: var(--sys-typescale-title-medium-font-family-name);
-        font-size: var(--sys-typescale-title-medium-font-size);
-        letter-spacing: var(--sys-typescale-title-medium-letter-spacing);
-        line-height: var(--sys-typescale-title-medium-line-height);
+        font-family: var(--sys-typescale-body-large-font-family-name);
+        font-size: var(--sys-typescale-body-large-font-size);
+        letter-spacing: var(--sys-typescale-body-large-letter-spacing);
+        line-height: var(--sys-typescale-body-large-line-height);
       }
 
       .cards-box {
@@ -96,14 +112,14 @@ export class Slider extends AlwatrDummyElement {
         border: none;
         background-color: transparent;
         width: 100%;
-        height: calc(8 * var(--sys-spacing-track));
+        height: calc(7 * var(--sys-spacing-track));
         outline: none;
 
-        font-family: var(--sys-typescale-title-medium-font-family-name);
-        font-weight: var(--sys-typescale-title-medium-font-weight);
-        font-size: var(--sys-typescale-title-medium-font-size);
-        letter-spacing: var(--sys-typescale-title-medium-letter-spacing);
-        line-height: var(--sys-typescale-title-medium-line-height);
+        font-family: var(--sys-typescale-body-medium-font-family-name);
+        font-weight: var(--sys-typescale-body-medium-font-weight);
+        font-size: var(--sys-typescale-body-medium-font-size);
+        letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
+        line-height: var(--sys-typescale-body-medium-line-height);
       }
       .input-box .separator {
         display: flex;

@@ -28,14 +28,13 @@ export class PageHome extends AlwatrDummyElement {
       :host {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
 
         height: 100%;
 
-        gap: calc(4 * var(--sys-spacing-track));
-
-        padding: calc(3 * var(--sys-spacing-track));
+        gap: var(--sys-spacing-track);
+        padding: 2vh calc(3 * var(--sys-spacing-track));
       }
 
       .buttons {
@@ -60,9 +59,12 @@ export class PageHome extends AlwatrDummyElement {
       }
 
       .logo {
-        margin-top: auto;
-        width: 30vw;
-        max-width: calc(20 * var(--sys-spacing-track));
+        display: flex;
+
+        margin: calc(2 * var(--sys-spacing-track)) 0;
+        max-height: calc(40 * var(--sys-spacing-track));
+        height: 35vh;
+        width: auto;
       }
 
       .version {
@@ -74,7 +76,6 @@ export class PageHome extends AlwatrDummyElement {
         width: 100%;
         color: var(--sys-color-surface);
         opacity: 40%;
-        margin-top: auto;
 
         font-weight: 200;
         font-family: var(--sys-typescale-title-large-font-family-name);
