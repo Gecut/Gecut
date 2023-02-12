@@ -1,7 +1,7 @@
 import {config, logger} from '../config.js';
 import {storageClient} from './storage.js';
 
-import type {AlwatrServiceResponse} from '@alwatr/type';
+import type {AlwatrServiceResponse, StringifyableRecord} from '@alwatr/type';
 import type {UserInterface} from '../types/user.js';
 
 /**
@@ -20,7 +20,8 @@ export async function requireUserVerify(
   token: string | null,
 ): Promise<
   AlwatrServiceResponse<
-    {user: UserInterface; token: string} | Record<string, never>
+    {user: UserInterface; token: string} | Record<string, never>,
+    StringifyableRecord
   >
 > {
   if (token == null) {
@@ -72,7 +73,6 @@ export async function requireUserVerify(
       meta: {
         name: err.name,
         message: err.message,
-        cause: err.cause,
       },
     };
   }
