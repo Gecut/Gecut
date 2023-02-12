@@ -62,11 +62,9 @@ import editOutlineIcon from '@gecut/iconsax-cdn/outline/edit?raw';
 import userSearchOutlineIcon from '@gecut/iconsax-cdn/outline/user-search?raw';
 import copyOutlineIcon from '@gecut/iconsax-cdn/outline/copy?raw';
 import callOutlineIcon from '@gecut/iconsax-cdn/outline/call-calling?raw';
-// eslint-disable-next-line max-len
-import userOctagonOutlineIcon from '@gecut/iconsax-cdn/outline/user-octagon?raw';
+import userOOutlineIcon from '@gecut/iconsax-cdn/outline/user-octagon?raw';
 import calendarOutlineIcon from '@gecut/iconsax-cdn/outline/calendar?raw';
-// eslint-disable-next-line max-len
-import messageAddOutlineIcon from '@gecut/iconsax-cdn/outline/message-add-1?raw';
+import mAddOutlineIcon from '@gecut/iconsax-cdn/outline/message-add-1?raw';
 
 import eyeTwoToneIcon from '@gecut/iconsax-cdn/twotone/eye?raw';
 import peopleTwoToneIcon from '@gecut/iconsax-cdn/twotone/people?raw';
@@ -75,11 +73,9 @@ import editTwoToneIcon from '@gecut/iconsax-cdn/twotone/edit?raw';
 import userSearchTwoToneIcon from '@gecut/iconsax-cdn/twotone/user-search?raw';
 import copyTwoToneIcon from '@gecut/iconsax-cdn/twotone/copy?raw';
 import callTwoToneIcon from '@gecut/iconsax-cdn/twotone/call-calling?raw';
-// eslint-disable-next-line max-len
-import userOctagonTwoToneIcon from '@gecut/iconsax-cdn/twotone/user-octagon?raw';
+import userOTwoToneIcon from '@gecut/iconsax-cdn/twotone/user-octagon?raw';
 import calendarTwoToneIcon from '@gecut/iconsax-cdn/twotone/calendar?raw';
-// eslint-disable-next-line max-len
-import messageAddTwoToneIcon from '@gecut/iconsax-cdn/twotone/message-add-1?raw';
+import mAddTwoToneIcon from '@gecut/iconsax-cdn/twotone/message-add-1?raw';
 
 import type {LitRenderType} from '../types/lit-render.js';
 
@@ -186,9 +182,9 @@ export class ColorPalette extends AlwatrDummyElement {
         userSearchOutlineIcon,
         copyOutlineIcon,
         callOutlineIcon,
-        userOctagonOutlineIcon,
+        userOOutlineIcon,
         calendarOutlineIcon,
-        messageAddOutlineIcon,
+        mAddOutlineIcon,
       ],
       'error': [
         eyeTwoToneIcon,
@@ -198,9 +194,9 @@ export class ColorPalette extends AlwatrDummyElement {
         userSearchTwoToneIcon,
         copyTwoToneIcon,
         callTwoToneIcon,
-        userOctagonTwoToneIcon,
+        userOTwoToneIcon,
         calendarTwoToneIcon,
-        messageAddTwoToneIcon,
+        mAddTwoToneIcon,
       ],
     };
 
