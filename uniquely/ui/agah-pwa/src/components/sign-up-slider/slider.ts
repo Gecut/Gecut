@@ -66,10 +66,10 @@ export class Slider extends AlwatrDummyElement {
 
         text-align: center;
         font-weight: 300;
-        font-family: var(--sys-typescale-body-large-font-family-name);
-        font-size: var(--sys-typescale-body-large-font-size);
-        letter-spacing: var(--sys-typescale-body-large-letter-spacing);
-        line-height: var(--sys-typescale-body-large-line-height);
+        font-family: var(--sys-typescale-body-medium-font-family-name);
+        font-size: var(--sys-typescale-body-medium-font-size);
+        letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
+        line-height: var(--sys-typescale-body-medium-line-height);
       }
 
       .cards-box {
@@ -139,10 +139,10 @@ export class Slider extends AlwatrDummyElement {
       .helpers li {
         color: var(--sys-color-error);
 
-        font-family: var(--sys-typescale-body-large-font-family-name);
-        font-weight: var(--sys-typescale-body-large-font-weight);
-        font-size: var(--sys-typescale-body-large-font-size);
-        letter-spacing: var(--sys-typescale-body-large-letter-spacing);
+        font-family: var(--sys-typescale-body-medium-font-family-name);
+        font-weight: var(--sys-typescale-body-medium-font-weight);
+        font-size: var(--sys-typescale-body-medium-font-size);
+        letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
       }
 
       input[type='text'] {

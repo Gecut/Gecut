@@ -39,16 +39,16 @@ export class SansCard extends AlwatrDummyElement {
         align-items: center;
         justify-content: center;
         padding: calc(0.5 * var(--sys-spacing-track));
-        font-family: var(--sys-typescale-title-small-font-family-name);
-        font-weight: var(--sys-typescale-title-small-font-weight);
-        font-size: var(--sys-typescale-title-small-font-size);
+        font-family: var(--sys-typescale-body-medium-font-family-name);
+        font-weight: var(--sys-typescale-body-medium-font-weight);
+        font-size: var(--sys-typescale-body-medium-font-size);
         overflow: hidden;
       }
 
       .time {
-        font-family: var(--sys-typescale-title-medium-font-family-name);
-        font-weight: var(--sys-typescale-title-medium-font-weight);
-        font-size: var(--sys-typescale-title-medium-font-size);
+        font-family: var(--sys-typescale-body-large-font-family-name);
+        font-weight: var(--sys-typescale-body-large-font-weight);
+        font-size: var(--sys-typescale-body-large-font-size);
       }
 
       .date {
@@ -62,9 +62,9 @@ export class SansCard extends AlwatrDummyElement {
         min-height: calc(7 * var(--sys-spacing-track));
         box-shadow: var(--sys-surface-elevation-4);
 
-        font-family: var(--sys-typescale-title-medium-font-family-name);
-        font-weight: var(--sys-typescale-title-medium-font-weight);
-        font-size: var(--sys-typescale-title-medium-font-size);
+        font-family: var(--sys-typescale-body-large-font-family-name);
+        font-weight: var(--sys-typescale-body-large-font-weight);
+        font-size: var(--sys-typescale-body-large-font-size);
       }
     `,
   ];

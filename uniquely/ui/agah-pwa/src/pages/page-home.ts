@@ -80,8 +80,8 @@ export class PageHome extends AlwatrDummyElement {
         font-weight: 200;
         font-family: var(--sys-typescale-title-large-font-family-name);
         font-size: var(--sys-typescale-title-large-font-size);
-        letter-spacing: 2px;
         line-height: var(--sys-typescale-title-large-line-height);
+        letter-spacing: 2px;
       }
       .version img {
         opacity: 40%;

@@ -87,7 +87,6 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         font-weight: var(--sys-typescale-body-medium-font-weight);
         font-size: var(--sys-typescale-body-medium-font-size);
         letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
-        line-height: var(--sys-typescale-body-medium-line-height);
       }
 
       .details > * {

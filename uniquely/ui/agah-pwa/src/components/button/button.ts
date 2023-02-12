@@ -33,7 +33,7 @@ export class Button extends AlwatrDummyElement {
         padding: 0;
         min-width: calc(12 * var(--sys-spacing-track));
         min-height: calc(8 * var(--sys-spacing-track));
-        font-weight: 900;
+        font-weight: 700;
         font-family: var(--sys-typescale-body-large-font-family-name);
         font-size: var(--sys-typescale-body-large-font-size);
         letter-spacing: var(--sys-typescale-body-large-letter-spacing);
