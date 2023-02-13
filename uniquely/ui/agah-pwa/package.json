@@ -19,7 +19,7 @@
     "@alwatr/icon": "^0.29.0",
     "@alwatr/logger": "^0.29.0",
     "@alwatr/math": "^0.29.0",
-    "@alwatr/router": "^0.28.0",
+    "@alwatr/router": "^0.29.0",
     "@alwatr/signal": "^0.29.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
