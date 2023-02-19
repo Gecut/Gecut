@@ -4,20 +4,25 @@ import {
   html,
   customElement,
   unsafeCSS,
+  state,
 } from '@alwatr/element';
 import userAddIcon from '@gecut/iconsax-cdn/broken/user-add?raw';
 import clockIcon from '@gecut/iconsax-cdn/broken/clock?raw';
 import ticketIcon from '@gecut/iconsax-cdn/broken/ticket-2?raw';
 import callIcon from '@gecut/iconsax-cdn/broken/call-calling?raw';
+
 import logoImage from '/images/logo.png?inline';
 import iconImage from '/images/icon.png?inline';
+
 import baseElementStyle from '../styles/element.css?inline';
 import config from '../config.js';
+import {userContextConsumer} from '../context.js';
 
 import '@gecut/ui-kit/icon/icon.js';
 
 import '../components/button/button';
 
+import type {UserResponseData} from '../types/user.js';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-home')
@@ -48,6 +53,9 @@ export class PageHome extends AlwatrDummyElement {
       .buttons gecut-button {
         width: 100%;
       }
+      gecut-button[hidden] {
+        display: none;
+      }
 
       .row {
         display: flex;
@@ -56,6 +64,9 @@ export class PageHome extends AlwatrDummyElement {
       }
       .row gecut-button {
         flex-grow: 1;
+      }
+      .row[hidden] {
+        display: none;
       }
 
       .logo {
@@ -78,27 +89,57 @@ export class PageHome extends AlwatrDummyElement {
         opacity: 40%;
 
         font-weight: 200;
-        font-family: var(--sys-typescale-title-large-font-family-name);
-        font-size: var(--sys-typescale-title-large-font-size);
-        line-height: var(--sys-typescale-title-large-line-height);
+        font-family: var(--sys-typescale-label-large-font-family-name);
+        font-size: var(--sys-typescale-label-large-font-size);
+        line-height: var(--sys-typescale-label-large-line-height);
         letter-spacing: 2px;
       }
       .version img {
         opacity: 40%;
-        width: calc(7 * var(--sys-spacing-track));
+        width: calc(5 * var(--sys-spacing-track));
       }
     `,
   ];
+
+  @state()
+  private user?: UserResponseData;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    userContextConsumer.subscribe((user) => {
+      setTimeout(() => {
+        if (user != null) {
+          this.user = user;
+        }
+      }, 2000);
+    });
+  }
 
   override render(): LitRenderType {
     return html`
       <img .src=${logoImage} class="logo" alt="logo" />
       <div class="buttons">
-        <gecut-button href="/sign-up-details">
+        <gecut-button href="/sign-up-details" ?hidden=${this.user != null}>
           <gecut-icon slot="icon" .svgContent=${userAddIcon}></gecut-icon>
 
           <span>ثبت نام</span>
         </gecut-button>
+        <gecut-button background="tertiary" ?hidden=${this.user == null}>
+          <span> ${this.user?.firstName} ${this.user?.lastName} </span>
+        </gecut-button>
+
+        <div
+          class="row"
+          ?hidden=${!(this.user != null && this.user.role === 'admin')}
+        >
+          <gecut-button href="/admin-user-list" background="secondary">
+            <span> کاربران </span>
+          </gecut-button>
+          <gecut-button background="secondary">
+            <span> سانس ها </span>
+          </gecut-button>
+        </div>
 
         <div class="row">
           <gecut-button href="/sans-list" icon-button background="neutral">
@@ -107,7 +148,12 @@ export class PageHome extends AlwatrDummyElement {
             <span>سانس اجرا</span>
           </gecut-button>
 
-          <gecut-button icon-button background="neutral" text="tertiary">
+          <gecut-button
+            href="/user"
+            icon-button
+            background="neutral"
+            text="tertiary"
+          >
             <gecut-icon slot="icon" .svgContent=${ticketIcon}></gecut-icon>
 
             <span>پیگیری بلیط</span>

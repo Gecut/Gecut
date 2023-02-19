@@ -200,7 +200,7 @@
   --ref-palette-error35: var(--ref-palette-error-hue),
     var(--ref-palette-error-chroma), 35%;
   --ref-palette-error40: var(--ref-palette-error-hue),
-    var(--ref-palette-error-chroma), 40%;
+    var(--ref-palette-error-chroma), 44%;
   --ref-palette-error50: var(--ref-palette-error-hue),
     var(--ref-palette-error-chroma), 50%;
   --ref-palette-error60: var(--ref-palette-error-hue),

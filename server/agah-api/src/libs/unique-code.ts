@@ -11,8 +11,9 @@ import {random} from '@alwatr/math';
  * @returns unique code
  */
 export function generateUniqueTicketCode(oldTicketsCode: string[]): string {
-  const id =
-    random.string(2, 2).toString() + random.integer(100, 999).toString();
+  const id = (
+    random.string(2, 2).toString() + random.integer(100, 999).toString()
+  ).toUpperCase();
 
   if (oldTicketsCode.includes(id)) {
     return generateUniqueTicketCode(oldTicketsCode);
@@ -33,10 +34,11 @@ export function generateUniqueTicketCode(oldTicketsCode: string[]): string {
  * @returns A string
  */
 export function generateUniqueGroupId(groupIdsList: (string | null)[]): string {
-  const id =
+  const id = (
     random.string(1, 1).toString() +
     random.integer(10, 99).toString() +
-    random.string(1, 1).toString();
+    random.string(1, 1).toString()
+  ).toUpperCase();
 
   if (groupIdsList !== null && groupIdsList.includes(id)) {
     return generateUniqueGroupId(groupIdsList);

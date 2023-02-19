@@ -7,7 +7,9 @@ import {
   property,
   unsafeCSS,
 } from '@alwatr/element';
+
 import baseElementStyle from '../../styles/element.css?inline';
+
 import maleIcon from '/icons/gender/man-outline.svg?raw';
 import femaleIcon from '/icons/gender/woman-outline.svg?raw';
 
@@ -44,8 +46,8 @@ export class GenderCard extends AlwatrDummyElement {
         width: calc(12 * var(--sys-spacing-track));
         height: calc(12 * var(--sys-spacing-track));
 
-        transition-property: border-color;
-        transition-duration: var(--sys-motion-duration-small);
+        transition-property: border-color, color;
+        transition-duration: var(--sys-motion-duration-medium);
         transition-timing-function: var(--sys-motion-easing-in-out);
       }
 

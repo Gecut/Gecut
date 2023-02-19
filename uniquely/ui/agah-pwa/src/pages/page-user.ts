@@ -4,19 +4,31 @@ import {
   html,
   customElement,
   unsafeCSS,
+  state,
 } from '@alwatr/element';
+import {redirect} from '@alwatr/router';
+import * as htmlToImage from 'html-to-image';
 import downloadIcon from '@gecut/iconsax-cdn/broken/document-download?raw';
 import peopleIcon from '@gecut/iconsax-cdn/broken/people?raw';
 import clockIcon from '@gecut/iconsax-cdn/broken/clock?raw';
 import callIcon from '@gecut/iconsax-cdn/broken/call-calling?raw';
+import userRemoveIcon from '@gecut/iconsax-cdn/broken/user-remove?raw';
 import messageAddIcon from '@gecut/iconsax-cdn/broken/message-add-1?raw';
-import iconImage from '/images/icon.png?inline';
-import baseElementStyle from '../styles/element.css?inline';
+import copyIcon from '@gecut/iconsax-cdn/broken/copy?raw';
+import copySuccessIcon from '@gecut/iconsax-cdn/broken/copy-success?raw';
 
 import '@gecut/ui-kit/icon/icon.js';
 
+import iconImage from '/images/icon.png?inline';
+
+import baseElementStyle from '../styles/element.css?inline';
+import {user} from '../utilities/user.js';
+import {userContextConsumer} from '../context.js';
+import formatPhoneNumber from '../utilities/format-number.js';
+
 import '../components/button/button';
 
+import type {UserResponseData} from '../types/user.js';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-user')
@@ -122,13 +134,40 @@ export class PageUser extends AlwatrDummyElement {
       .card .invite .invite-code {
         display: inline-flex;
         align-items: center;
+        position: relative;
+        gap: calc(1.5 * var(--sys-spacing-track));
       }
       .card .invite .invite-code .text {
+        white-space: nowrap;
         font-weight: 800;
       }
       .card .invite .invite-code .code {
+        white-space: nowrap;
         color: var(--sys-color-tertiary-container);
         text-transform: uppercase;
+      }
+      .card .invite .invite-code gecut-icon {
+        position: absolute;
+        left: 0;
+        height: calc(3 * var(--sys-spacing-track));
+        width: calc(3 * var(--sys-spacing-track));
+        color: var(--sys-color-tertiary-container);
+        z-index: var(--sys-zindex-above);
+        cursor: pointer;
+
+        transition-property: opacity;
+        transition-duration: var(--sys-motion-duration-medium);
+        transition-timing-function: var(--sys-motion-easing-in-out);
+      }
+      .card .invite .invite-code gecut-icon[hidden] {
+        opacity: 0;
+      }
+      .card .invite .invite-code gecut-icon.first {
+        position: relative;
+        z-index: 2;
+      }
+      .card .invite .invite-code gecut-icon.second {
+        z-index: 1;
       }
 
       .card .ticket {
@@ -150,15 +189,43 @@ export class PageUser extends AlwatrDummyElement {
         padding: calc(2 * var(--sys-spacing-track)) var(--sys-spacing-track);
       }
       .card .ticket .code {
+        position: relative;
         text-transform: uppercase;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
 
+        gap: calc(2 * var(--sys-spacing-track));
         padding: calc(2 * var(--sys-spacing-track));
 
         border-radius: var(--sys-radius-medium);
         box-shadow: var(--sys-surface-elevation-3);
         color: var(--sys-color-primary);
         background-color: var(--sys-color-on-primary);
+      }
+      .card .ticket .code gecut-icon {
+        position: absolute;
+        height: calc(3.5 * var(--sys-spacing-track));
+        width: calc(3.5 * var(--sys-spacing-track));
+        color: var(--sys-color-primary);
+        z-index: var(--sys-zindex-above);
+        cursor: pointer;
+
+        transition-property: opacity;
+        transition-duration: var(--sys-motion-duration-medium);
+        transition-timing-function: var(--sys-motion-easing-in-out);
+      }
+      .card .ticket .code gecut-icon[hidden] {
+        opacity: 0;
+      }
+      .card .ticket .code gecut-icon.first {
+        position: relative;
+        z-index: 2;
+      }
+      .card .ticket .code gecut-icon.second {
+        z-index: 1;
+        left: calc(2 * var(--sys-spacing-track));
       }
 
       .card .brand {
@@ -212,38 +279,115 @@ export class PageUser extends AlwatrDummyElement {
     `,
   ];
 
-  override render(): LitRenderType {
-    return PageUser.renderInformationCard();
+  @state()
+  private user?: UserResponseData;
+
+  @state()
+  private ticketCopySuccess = false;
+
+  @state()
+  private groupCopySuccess = false;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    userContextConsumer.subscribe((user) => {
+      if (user != null) {
+        this.user = user;
+      }
+    });
+
+    setTimeout(() => {
+      if (this.user == null) {
+        redirect('/sign-in');
+      }
+    }, 3000);
   }
 
-  static renderInformationCard(): LitRenderType {
+  override render(): LitRenderType {
+    return html`
+      ${this.renderInformationCard()} ${this.renderButtons()}
+      <a href="/home" class="back-to-home"> بازگشت به صفحه اصلی </a>
+    `;
+  }
+
+  static async logout(): Promise<void> {
+    await user.logOut();
+    redirect('/sign-in');
+  }
+
+  private renderInformationCard(): LitRenderType {
+    if (!this.user || !this.user.sans) {
+      return html`<div class="card no-padding"></div>`;
+    }
+
+    const sansDate = new Date(this.user.sans.date);
+
+    const name = `${this.user.firstName} ${this.user.lastName}`;
+    const phone = formatPhoneNumber(this.user.phone);
+    const sansDateLocale = sansDate.toLocaleDateString('fa-IR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
+    const sansTime = sansDate.toLocaleTimeString('fa-IR', {
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    const sansDuration = this.user.sans.duration.toLocaleString('fa-IR');
+    const groupId = this.user.groupId;
+    const ticketId = this.user.id;
+
     return html`
       <div class="card no-padding">
-        <div class="card">
+        <div class="card" id="ticket">
           <h2 class="title">اطلاعات بلیط</h2>
 
           <div class="informations">
-            <span class="information-large">مهدیار صهبایی احمدی</span>
-            <span class="information-large" dir="ltr">0915 559 5488</span>
+            <span class="information-large">${name}</span>
+            <span class="information-large" dir="ltr">${phone}</span>
             <span class="information-small">
-              رزرو شده برای سه شنبه ۳ بهمن، ساعت ۱۸:۳۰
+              رزرو شده برای ${sansDateLocale}، ساعت ${sansTime}
             </span>
             <span class="information-large">
-              مدت این برنامه ۹۰ دقیقه می باشد
+              مدت این برنامه ${sansDuration} دقیقه می باشد
             </span>
           </div>
 
           <div class="invite">
             <span class="text">کد دعوت به گروه:</span>
             <div class="invite-code">
-              <span class="code">fb905</span>
-              <gecut-icon class="copy"></gecut-icon>
+              <span class="code">${groupId ?? 'ندارید'}</span>
+
+              <gecut-icon
+                .svgContent=${copyIcon}
+                class="first"
+                @click=${this.groupCopy(groupId)}
+              ></gecut-icon>
+              <gecut-icon
+                .svgContent=${copySuccessIcon}
+                class="second"
+                ?hidden=${!this.groupCopySuccess}
+              ></gecut-icon>
             </div>
           </div>
 
           <div class="ticket">
             <span class="text">کد بلیط</span>
-            <div class="code">e4590</div>
+            <div class="code">
+              ${ticketId}
+
+              <gecut-icon
+                .svgContent=${copyIcon}
+                class="first"
+                @click=${this.ticketCopy(ticketId)}
+              ></gecut-icon>
+              <gecut-icon
+                .svgContent=${copySuccessIcon}
+                class="second"
+                ?hidden=${!this.ticketCopySuccess}
+              ></gecut-icon>
+            </div>
           </div>
         </div>
 
@@ -252,16 +396,29 @@ export class PageUser extends AlwatrDummyElement {
           <span class="text">گروه فرهنگی آگاه</span>
         </div>
       </div>
+    `;
+  }
+  private renderButtons(): LitRenderType {
+    if (this.user == null) return html`<div class="buttons"></div>`;
 
+    return html`
       <div class="buttons">
-        <gecut-button background="tertiary">
-          <gecut-icon .svgContent=${downloadIcon} slot="icon"></gecut-icon>
+        <div class="row">
+          <gecut-button background="tertiary" @click=${this.downloadTicket}>
+            <gecut-icon .svgContent=${downloadIcon} slot="icon"></gecut-icon>
 
-          <span>دانلود بلیط</span>
-        </gecut-button>
+            <span>دانلود بلیط</span>
+          </gecut-button>
+
+          <gecut-button background="error" @click=${PageUser.logout}>
+            <gecut-icon .svgContent=${userRemoveIcon} slot="icon"></gecut-icon>
+
+            <span>خروج</span>
+          </gecut-button>
+        </div>
 
         <div class="row">
-          <gecut-button background="primary">
+          <gecut-button href="/group" background="primary">
             <gecut-icon .svgContent=${peopleIcon} slot="icon"></gecut-icon>
 
             <span>هم گروهی ها</span>
@@ -288,8 +445,59 @@ export class PageUser extends AlwatrDummyElement {
           </gecut-button>
         </div>
       </div>
-      <a href="/home" class="back-to-home"> بازگشت به صفحه اصلی </a>
     `;
+  }
+
+  private groupCopy(value: string | null): (event: Event) => void {
+    return (event: Event): void => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (this.groupCopySuccess === false && value != null) {
+        navigator.clipboard.writeText(value).then(() => {
+          this.groupCopySuccess = true;
+
+          setTimeout(() => {
+            this.groupCopySuccess = false;
+          }, 1000);
+        });
+      }
+    };
+  }
+
+  private ticketCopy(value: string | null): (event: Event) => void {
+    return (event: Event): void => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (this.ticketCopySuccess === false && value != null) {
+        navigator.clipboard.writeText(value).then(() => {
+          this.ticketCopySuccess = true;
+
+          setTimeout(() => {
+            this.ticketCopySuccess = false;
+          }, 1000);
+        });
+      }
+    };
+  }
+
+  private downloadTicket(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const ticket = this.renderRoot.querySelector<HTMLDivElement>('#ticket');
+
+    if (ticket) {
+      htmlToImage
+        .toCanvas(ticket as HTMLDivElement, {})
+        .then(function(canvas) {
+          const link = document.createElement('a');
+          link.download = 'ticket.jpg';
+          link.href = canvas.toDataURL('image/jpeg');
+          link.click();
+        });
+    }
   }
 }
 

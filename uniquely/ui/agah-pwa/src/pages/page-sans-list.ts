@@ -4,12 +4,18 @@ import {
   html,
   customElement,
   unsafeCSS,
+  state,
 } from '@alwatr/element';
+
 import baseElementStyle from '../styles/element.css?inline';
+
 import logoImage from '/images/logo.png?inline';
+
+import {sansStorageContextConsumer} from '../context.js';
 
 import '../components/button/button';
 
+import type {SansInterface} from '../types/sans.js';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-sans-list')
@@ -123,7 +129,26 @@ export class PageSansList extends AlwatrDummyElement {
     `,
   ];
 
+  @state()
+  private sansList: Record<string, SansInterface> = {};
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    sansStorageContextConsumer.subscribe((sansStorage) => {
+      this.sansList = sansStorage.data;
+    });
+  }
+
   override render(): LitRenderType {
+    const sansListTemplate = Object.values(this.sansList).map(
+      (sans) =>
+        html`<gecut-sans-card
+          .sans=${sans}
+          .value=${sans.id}
+        ></gecut-sans-card>`,
+    );
+
     return html`
       <div class="box">
         <img .src=${logoImage} class="logo" alt="logo" />
@@ -131,15 +156,7 @@ export class PageSansList extends AlwatrDummyElement {
         <div class="description">توضیحات متنی که در این قسمت قرار می گیرد</div>
 
         <div class="sans-box">
-          <div class="sans-list">
-            <gecut-sans-card></gecut-sans-card>
-            <gecut-sans-card></gecut-sans-card>
-            <gecut-sans-card></gecut-sans-card>
-            <gecut-sans-card></gecut-sans-card>
-            <gecut-sans-card></gecut-sans-card>
-            <gecut-sans-card></gecut-sans-card>
-            <gecut-sans-card></gecut-sans-card>
-          </div>
+          <div class="sans-list">${sansListTemplate}</div>
         </div>
 
         <gecut-button href="/home">

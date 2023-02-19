@@ -7,6 +7,7 @@ import {
   property,
   unsafeCSS,
 } from '@alwatr/element';
+
 import baseElementStyle from '../../styles/element.css?inline';
 import surfaceStyle from '../../styles/surface.css?inline';
 
@@ -78,8 +79,8 @@ export class Button extends AlwatrDummyElement {
 
       :host([icon-button]) .icon {
         padding: calc(3 * var(--sys-spacing-track));
-        width: calc(13 * var(--sys-spacing-track));
-        height: calc(13 * var(--sys-spacing-track));
+        width: calc(11 * var(--sys-spacing-track));
+        height: calc(11 * var(--sys-spacing-track));
         border-radius: 50%;
         background-color: #fff2;
       }

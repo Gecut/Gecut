@@ -9,8 +9,11 @@ import {
 } from '@alwatr/element';
 import {styleMap} from 'lit/directives/style-map.js';
 import {classMap} from 'lit/directives/class-map.js';
+import {redirect} from '@alwatr/router';
+
 import baseElementStyle from '../styles/element.css?inline';
 import {validateData} from '../utilities/validate.js';
+import {user} from '../utilities/user.js';
 
 import '../components/button/button';
 import '../components/sign-up-slider/nickname';
@@ -80,6 +83,9 @@ export class PageSignUp extends AlwatrDummyElement {
         min-width: auto;
         flex-grow: 1;
       }
+      footer gecut-button[hidden] {
+        display: none;
+      }
       footer gecut-button.first {
         border-top-right-radius: 0;
       }
@@ -96,10 +102,10 @@ export class PageSignUp extends AlwatrDummyElement {
       footer .progress span {
         display: flex;
         flex-shrink: 0;
-        width: calc(1.4 * var(--sys-spacing-track));
-        height: calc(1.4 * var(--sys-spacing-track));
+        width: calc(0.8 * var(--sys-spacing-track));
+        height: calc(0.8 * var(--sys-spacing-track));
         box-shadow: inset 0 0 calc(0.25 * var(--sys-spacing-track))
-          var(--sys-color-surface);
+          hsla(var(--sys-color-surface-hsl), 50%);
         background-color: var(--sys-color-on-surface-variant);
         border-radius: var(--sys-radius-large);
         transition-property: box-shadow;
@@ -126,7 +132,6 @@ export class PageSignUp extends AlwatrDummyElement {
     'phone-slider#phone-slider',
     'teammate-slider#teammate-slider',
     'sans-slider#sans-slider',
-    'nickname-slider#fake-slider',
   ];
 
   override connectedCallback(): void {
@@ -162,6 +167,8 @@ export class PageSignUp extends AlwatrDummyElement {
     });
 
     return html`
+      <div class="separator"></div>
+
       <div class="slider">
         <div class="slides" style=${slidesStyle}>${slidesTemplate}</div>
       </div>
@@ -183,9 +190,19 @@ export class PageSignUp extends AlwatrDummyElement {
         <gecut-button
           class="last"
           ?disabled=${!this.canNext}
+          ?hidden=${this.canSubmit}
           @click=${this.nextSlide}
         >
           <span>بعدی</span>
+        </gecut-button>
+
+        <gecut-button
+          class="last"
+          ?disabled=${!this.canNext}
+          ?hidden=${!this.canSubmit}
+          @click=${this.submit}
+        >
+          <span>پایان</span>
         </gecut-button>
       </footer>
     `;
@@ -229,6 +246,16 @@ export class PageSignUp extends AlwatrDummyElement {
     }
   }
 
+  private async submit(event: PointerEvent): Promise<void> {
+    event.preventDefault();
+
+    await user.signUp(this.data);
+    redirect('/user');
+  }
+
+  private get canSubmit(): boolean {
+    return this.slides.length - 1 === this.slideIndex;
+  }
   private get canNext(): boolean {
     const slide = this.renderRoot.querySelector<Slider>(
       this.slides[this.slideIndex],
@@ -239,8 +266,15 @@ export class PageSignUp extends AlwatrDummyElement {
     const dataValidate = Object.keys(slide.data)
       .map((dataKey) => {
         const key = dataKey as keyof UserInterface;
+        const validate = validateData(key, slide.data[key]);
 
-        return validateData(key, slide.data[key]);
+        this._logger.logMethodArgs('canNext', {
+          key,
+          value: slide.data[key],
+          validate,
+        });
+
+        return validate;
       })
       .reduce((perv, curr) => perv && curr, true);
 
@@ -251,7 +285,7 @@ export class PageSignUp extends AlwatrDummyElement {
       };
     }
 
-    if (this.slideIndex + 1 < this.slides.length && dataValidate) {
+    if (this.slideIndex < this.slides.length && dataValidate) {
       return true;
     }
 

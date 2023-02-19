@@ -42,6 +42,7 @@ rules:
         - TemplateLiteral > *
   wc/guard-super-call: off
   no-misleading-character-class: off
+  no-throw-literal: off
   require-jsdoc: off
   valid-jsdoc: off
   class-methods-use-this:
@@ -56,6 +57,21 @@ rules:
         - updated
         - createRenderRoot
         - render
+
+  # import
+  import/no-unresolved: off
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - - sibling
+          - index
+        - type
+      newlines-between: always
+
   '@typescript-eslint/consistent-type-imports':
     - error
     - prefer: type-imports
@@ -75,22 +91,6 @@ rules:
         - protected-method
         - private-method
         - method
-
-  # import
-  import/no-unresolved: off
-  import/order:
-    - error
-    - groups:
-        - builtin
-        - external
-        - internal
-        - parent
-        - - sibling
-          - index
-        - type
-  import/consistent-type-specifier-style:
-    - error
-    - prefer-top-level
 
   # eslint-plugin-lit
   lit/no-template-bind: error

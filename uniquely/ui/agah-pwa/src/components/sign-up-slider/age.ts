@@ -26,7 +26,7 @@ export class AgeSlider extends Slider {
         <br />
         اگر در این بازه سنی قرار ندارید، ثبت نام خودداری کنید
       </p>
-      <div class="input-box">
+      <div class="input-box small">
         <input
           name="age"
           type="number"

@@ -1,14 +1,14 @@
 import {logger} from '../../config.js';
 import {nanoServer} from '../../libs/nano-server.js';
 import {requireUserVerify} from '../../libs/require-user-verify.js';
-import {storageClient} from '../../libs/storage.js';
+import getUser from '../../libs/get-user.js';
 
+import type {StringifyableRecord} from '@alwatr/type';
 import type {
   AlwatrConnection,
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
-import type {UserInterface, UserResponseData} from '../../types/user.js';
-import type {StringifyableRecord} from '@alwatr/type';
+import type {UserResponseData} from '../../types/user.js';
 
 nanoServer.route('GET', '/user', getUserData);
 /**
@@ -31,36 +31,5 @@ async function getUserData(
     return userVerifyResult;
   }
 
-  try {
-    const group = await storageClient.getStorage<UserInterface>('user');
-
-    group.data = Object.fromEntries(
-      Object.values(group.data)
-        .filter((user) => user.groupId === userVerifyResult.data.user.groupId)
-        .map((user: Partial<UserInterface>) => {
-          delete user.auth;
-          return [user.id, user as Omit<UserInterface, 'auth'>];
-        }),
-    );
-
-    return {
-      ok: true,
-      data: {
-        ...userVerifyResult.data.user,
-        group: group.data,
-      },
-    };
-  } catch (_err) {
-    const err = _err as Error;
-    logger.error('editUser', err.message || 'storage_error', err);
-    return {
-      ok: false,
-      statusCode: 500,
-      errorCode: 'storage_error',
-      meta: {
-        name: err.name,
-        message: err.message,
-      },
-    };
-  }
+  return await getUser(userVerifyResult.data.user);
 }

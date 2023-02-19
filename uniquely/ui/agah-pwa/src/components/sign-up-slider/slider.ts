@@ -1,11 +1,16 @@
 import {AlwatrDummyElement, css, property, unsafeCSS} from '@alwatr/element';
-import baseElementStyle from '../../styles/element.css?inline';
 
+import {sansByGroupIdContextCommandTrigger} from '../../context.js';
+import baseElementStyle from '../../styles/element.css?inline';
+import formStyle from '../../styles/form.css?inline';
+
+import type {SansInterface} from '../../types/sans.js';
 import type {UserInterface} from '../../types/user.js';
 
 export class Slider extends AlwatrDummyElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
+    unsafeCSS(formStyle),
     css`
       :host {
         display: flex;
@@ -40,7 +45,7 @@ export class Slider extends AlwatrDummyElement {
         color: var(--sys-color-primary-container);
 
         margin: var(--sys-spacing-track) 0;
-
+        private
         min-height: calc(15 * var(--sys-spacing-track));
         min-width: calc(15 * var(--sys-spacing-track));
 
@@ -77,6 +82,7 @@ export class Slider extends AlwatrDummyElement {
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+        width:100%;
       }
 
       .sans-card {
@@ -84,76 +90,23 @@ export class Slider extends AlwatrDummyElement {
         padding: calc(0.5 * var(--sys-spacing-track));
         border-radius: var(--sys-radius-large);
         border: 2px dashed transparent;
+        min-width:100%;
 
         transition-property: border-color;
         transition-duration: var(--sys-motion-duration-small);
         transition-timing-function: var(--sys-motion-easing-in-out);
       }
-      .sans-card[selected] {
+      .sans-card >*{
+        width:100%;
+      }
+      .sans-card.selected {
         border: 2px dashed var(--sys-color-surface-variant);
-      }
-
-      .input-box {
-        display: flex;
-        flex-direction: column;
-        border-radius: var(--sys-radius-large);
-        box-shadow: inset 0 0 calc(0.25 * var(--sys-spacing-track))
-          hsla(var(--sys-color-surface-hsl), 50%);
-        padding: 0 calc(1.5 * var(--sys-spacing-track));
-        margin-top: calc(2 * var(--sys-spacing-track));
-        width: 100%;
-        min-height: calc(7 * var(--sys-spacing-track));
-        background-color: var(--sys-color-on-primary-container);
-      }
-      .input-box input {
-        display: flex;
-        text-align: center;
-        color: var(--sys-color-on-primary);
-        border: none;
-        background-color: transparent;
-        width: 100%;
-        height: calc(7 * var(--sys-spacing-track));
-        outline: none;
-
-        font-family: var(--sys-typescale-body-medium-font-family-name);
-        font-weight: var(--sys-typescale-body-medium-font-weight);
-        font-size: var(--sys-typescale-body-medium-font-size);
-        letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
-        line-height: var(--sys-typescale-body-medium-line-height);
-      }
-      .input-box .separator {
-        display: flex;
-        width: 90%;
-        height: 1px;
-        margin: 0 auto;
-        border: none;
-        background-color: var(--sys-color-surface-variant);
-      }
-
-      .helpers {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: var(--sys-spacing-track);
-      }
-      .helpers li {
-        color: var(--sys-color-error);
-
-        font-family: var(--sys-typescale-body-medium-font-family-name);
-        font-weight: var(--sys-typescale-body-medium-font-weight);
-        font-size: var(--sys-typescale-body-medium-font-size);
-        letter-spacing: var(--sys-typescale-body-medium-letter-spacing);
-      }
-
-      input[type='text'] {
-        direction: rtl;
-      }
-
-      input[type='number'] {
-        direction: ltr;
       }
     `,
   ];
+
+  static sansList: Record<string, SansInterface> = {};
+  static groupId: string | null = null;
 
   @property({attribute: false, type: Object})
     data: Partial<UserInterface> = {};
@@ -161,11 +114,25 @@ export class Slider extends AlwatrDummyElement {
   @property({type: Boolean, reflect: true})
     active = false;
 
+  @property({type: Boolean, reflect: true})
+    disabled = false;
+
   dataItemChange<TName extends keyof UserInterface>(
     name: TName,
   ): (event: Event) => void {
     return async (event: Event) => {
-      const target = event.target as HTMLInputElement;
+      this._logger.logMethodArgs('dataItemChange', {
+        data: this.data,
+        active: this.active,
+        disabled: this.disabled,
+        event,
+      });
+
+      if (this.disabled === true) {
+        return;
+      }
+
+      const target = event.currentTarget as HTMLInputElement;
       const _event = new Event('change');
 
       /* type number */
@@ -185,16 +152,31 @@ export class Slider extends AlwatrDummyElement {
         this.data[name] = String(target.value).trim() as UserInterface[TName];
       }
 
-      if (name === 'groupId' && this.data[name] === '') {
-        this.data[name] = null as UserInterface[TName];
+      if (name === 'groupId' && this.data[name] != null) {
+        Slider.groupId = this.data[name] as string;
+
+        this.data.groupId = '';
+
+        sansByGroupIdContextCommandTrigger
+          .requestWithResponse({id: Slider.groupId})
+          .then((sans) => {
+            Slider.sansList = {[sans.id]: sans};
+
+            this.data = {
+              ...this.data,
+
+              sansCode: sans.id,
+              groupId: Slider.groupId,
+            };
+
+            console.log('fuck', this.data, this.data.groupId, Slider.groupId);
+
+            this.dispatchEvent(_event);
+          });
       }
 
       this.dispatchEvent(_event);
-      this._logger.logMethodArgs('dataItemChange', {
-        name,
-        'value': this.data[name],
-        'type-value': typeof this.data[name],
-      });
+      this.requestUpdate('data');
     };
   }
 }

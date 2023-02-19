@@ -7,8 +7,10 @@ import {
   query,
   unsafeCSS,
 } from '@alwatr/element';
+
 import baseElementStyle from '../../styles/element.css?inline';
 import surfaceStyle from '../../styles/surface.css?inline';
+
 import checkIcon from './checkmark-outline.svg?raw';
 
 import type {PropertyValues} from '@alwatr/element';

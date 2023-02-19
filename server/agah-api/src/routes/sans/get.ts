@@ -1,11 +1,9 @@
 import {logger} from '../../config.js';
 import {nanoServer} from '../../libs/nano-server.js';
-import {storageClient} from '../../libs/storage.js';
+import getSans from '../../libs/get-sans.js';
 
-import type {AlwatrServiceResponse} from '@alwatr/nano-server';
-import type {SansInterface} from '../../types/sans.js';
-import type {UserInterface} from '../../types/user.js';
 import type {StringifyableRecord} from '@alwatr/type';
+import type {AlwatrServiceResponse} from '@alwatr/nano-server';
 
 nanoServer.route('GET', '/sans', getSansList);
 /**
@@ -18,37 +16,5 @@ async function getSansList(): Promise<
   > {
   logger.logMethod('getSansList');
 
-  try {
-    const userList = await storageClient.getStorage<UserInterface>('user');
-    const sansList = await storageClient.getStorage<SansInterface>('sans');
-
-    for (const sansKey of Object.keys(sansList.data)) {
-      const sans = sansList.data[sansKey];
-
-      const guestsKeys = Object.keys(userList.data).filter(
-        (userKey) => userList.data[userKey].sansCode === sansKey,
-      );
-      const confirmedGuestsKeys = guestsKeys.filter(
-        (userKey) => userList.data[userKey].status === 'confirmed',
-      );
-
-      sans.hallCapacityNumber = sans.groupsNumber * sans.groupsCapacityNumber;
-      sans.guestsNumber = guestsKeys.length;
-      sans.confirmedGuestsNumber = confirmedGuestsKeys.length;
-    }
-
-    return sansList;
-  } catch (_err) {
-    const err = _err as Error;
-    logger.error('getSansList', err.message || 'storage_error', err);
-    return {
-      ok: false,
-      statusCode: 500,
-      errorCode: 'storage_error',
-      meta: {
-        name: err.name,
-        message: err.message,
-      },
-    };
-  }
+  return await getSans();
 }

@@ -4,9 +4,15 @@ import {
   html,
   customElement,
   unsafeCSS,
+  state,
 } from '@alwatr/element';
 import callIcon from '@gecut/iconsax-cdn/broken/call-calling?raw';
+import copyIcon from '@gecut/iconsax-cdn/broken/copy?raw';
+import copySuccessIcon from '@gecut/iconsax-cdn/broken/copy-success?raw';
+
 import baseElementStyle from '../styles/element.css?inline';
+import formStyle from '../styles/form.css?inline';
+import formatPhoneNumber from '../utilities/format-number.js';
 
 import '../components/button/button';
 
@@ -16,6 +22,7 @@ import type {LitRenderType} from '../types/lit-render.js';
 export class PageSupport extends AlwatrDummyElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
+    unsafeCSS(formStyle),
     css`
       :host {
         --_box-border-size: 0.3;
@@ -108,47 +115,103 @@ export class PageSupport extends AlwatrDummyElement {
       }
 
       .input-box {
-        display: flex;
-        align-items: center;
-        align-self: stretch;
-        justify-content: center;
-        direction: ltr;
-
-        text-decoration: none;
-        border-radius: var(--sys-radius-large);
-        box-shadow: inset 0 0 calc(0.25 * var(--sys-spacing-track))
-          hsla(var(--sys-color-surface-hsl), 50%);
-        padding: 0 calc(1.5 * var(--sys-spacing-track));
         margin: calc(2 * var(--sys-spacing-track))
           calc(2 * var(--sys-spacing-track)) auto;
-        height: calc(8 * var(--sys-spacing-track));
         color: var(--sys-color-on-primary);
         background-color: var(--sys-color-on-primary-container);
+        position: relative;
+        width: auto;
+        align-self: stretch;
+        cursor: pointer;
+        user-select: none;
+      }
+      .input-box,
+      .input-box input {
+        direction: ltr;
+        text-decoration: none;
 
         font-weight: 800;
         font-family: var(--sys-typescale-title-large-font-family-name);
         font-size: var(--sys-typescale-title-large-font-size);
         letter-spacing: var(--sys-typescale-title-large-letter-spacing);
       }
+      .input-box gecut-icon {
+        position: absolute;
+        left: calc(1.5 * var(--sys-spacing-track));
+        height: calc(4 * var(--sys-spacing-track));
+        width: calc(4 * var(--sys-spacing-track));
+        color: var(--sys-color-tertiary-container);
+        z-index: var(--sys-zindex-above);
+
+        transition-property: opacity;
+        transition-duration: var(--sys-motion-duration-medium);
+        transition-timing-function: var(--sys-motion-easing-in-out);
+      }
+      .input-box gecut-icon[hidden] {
+        opacity: 0;
+      }
+      .input-box gecut-icon.first {
+        z-index: 2;
+      }
+      .input-box gecut-icon.second {
+        z-index: 1;
+      }
     `,
   ];
+
+  @state()
+  private supportPhone = '09155595488';
+
+  @state()
+  private copySuccess = false;
 
   override render(): LitRenderType {
     return html`
       <div class="box">
         <gecut-icon .svgContent=${callIcon} class="icon"></gecut-icon>
+
         <h2 class="title">پشتیبانی آگاه</h2>
         <div class="description">
           لطفا جهت امور پشتیبانی با شماره زیر تماس حاصل فرمایید
         </div>
 
-        <a href="tel:09155595488" class="input-box">0915 559 5488</a>
+        <a href="tel:09155595488" class="input-box">
+          <gecut-icon
+            .svgContent=${copyIcon}
+            class="first"
+            @click=${this.copySupportPhone}
+          ></gecut-icon>
+          <gecut-icon
+            .svgContent=${copySuccessIcon}
+            class="second"
+            ?hidden=${!this.copySuccess}
+          ></gecut-icon>
+
+          <input
+            type="text"
+            .value=${formatPhoneNumber(this.supportPhone)}
+            readonly
+          />
+        </a>
 
         <gecut-button href="/home">
           <span>بازگشت به صفحه اصلی</span>
         </gecut-button>
       </div>
     `;
+  }
+
+  private copySupportPhone(event: PointerEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    navigator.clipboard.writeText(this.supportPhone).then(() => {
+      this.copySuccess = true;
+
+      setTimeout(() => {
+        this.copySuccess = false;
+      }, 1000);
+    });
   }
 }
 

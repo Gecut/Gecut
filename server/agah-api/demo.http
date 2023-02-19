@@ -1,8 +1,8 @@
 @apiUrl = http://127.0.0.1:8000
 @apiVersion = v0
 @token = YOUR_SECRET_TOKEN
-@userId = iW700
-@userToken =u14-95_LhMCd-W3Fcp0RIudWouL0Tt1NR9WEJ31bhalx-7m_hW5j_vRH6wiuaDLLkL6qi3aDMQCnlZ65B3LmTg
+@userId = MZ404
+@userToken = ijv8_vwSSiBQaQKkvmHqoYS6LjTn7t29dkKuaSDlfAd4VkkXW4synbilajeCmjJarJppMbTzSD5Kf-bqVFT_lg
 @userPhone = 09155595488
 
 ### Home
@@ -11,8 +11,15 @@ GET {{apiUrl}}/{{apiVersion}}
 ### Get Sans List
 GET {{apiUrl}}/{{apiVersion}}/sans
 
+### Get Sans By Group Id
+GET {{apiUrl}}/{{apiVersion}}/sans/group-id?id=M86D
+
 ### Get User Data
 GET {{apiUrl}}/{{apiVersion}}/user?id={{userId}}
+Authorization: Bearer {{userToken}}
+
+### Get User List {Admin}
+GET {{apiUrl}}/{{apiVersion}}/admin/users?id={{userId}}&&token={{userToken}}
 Authorization: Bearer {{userToken}}
 
 ### Add Sans
@@ -21,10 +28,15 @@ Authorization: Bearer {{userToken}}
 Content-Type: application/json
 
 {
-  "groupsNumber": 3,
-  "groupsCapacityNumber": 4,
-  "duration": 60,
-  "inactive": false
+  "groupsNumber": 5,
+  "groupsCapacityNumber": 6,
+  "duration": 40,
+  "inactive": false,
+  "ageLimit": {
+    "min": 18,
+    "max": 22
+  },
+  "gender": "female"
 }
 
 ### Create User
@@ -48,18 +60,19 @@ Content-Type: application/json
   "phone": "09155595488",
   "firstName": "سید محمدمهدی",
   "lastName": "زمانیان",
-  "sansCode": "0",
   "role": "admin",
+  "gender": "male",
   "age": 18
 }
 
 ### Edit User
-POST {{apiUrl}}/{{apiVersion}}/user
+PUT {{apiUrl}}/{{apiVersion}}/user
+Authorization: Bearer {{userToken}}
 Content-Type: application/json
 
 {
-  "id": "t7423",
-  "status":"confirmed"
+  "id":"MZ404",
+  "sansCode": "0"
 }
 
 ### User Sign In
@@ -67,8 +80,8 @@ POST {{apiUrl}}/{{apiVersion}}/authentication/sign-in
 Content-Type: application/json
 
 {
-  "id": "iW700",
-  "phone":"09151154220"
+  "id": "ON291",
+  "phone":"09155595488"
 }
 
 ### Health

@@ -8,9 +8,6 @@ import {
 import {random} from '@alwatr/math';
 import {range} from 'lit/directives/range.js';
 import {styleMap} from 'lit/directives/style-map.js';
-
-import '@gecut/ui-kit/icon/icon.js';
-
 import eyeLinearIcon from '@gecut/iconsax-cdn/linear/eye?raw';
 import peopleLinearIcon from '@gecut/iconsax-cdn/linear/people?raw';
 import clockLinearIcon from '@gecut/iconsax-cdn/linear/clock?raw';
@@ -21,7 +18,6 @@ import callLinearIcon from '@gecut/iconsax-cdn/linear/call-calling?raw';
 import userOctagonLinearIcon from '@gecut/iconsax-cdn/linear/user-octagon?raw';
 import calendarLinearIcon from '@gecut/iconsax-cdn/linear/calendar?raw';
 import messageAddLinearIcon from '@gecut/iconsax-cdn/linear/message-add-1?raw';
-
 import eyeBoldIcon from '@gecut/iconsax-cdn/bold/eye?raw';
 import peopleBoldIcon from '@gecut/iconsax-cdn/bold/people?raw';
 import clockBoldIcon from '@gecut/iconsax-cdn/bold/clock?raw';
@@ -32,7 +28,6 @@ import callBoldIcon from '@gecut/iconsax-cdn/bold/call-calling?raw';
 import userOctagonBoldIcon from '@gecut/iconsax-cdn/bold/user-octagon?raw';
 import calendarBoldIcon from '@gecut/iconsax-cdn/bold/calendar?raw';
 import messageAddBoldIcon from '@gecut/iconsax-cdn/bold/message-add-1?raw';
-
 import eyeBrokenIcon from '@gecut/iconsax-cdn/broken/eye?raw';
 import peopleBrokenIcon from '@gecut/iconsax-cdn/broken/people?raw';
 import clockBrokenIcon from '@gecut/iconsax-cdn/broken/clock?raw';
@@ -43,7 +38,6 @@ import callBrokenIcon from '@gecut/iconsax-cdn/broken/call-calling?raw';
 import userOctagonBrokenIcon from '@gecut/iconsax-cdn/broken/user-octagon?raw';
 import calendarBrokenIcon from '@gecut/iconsax-cdn/broken/calendar?raw';
 import messageAddBrokenIcon from '@gecut/iconsax-cdn/broken/message-add-1?raw';
-
 import eyeBulkIcon from '@gecut/iconsax-cdn/bulk/eye-slash?raw';
 import peopleBulkIcon from '@gecut/iconsax-cdn/bulk/people?raw';
 import clockBulkIcon from '@gecut/iconsax-cdn/bulk/clock?raw';
@@ -54,7 +48,6 @@ import callBulkIcon from '@gecut/iconsax-cdn/bulk/call-calling?raw';
 import userOctagonBulkIcon from '@gecut/iconsax-cdn/bulk/user-octagon?raw';
 import calendarBulkIcon from '@gecut/iconsax-cdn/bulk/calendar?raw';
 import messageAddBulkIcon from '@gecut/iconsax-cdn/bulk/message-add-1?raw';
-
 import eyeOutlineIcon from '@gecut/iconsax-cdn/outline/eye?raw';
 import peopleOutlineIcon from '@gecut/iconsax-cdn/outline/people?raw';
 import clockOutlineIcon from '@gecut/iconsax-cdn/outline/clock?raw';
@@ -65,7 +58,6 @@ import callOutlineIcon from '@gecut/iconsax-cdn/outline/call-calling?raw';
 import userOOutlineIcon from '@gecut/iconsax-cdn/outline/user-octagon?raw';
 import calendarOutlineIcon from '@gecut/iconsax-cdn/outline/calendar?raw';
 import mAddOutlineIcon from '@gecut/iconsax-cdn/outline/message-add-1?raw';
-
 import eyeTwoToneIcon from '@gecut/iconsax-cdn/twotone/eye?raw';
 import peopleTwoToneIcon from '@gecut/iconsax-cdn/twotone/people?raw';
 import clockTwoToneIcon from '@gecut/iconsax-cdn/twotone/clock?raw';
@@ -76,6 +68,8 @@ import callTwoToneIcon from '@gecut/iconsax-cdn/twotone/call-calling?raw';
 import userOTwoToneIcon from '@gecut/iconsax-cdn/twotone/user-octagon?raw';
 import calendarTwoToneIcon from '@gecut/iconsax-cdn/twotone/calendar?raw';
 import mAddTwoToneIcon from '@gecut/iconsax-cdn/twotone/message-add-1?raw';
+
+import '@gecut/ui-kit/icon/icon.js';
 
 import type {LitRenderType} from '../types/lit-render.js';
 

@@ -6,7 +6,9 @@ import {
   unsafeCSS,
   state,
 } from '@alwatr/element';
+
 import baseElementStyle from '../styles/element.css?inline';
+
 import logoImage from '/images/logo.png?inline';
 
 import '../components/button/button';
@@ -25,7 +27,7 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         justify-content: space-between;
         align-items: center;
 
-        max-height: 100%;
+        height: 100%;
 
         gap: var(--sys-spacing-track);
         padding: 2vh calc(3 * var(--sys-spacing-track));
@@ -57,6 +59,7 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         background-color: var(--sys-color-on-primary-container);
         border-radius: var(--sys-radius-medium);
         overflow: hidden;
+        margin-top: auto;
       }
 
       .i_read {
@@ -93,6 +96,10 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         margin: 0;
       }
 
+      .details li {
+        margin-bottom: calc(0.5 * var(--sys-spacing-track));
+      }
+
       .details b {
         font-weight: 900;
       }
@@ -121,60 +128,24 @@ export class PageSignUpDetails extends AlwatrDummyElement {
       <img .src=${logoImage} class="logo" alt="logo" />
       <div class="details-box">
         <div class="details">
-          <b>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</b>
           <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است
-          </p>
-          <p>
-            پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با
-            توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد و
-            به پسرک گفت بیا این کفشا رو بپوش…پسرک کفشا رو پوشید و خوشحال رو به
-            پیر مرد کرد و گفت: شما خدایید؟! پیر مرد لبش را گزید و گفت نه! پسرک
-            گفت پس دوست خدایی، چون من دیشب فقط به خدا گفتم كه کفش ندارم…
-          </p>
-          <ul>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
-          </ul>
-          <p>
-            پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با
-            توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد و
-            به پسرک گفت بیا این کفشا رو بپوش…پسرک کفشا رو پوشید و خوشحال رو به
-            پیر مرد کرد و گفت: شما خدایید؟! پیر مرد لبش را گزید و گفت نه! پسرک
-            گفت پس دوست خدایی، چون من دیشب فقط به خدا گفتم كه کفش ندارم…
+            با سلام خیلی خوشحالیم که دوباره افتخار میزبانی شما بزرگواران را در
+            یک برنامه دیگر از گروه آگاه داریم گروه آگاه قصد دارد در اسفنند ماه
+            ۱۴۰۱ عینک ۲ را برگزار کند. قبل از ثبت نام لازم میدانیم نکاتی را
+            ارائه دهیم لطفا با دقت مطالعه کنید و سپس بر روی ثبت نام کلیک کنید
           </p>
           <ol>
             <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
+              عینک یک بازی گروهی است که ۵ یا ۶ گروه ۵ نفره باهم بازی میکنند شما
+              میتوانید از ۱ تا ۵ نفر از دوستانتون رو دعوت کنید اگر قصد حضور با
+              دوستانتون رو دارید تمام انهارا ثبت نام کنید و کد همگروه‌ نفر اول
+              رو برای بقیه دوستانتون ارسال تا انها در بخش مربوطه وارد کنند تا با
+              همگروه‌هم شوید
             </li>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
-            <li>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </li>
+            <li>این برنامه فقط فقط برای پسران بازه سنی ۱۵ الی ۲۲ سال میباشد</li>
+            <li>لباس و کفش راحت بپوشید</li>
+            <li>ترجیحا از اوردن انواع کوله‌پشتی و کیف دستی خودداری ‌کنید</li>
+            <li>با لبخند وارد شوید:)</li>
           </ol>
         </div>
         <div class="i_read">
@@ -194,8 +165,8 @@ export class PageSignUpDetails extends AlwatrDummyElement {
         >
           <span>ثبت نام</span>
         </gecut-button>
-        <gecut-button href="/support" background="neutral" small>
-          <span>تماس با پشتیبانی</span>
+        <gecut-button href="/home" background="neutral" small>
+          <span>بازگشت</span>
         </gecut-button>
       </div>
     `;

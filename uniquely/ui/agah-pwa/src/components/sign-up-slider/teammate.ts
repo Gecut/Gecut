@@ -38,6 +38,9 @@ export class TeammateSlider extends Slider {
           @input=${this.dataItemChange('groupId')}
         />
       </div>
+      <ul class="helpers">
+        <li>ورودی کد هم گروه اختیاری است</li>
+      </ul>
     `;
   }
 }

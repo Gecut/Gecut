@@ -22,14 +22,14 @@ export class PhoneSlider extends Slider {
       <gecut-icon .svgContent=${callIcon} class="title-icon"></gecut-icon>
       <h1 class="title-text">شماره تلفن همراه</h1>
       <p class="description">
-        لطفا شماره تلفن همراه خود را به درستی وارد نمایید
+        لطفا تلفن همراه خودرا به دقت وارد کنید
         <br />
-        پس از ثبت نام گروه پشتیبانی با شما تماس خواهد گرفت
+        توجه‌کنید ادرس برنامه به همین شماره پیامک خواهد شد
       </p>
       <div class="input-box">
         <input
           name="phone"
-          type="number"
+          type="tel"
           autocomplete="off"
           placeholder="شماره تلفن همراه خود را وارد کنید"
           @input=${this.dataItemChange('phone')}

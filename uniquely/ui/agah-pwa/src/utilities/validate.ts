@@ -2,10 +2,11 @@ import {isNumber} from '@alwatr/math';
 
 import type {UserInterface} from '../types/user.js';
 
-export const groupIdRegex = /^([a-z]{2})([0-9]{3})+$/;
+export const groupIdRegex = /^([A-Z]{1})([0-9]{2})([A-Z]{1})+$/;
+export const userIdRegex = /^([A-Z]{2})([0-9]{3})+$/;
 
 export const rtlCharacterRegex =
-  /^(([\\s,کگۀی،,تثجحخد,غيًٌٍَ,ُپٰچژ‌,ء-ةذ-عف-ٔ])|([۰-۹])|((،|؟|«|»|؛|٬)))+$/;
+  /^(([,کگۀی،,تثجحخد,غيًٌٍَ,ُپٰچژ‌,ء-ةذ-عف-ٔ])|( ))+$/;
 
 export function validateData<T extends keyof UserInterface>(
   name: T,
@@ -24,9 +25,17 @@ export function validateData<T extends keyof UserInterface>(
     return value != null && isNumber(value) && value >= 15 && value <= 22;
   }
 
+  if (name === 'gender') {
+    return (
+      typeof value === 'string' && (value === 'male' || value === 'female')
+    );
+  }
+
   if (name === 'groupId' && value != null) {
     return (
-      typeof value === 'string' && value.length == 5 && groupIdRegex.test(value)
+      typeof value === 'string' &&
+      value.length === 4 &&
+      groupIdRegex.test(value)
     );
   }
 
@@ -35,7 +44,13 @@ export function validateData<T extends keyof UserInterface>(
   }
 
   if (name === 'sansCode') {
-    return typeof value === 'string' && isNumber(value);
+    return typeof value === 'string' && value.length > 0 && isNumber(value);
+  }
+
+  if (name === 'id') {
+    return (
+      typeof value === 'string' && value.length === 5 && userIdRegex.test(value)
+    );
   }
 
   return true;

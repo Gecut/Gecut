@@ -1,4 +1,5 @@
 import type {AlwatrDocumentObject} from '@alwatr/type';
+import type {SansInterface} from './sans.js';
 
 export type Gender = 'male' | 'female' | 'unknown';
 
@@ -23,17 +24,6 @@ export type UserInterface = AlwatrDocumentObject & {
   age: number;
   phone: string;
   status: UserStatus;
-  groupId: string | null;
-  sansCode: string;
-  gender: Gender;
-};
-
-export type UserInterfaceResponse = AlwatrDocumentObject & {
-  firstName: string;
-  lastName: string;
-  age: number;
-  phone: string;
-  status: UserStatus;
   callsNumber: CallsNumber;
   smsAddressSent: boolean;
   deleted: boolean;
@@ -45,5 +35,6 @@ export type UserInterfaceResponse = AlwatrDocumentObject & {
 };
 
 export type UserResponseData = UserInterface & {
+  sans: SansInterface | null;
   group: Record<string, Omit<UserInterface, 'auth'>>;
 };

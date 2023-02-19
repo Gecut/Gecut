@@ -1,33 +1,18 @@
-import {
-  AlwatrSmartElement,
-  customElement,
-  html,
-  css,
-  cache,
-  state,
-} from '@alwatr/element';
-import {router} from '@alwatr/router';
-
-import '../styles/index.css';
+import {AlwatrSmartElement, customElement, html, css} from '@alwatr/element';
+import {routeContextConsumer, routerOutlet} from '@alwatr/router';
 
 import routes from '../routes.js';
 
-import type {RoutesConfig} from '@alwatr/router';
+import '../context';
+import '../director/index';
+import '../styles/index.css';
+
 import type {PropertyValues} from '@alwatr/element';
+import type {RoutesConfig} from '@alwatr/router';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('app-root')
 export class AppRoot extends AlwatrSmartElement {
-  constructor() {
-    super();
-
-    router.signal.addListener((route) => {
-      this._logger.logMethodArgs('routeChanged', {route});
-      this.activePage = route.sectionList[0]?.toString() ?? this.activePage;
-    });
-    router.initial();
-  }
-
   static override styles = css`
     :host {
       position: relative;
@@ -44,17 +29,22 @@ export class AppRoot extends AlwatrSmartElement {
     }
   `;
 
-  @state()
-  private activePage = 'home';
-
   private routes: RoutesConfig = {
-    map: (route) => route.sectionList[0]?.toString() ?? this.activePage,
-    list: routes,
+    routeId: (route) => route.sectionList[0]?.toString(),
+    templates: routes,
   };
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this._signalListenerList.push(
+      routeContextConsumer.subscribe(this._routeChanged.bind(this)),
+    );
+  }
 
   override render(): LitRenderType {
     return html`
-      <div class="page-container">${cache(router.outlet(this.routes))}</div>
+      <div class="page-container">${routerOutlet(this.routes)}</div>
     `;
   }
 
@@ -64,6 +54,11 @@ export class AppRoot extends AlwatrSmartElement {
     requestAnimationFrame(() => {
       document.documentElement.removeAttribute('unresolved');
     });
+  }
+
+  private _routeChanged(): void {
+    this._logger.logMethod('routeChanged');
+    this.requestUpdate();
   }
 }
 

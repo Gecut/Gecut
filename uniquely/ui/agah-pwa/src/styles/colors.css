@@ -26,7 +26,7 @@
   --sys-color-outline-hsl: var(--ref-palette-neutral-variant50);
   --sys-color-outline-variant-hsl: var(--ref-palette-neutral-variant80);
 
-  --sys-color-error-hsl: var(--ref-palette-error40);
+  --sys-color-error-hsl: var(--ref-palette-error60);
   --sys-color-on-error-hsl: var(--ref-palette-error100);
   --sys-color-error-container-hsl: var(--ref-palette-error90);
   --sys-color-on-error-container-hsl: var(--ref-palette-error30);

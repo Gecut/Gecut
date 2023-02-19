@@ -1,13 +1,14 @@
 import {config, logger} from '../../config.js';
 import {nanoServer} from '../../libs/nano-server.js';
 import {storageClient} from '../../libs/storage.js';
+import getUser from '../../libs/get-user.js';
 
+import type {StringifyableRecord} from '@alwatr/type';
 import type {
   AlwatrConnection,
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
-import type {UserInterface} from '../../types/user.js';
-import type {StringifyableRecord} from '@alwatr/type';
+import type {UserInterface, UserResponseData} from '../../types/user.js';
 
 type UserLoginType = {
   id: string;
@@ -26,7 +27,7 @@ nanoServer.route('POST', '/authentication/sign-in', signIn);
  */
 async function signIn(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
+): Promise<AlwatrServiceResponse<UserResponseData, StringifyableRecord>> {
   logger.logMethod('signIn');
 
   try {
@@ -50,12 +51,7 @@ async function signIn(
       user = await storageClient.set(user, 'user');
     }
 
-    return {
-      ok: true,
-      data: {
-        user,
-      },
-    };
+    return await getUser(user);
   } catch (_err) {
     const err = _err as Error;
     logger.error('signIn', err.message || 'storage_error', err);

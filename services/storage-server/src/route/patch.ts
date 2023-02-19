@@ -1,8 +1,8 @@
 import {config, logger} from '../config.js';
 import {nanoServer} from '../lib/nano-server.js';
 import {storageProvider} from '../lib/storage-provider.js';
-import type {StringifyableRecord} from '@alwatr/type';
 
+import type {StringifyableRecord} from '@alwatr/type';
 import type {
   AlwatrConnection,
   AlwatrServiceResponse,
