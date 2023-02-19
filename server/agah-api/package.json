@@ -5,11 +5,6 @@
   "type": "module",
   "author": "MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
   "private": true,
-  "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0",
-    "yarn": ">=1.22.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/gecut/gecut",
