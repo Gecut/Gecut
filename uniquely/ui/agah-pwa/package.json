@@ -23,7 +23,7 @@
     "@alwatr/signal": "^0.29.0",
     "@alwatr/type": "^0.29.0",
     "@types/html2canvas": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.34.0",
     "eslint-config-google": "^0.14.0",
