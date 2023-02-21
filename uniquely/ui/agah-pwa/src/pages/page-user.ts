@@ -297,9 +297,7 @@ export class PageUser extends AlwatrDummyElement {
     const userToken = localStorage.getItem('user.token');
 
     userContextConsumer.subscribe((user) => {
-      if (user != null) {
-        this.user = user;
-      }
+      this.user = user;
     });
 
     if (userID == null || userToken == null) {
@@ -331,11 +329,25 @@ export class PageUser extends AlwatrDummyElement {
   }
 
   private renderInformationCard(): LitRenderType {
-    if (!this.user || !this.user.sans) {
+    if (!this.user) {
       return html`
         <div class="card no-padding">
           <div class="card" id="ticket">
             <h2 class="title">در حال دریافت اطلاعات...</h2>
+          </div>
+          <div class="brand">
+            <img .src=${iconImage} alt="icon" />
+            <span class="text">گروه فرهنگی آگاه</span>
+          </div>
+        </div>
+      `;
+    }
+
+    if (!this.user.sans) {
+      return html`
+        <div class="card no-padding">
+          <div class="card" id="ticket">
+            <h2 class="title">سانسی برای شما یافت نشد</h2>
           </div>
           <div class="brand">
             <img .src=${iconImage} alt="icon" />
