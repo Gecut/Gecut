@@ -31,7 +31,6 @@ export class PageSignIn extends AlwatrDummyElement {
     css`
       :host {
         --_box-border-size: 0.3;
-        --sys-surface-disabled-opacity: 80%;
         --sys-scrollbar-background: var(--sys-color-on-surface-variant);
         --sys-scrollbar-size: calc(0.5 * var(--sys-spacing-track));
         --sys-scrollbar-color: var(--sys-color-surface);
@@ -127,7 +126,9 @@ export class PageSignIn extends AlwatrDummyElement {
           -1 * var(--_box-border-size) * var(--sys-spacing-track)
         );
         overflow: hidden;
-        background-color: var(--sys-color-primary);
+        border: calc(var(--_box-border-size) * 1.5 * var(--sys-spacing-track))
+          solid var(--sys-color-primary);
+        border-top: none;
       }
       .submit-button gecut-button {
         width: 100%;
