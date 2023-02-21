@@ -1,8 +1,8 @@
-@apiUrl = http://127.0.0.1:8000
+@apiUrl = http://37.152.179.225:8000
 @apiVersion = v0
 @token = YOUR_SECRET_TOKEN
-@userId = MZ404
-@userToken = ijv8_vwSSiBQaQKkvmHqoYS6LjTn7t29dkKuaSDlfAd4VkkXW4synbilajeCmjJarJppMbTzSD5Kf-bqVFT_lg
+@userId = L4555
+@userToken = C9NZJXKgvRDQQ2Kwm3X5HiOpX6f-_nfXMR6MxBBDUwa78FE_zPktOdhBTwSetuRbc99KYZLzbJScPft1PYm2ug
 @userPhone = 09155595488
 
 ### Home

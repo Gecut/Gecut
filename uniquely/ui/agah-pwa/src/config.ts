@@ -1,6 +1,6 @@
 const config = {
   version: '0.0.0',
-  api: '//127.0.0.1:8000',
+  api: '//37.152.179.225:8000',
 };
 
 export default config;
