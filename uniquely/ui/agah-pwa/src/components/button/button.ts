@@ -32,8 +32,8 @@ export class Button extends AlwatrDummyElement {
         align-items: center;
         justify-content: center;
         padding: 0;
-        min-width: calc(12 * var(--sys-spacing-track));
-        min-height: calc(8 * var(--sys-spacing-track));
+        min-width: calc(10 * var(--sys-spacing-track));
+        min-height: calc(7 * var(--sys-spacing-track));
         font-weight: 700;
         font-family: var(--sys-typescale-body-large-font-family-name);
         font-size: var(--sys-typescale-body-large-font-size);
@@ -50,7 +50,7 @@ export class Button extends AlwatrDummyElement {
         align-items: center;
         justify-content: center;
         vertical-align: middle;
-        padding: calc(2 * var(--sys-spacing-track)) var(--sys-spacing-track);
+        padding: calc(1.5 * var(--sys-spacing-track)) var(--sys-spacing-track);
         width: 100%;
         height: 100%;
         text-decoration: none;
@@ -58,7 +58,7 @@ export class Button extends AlwatrDummyElement {
       }
 
       :host([small]) {
-        min-height: calc(6 * var(--sys-spacing-track));
+        min-height: calc(4 * var(--sys-spacing-track));
 
         font-family: var(--sys-typescale-body-medium-font-family-name);
         font-size: var(--sys-typescale-body-medium-font-size);
