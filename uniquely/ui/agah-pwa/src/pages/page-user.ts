@@ -288,8 +288,13 @@ export class PageUser extends AlwatrDummyElement {
   @state()
   private groupCopySuccess = false;
 
+  private timer?: number;
+
   override connectedCallback(): void {
     super.connectedCallback();
+
+    const userID = localStorage.getItem('user.id');
+    const userToken = localStorage.getItem('user.token');
 
     userContextConsumer.subscribe((user) => {
       if (user != null) {
@@ -297,11 +302,20 @@ export class PageUser extends AlwatrDummyElement {
       }
     });
 
-    setTimeout(() => {
-      if (this.user == null) {
-        redirect('/sign-in');
-      }
-    }, 3000);
+    if (userID == null || userToken == null) {
+      redirect('/sign-in');
+    } else {
+      this.timer = setTimeout(() => {
+        if (this.user == null) {
+          redirect('/sign-in');
+        }
+      }, 3000);
+    }
+  }
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    clearTimeout(this.timer);
   }
 
   override render(): LitRenderType {
@@ -318,7 +332,17 @@ export class PageUser extends AlwatrDummyElement {
 
   private renderInformationCard(): LitRenderType {
     if (!this.user || !this.user.sans) {
-      return html`<div class="card no-padding"></div>`;
+      return html`
+        <div class="card no-padding">
+          <div class="card" id="ticket">
+            <h2 class="title">در حال دریافت اطلاعات...</h2>
+          </div>
+          <div class="brand">
+            <img .src=${iconImage} alt="icon" />
+            <span class="text">گروه فرهنگی آگاه</span>
+          </div>
+        </div>
+      `;
     }
 
     const sansDate = new Date(this.user.sans.date);
