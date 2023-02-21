@@ -2,11 +2,13 @@
 
 cd ~/
 
-projectRoot="~/Gecut/"
+projectRoot="~/Gecut"
 storageServerRoot="$projectRoot/services/storage-server/"
 serverRoot="$projectRoot/server/agah-api/"
 pwaRoot="$projectRoot/uniquely/ui/agah-pwa/"
 pwaDist="/var/www/html"
+
+cd "$projectRoot"
 
 git pull --prune --progress --autostash --rebase
 
