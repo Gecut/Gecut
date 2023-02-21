@@ -303,8 +303,8 @@ export class PageAdminSansList extends AlwatrDummyElement {
         <td class="hall-capacity-number">${sans.hallCapacityNumber}</td>
         <td class="guests-number">${sans.guestsNumber}</td>
         <td class="confirmed-guests-number">${sans.confirmedGuestsNumber}</td>
-        <td class="age-limit-min">${sans.ageLimit.min}</td>
-        <td class="age-limit-max">${sans.ageLimit.max}</td>
+        <td class="age-limit-min">${sans.ageLimit?.min}</td>
+        <td class="age-limit-max">${sans.ageLimit?.max}</td>
         <td class="gender">${sansGender(sans.gender)}</td>
         <td class="inactive">${sansInactive(sans.inactive)}</td>
         <td class="remove">
@@ -524,7 +524,9 @@ export class PageAdminSansList extends AlwatrDummyElement {
           this.sansListMemory = sansResponse.data;
         }
 
-        this.loadData('update_cache');
+        setTimeout(() => {
+          this.loadData('update_cache');
+        }, 500);
       });
     }
   }
