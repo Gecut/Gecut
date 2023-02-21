@@ -23,7 +23,7 @@ GET {{apiUrl}}/{{apiVersion}}/admin/users?id={{userId}}&&token={{userToken}}
 Authorization: Bearer {{userToken}}
 
 ### Add Sans
-POST {{apiUrl}}/{{apiVersion}}/sans?id={{userId}}
+POST {{apiUrl}}/{{apiVersion}}/admin/sans?id={{userId}}
 Authorization: Bearer {{userToken}}
 Content-Type: application/json
 

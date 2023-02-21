@@ -1,5 +1,7 @@
 import {random} from '@alwatr/math';
 
+export const userIdRegex = /^([A-Z]{2})([0-9]{3})+$/;
+
 /**
  * It generates a unique ticket code by concatenating
  * two random strings and a random integer
@@ -15,7 +17,7 @@ export function generateUniqueTicketCode(oldTicketsCode: string[]): string {
     random.string(2, 2).toString() + random.integer(100, 999).toString()
   ).toUpperCase();
 
-  if (oldTicketsCode.includes(id)) {
+  if (oldTicketsCode.includes(id) || userIdRegex.test(id) !== true) {
     return generateUniqueTicketCode(oldTicketsCode);
   }
 
