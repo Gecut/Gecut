@@ -72,6 +72,7 @@ export default defineConfig({
       mode: 'production',
       outDir: DIST_PATH,
       registerType: 'autoUpdate',
+      injectRegister: 'inline',
       useCredentials: true,
     }),
   ],
