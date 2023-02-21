@@ -24,4 +24,4 @@ cd "$serverRoot" && yarn build && pm2 start dist/index.mjs
 cd "$pwaRoot" && yarn build && sudo rm -rf "$pwaDist/*" && cp -r build/* "$pwaDist"
 
 sudo nginx -t && sudo systemctl restart nginx
-sudo pm2 save
+sudo pm2 save --force
