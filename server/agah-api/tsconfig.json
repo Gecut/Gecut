@@ -5,7 +5,8 @@
     "composite": true,
     "tsBuildInfoFile": ".tsbuildinfo",
     "rootDir": "src",
-    "outDir": "build"
+    "outDir": "build",
+    "preserveSymlinks": true
     // "noEmit": true
   },
 
