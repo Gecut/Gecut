@@ -208,6 +208,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
 
   override render(): LitRenderType {
     const userListTemplate = Object.values(this.sansListMemory)
+      .reverse()
       .filter(() => {
         const cond = true;
 

@@ -311,6 +311,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
 
   override render(): LitRenderType {
     const userListTemplate = Object.values(this.userListMemory)
+      .reverse()
       .filter((user) => {
         let cond = true;
 
