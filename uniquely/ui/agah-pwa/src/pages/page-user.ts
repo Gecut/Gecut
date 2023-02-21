@@ -485,35 +485,37 @@ export class PageUser extends AlwatrDummyElement {
   }
 
   private groupCopy(value: string | null): (event: Event) => void {
-    return (event: Event): void => {
+    return async (event: Event): Promise<void> => {
       event.preventDefault();
       event.stopPropagation();
 
       if (this.groupCopySuccess === false && value != null) {
-        navigator.clipboard.writeText(value).then(() => {
-          this.groupCopySuccess = true;
-
-          setTimeout(() => {
-            this.groupCopySuccess = false;
-          }, 1000);
-        });
+        await navigator.clipboard
+          .write([new ClipboardItem({'text/plain': value})])
+          .then(() => {
+            setTimeout(() => {
+              this.groupCopySuccess = false;
+            }, 1000);
+            this.groupCopySuccess = true;
+          });
       }
     };
   }
 
   private ticketCopy(value: string | null): (event: Event) => void {
-    return (event: Event): void => {
+    return async (event: Event): Promise<void> => {
       event.preventDefault();
       event.stopPropagation();
 
       if (this.ticketCopySuccess === false && value != null) {
-        navigator.clipboard.writeText(value).then(() => {
-          this.ticketCopySuccess = true;
-
-          setTimeout(() => {
-            this.ticketCopySuccess = false;
-          }, 1000);
-        });
+        await navigator.clipboard
+          .write([new ClipboardItem({'text/plain': value})])
+          .then(() => {
+            setTimeout(() => {
+              this.ticketCopySuccess = false;
+            }, 1000);
+            this.ticketCopySuccess = true;
+          });
       }
     };
   }
