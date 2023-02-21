@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-cd ~/
+cd /
 
-projectRoot="~/Gecut"
+projectRoot="/home/ubuntu/Gecut"
 storageServerRoot="$projectRoot/services/storage-server/"
 serverRoot="$projectRoot/server/agah-api/"
 pwaRoot="$projectRoot/uniquely/ui/agah-pwa/"
