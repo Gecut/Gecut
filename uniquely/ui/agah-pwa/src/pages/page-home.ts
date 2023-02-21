@@ -136,7 +136,7 @@ export class PageHome extends AlwatrDummyElement {
           <gecut-button href="/admin-user-list" background="secondary">
             <span> کاربران </span>
           </gecut-button>
-          <gecut-button background="secondary">
+          <gecut-button href="/admin-sans-list" background="secondary">
             <span> سانس ها </span>
           </gecut-button>
         </div>
