@@ -229,6 +229,9 @@ export class PageAdminSansList extends AlwatrDummyElement {
         <gecut-button background="neutral">
           <span>خروجی اکسل</span>
         </gecut-button>
+        <gecut-button background="secondary" @click=${this.createSans}>
+          <span>افزودن سانس</span>
+        </gecut-button>
         <gecut-button background="secondary" @click=${this.submit}>
           <span>ذخیره</span>
         </gecut-button>
@@ -526,7 +529,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
     }
   }
 
-  private deleteSans(sansId: string) {
+  private deleteSans(sansId: string): (event: Event) => void {
     return (event: Event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -538,6 +541,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
 
       if (userID != null && userToken != null) {
         this.editableRows = [];
+
         serviceRequest<Record<string, SansInterface>>({
           url: config.api + '/admin/sans',
           method: 'DELETE',
@@ -551,10 +555,29 @@ export class PageAdminSansList extends AlwatrDummyElement {
             this.sansListMemory = sansResponse.data;
           }
 
-          this.loadData('update_cache');
+          setTimeout(() => {
+            this.loadData('update_cache');
+          }, 500);
         });
       }
     };
+  }
+  private createSans(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this._logger.logMethod('createSans');
+
+    const id =
+      Math.max(...Object.keys(this.sansListMemory).map((id) => +id)) + 1;
+
+    this.sansListMemory = {
+      ...this.sansListMemory,
+
+      [id]: {},
+    };
+
+    this.submit(event);
   }
 }
 
