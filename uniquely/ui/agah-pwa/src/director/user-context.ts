@@ -26,7 +26,6 @@ export const provideUserContext = async (): Promise<void> => {
         queryParameters: {id: userID},
         token: userToken,
         removeDuplicate: 'until_load',
-        cacheStrategy: 'stale_while_revalidate',
         retry: 10,
         retryDelay: 3_000,
         revalidateCallback: (response) =>
