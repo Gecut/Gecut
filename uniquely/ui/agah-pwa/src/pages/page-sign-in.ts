@@ -31,7 +31,7 @@ export class PageSignIn extends AlwatrDummyElement {
     css`
       :host {
         --_box-border-size: 0.3;
-        --sys-surface-disabled-opacity: 60%;
+        --sys-surface-disabled-opacity: 80%;
         --sys-scrollbar-background: var(--sys-color-on-surface-variant);
         --sys-scrollbar-size: calc(0.5 * var(--sys-spacing-track));
         --sys-scrollbar-color: var(--sys-color-surface);
@@ -102,11 +102,11 @@ export class PageSignIn extends AlwatrDummyElement {
         min-height: calc(15 * var(--sys-spacing-track));
         min-width: calc(15 * var(--sys-spacing-track));
 
-        max-height: calc(23 * var(--sys-spacing-track));
-        max-width: calc(23 * var(--sys-spacing-track));
+        max-height: calc(20 * var(--sys-spacing-track));
+        max-width: calc(20 * var(--sys-spacing-track));
 
-        height: 20vh;
-        width: 20vh;
+        height: 18vh;
+        width: 18vh;
       }
 
       .input-box {
@@ -116,7 +116,8 @@ export class PageSignIn extends AlwatrDummyElement {
           calc(2 * var(--sys-spacing-track)) auto;
       }
 
-      gecut-button {
+      .submit-button {
+        border-radius: var(--sys-radius-large);
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         width: calc(
@@ -125,6 +126,13 @@ export class PageSignIn extends AlwatrDummyElement {
         margin-bottom: calc(
           -1 * var(--_box-border-size) * var(--sys-spacing-track)
         );
+        overflow: hidden;
+        background-color: var(--sys-color-primary);
+      }
+      .submit-button gecut-button {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
       }
 
       .back-to-home {
@@ -178,9 +186,11 @@ export class PageSignIn extends AlwatrDummyElement {
           />
         </div>
 
-        <gecut-button @click=${this.submit} ?disabled=${!this.canSubmit}>
-          <span>ورود</span>
-        </gecut-button>
+        <div class="submit-button">
+          <gecut-button @click=${this.submit} ?disabled=${!this.canSubmit}>
+            <span>ورود</span>
+          </gecut-button>
+        </div>
       </div>
 
       <a href="/home" class="back-to-home"> بازگشت به صفحه اصلی </a>
