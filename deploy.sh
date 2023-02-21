@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-projectRoot = '~/Gecut/'
-storageServerRoot = '~/Gecut/services/storage-server'
-serverRoot = '~/Gecut/server/agah-api'
-pwaRoot = '~/Gecut/uniquely/ui/agah-pwa/'
-pwaDist = '/var/www/html'
+projectRoot='~/Gecut/'
+storageServerRoot='~/Gecut/services/storage-server'
+serverRoot='~/Gecut/server/agah-api'
+pwaRoot='~/Gecut/uniquely/ui/agah-pwa/'
+pwaDist='/var/www/html'
 
 git pull --prune --progress --autostash --rebase
 
