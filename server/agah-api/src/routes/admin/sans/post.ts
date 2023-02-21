@@ -2,6 +2,7 @@ import {logger} from '../../../config.js';
 import {nanoServer} from '../../../libs/nano-server.js';
 import {storageClient} from '../../../libs/storage.js';
 import {requireUserVerify} from '../../../libs/require-user-verify.js';
+import getSans from '../../../libs/get-sans.js';
 
 import type {StringifyableRecord} from '@alwatr/type';
 import type {
@@ -21,69 +22,76 @@ nanoServer.route('POST', '/admin/sans', sansCreateEdit);
  */
 async function sansCreateEdit(
   connection: AlwatrConnection,
-): Promise<AlwatrServiceResponse<SansInterface, StringifyableRecord>> {
+): Promise<
+  AlwatrServiceResponse<Record<string, SansInterface>, StringifyableRecord>
+> {
   logger.logMethod('sansCreateEdit');
 
+  const params = connection.requireQueryParams<{
+    id: string;
+  }>({id: 'string'});
+  const admin = await requireUserVerify(params.id, connection.getToken());
+
+  if (admin.ok !== true || admin.data.user.role !== 'admin') {
+    return {
+      ok: false,
+      statusCode: 403,
+      errorCode: 'user_forbidden',
+    };
+  }
+
+  const jsonBody = await connection.requireJsonBody<
+    Record<string, Partial<SansInterface>>
+  >();
+
   try {
-    const param = connection.requireQueryParams<{id: string}>({id: 'string'});
-    const token = connection.getToken();
-    const jsonBody = await connection.requireJsonBody<Partial<SansInterface>>();
     const sansList = await storageClient.getStorage<SansInterface>('sans');
 
-    const userVerifyResult = await requireUserVerify(param.id, token);
+    const newSansList = Object.values(jsonBody).map((sans) => {
+      let _sans: SansInterface = {
+        id: 'auto_increment',
+        date: new Date().getTime(),
+        inactive: false,
 
-    if (userVerifyResult.ok === false) {
-      return userVerifyResult;
-    }
+        duration: 90,
+        groupsNumber: 1,
+        groupsCapacityNumber: 1,
+        gender: 'unknown',
 
-    if (userVerifyResult.data.user.role !== 'admin') {
-      return {
-        ok: false,
-        statusCode: 403,
-        errorCode: 'you_can_not_create_sans',
+        ageLimit: {
+          min: 1,
+          max: 100,
+        },
       };
-    }
 
-    let sans: SansInterface = {
-      id: 'auto_increment',
-      date: new Date().getTime(),
-      inactive: false,
+      if (sans.id != null) {
+        const oldSans = sansList.data[sans.id];
 
-      duration: 90,
-      groupsNumber: 1,
-      groupsCapacityNumber: 1,
-      gender: 'unknown',
-
-      ageLimit: {
-        min: 1,
-        max: 100,
-      },
-    };
-
-    if (jsonBody.id != null) {
-      const oldSans = sansList.data[jsonBody.id];
-
-      if (oldSans != null) {
-        sans = {
-          ...sans,
-          ...oldSans,
-        };
+        if (oldSans != null) {
+          _sans = {
+            ..._sans,
+            ...oldSans,
+          };
+        }
       }
+
+      _sans = {
+        ..._sans,
+        ...sans,
+      };
+
+      delete _sans.hallCapacityNumber;
+      delete _sans.confirmedGuestsNumber;
+      delete _sans.guestsNumber;
+
+      return _sans;
+    });
+
+    for await (const sans of newSansList) {
+      await storageClient.set(sans, 'sans');
     }
 
-    sans = {
-      ...sans,
-      ...jsonBody,
-    };
-
-    delete sans.hallCapacityNumber;
-    delete sans.confirmedGuestsNumber;
-    delete sans.guestsNumber;
-
-    return {
-      ok: true,
-      data: await storageClient.set(sans, 'sans'),
-    };
+    return await getSans();
   } catch (_err) {
     const err = _err as Error;
     logger.error('addSans', err.message || 'storage_error', err);
