@@ -271,7 +271,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
     await serviceRequest<Record<string, SansInterface>>({
       url: config.api + '/sans',
       method: 'GET',
-      removeDuplicate: 'auto',
+      removeDuplicate: 'never',
       cacheStrategy,
       retry: 10,
       retryDelay: 3_000,
