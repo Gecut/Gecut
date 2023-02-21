@@ -45,15 +45,15 @@ export class Slider extends AlwatrDummyElement {
         color: var(--sys-color-primary-container);
 
         margin: var(--sys-spacing-track) 0;
-        private
+
         min-height: calc(15 * var(--sys-spacing-track));
         min-width: calc(15 * var(--sys-spacing-track));
 
-        max-height: calc(23 * var(--sys-spacing-track));
-        max-width: calc(23 * var(--sys-spacing-track));
+        max-height: calc(20 * var(--sys-spacing-track));
+        max-width: calc(20 * var(--sys-spacing-track));
 
-        height: 20vh;
-        width: 20vh;
+        height: 18vh;
+        width: 18vh;
       }
 
       .title-text {
@@ -82,7 +82,7 @@ export class Slider extends AlwatrDummyElement {
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        width:100%;
+        width: 100%;
       }
 
       .sans-card {
@@ -90,14 +90,14 @@ export class Slider extends AlwatrDummyElement {
         padding: calc(0.5 * var(--sys-spacing-track));
         border-radius: var(--sys-radius-large);
         border: 2px dashed transparent;
-        min-width:100%;
+        min-width: 100%;
 
         transition-property: border-color;
         transition-duration: var(--sys-motion-duration-small);
         transition-timing-function: var(--sys-motion-easing-in-out);
       }
-      .sans-card >*{
-        width:100%;
+      .sans-card > * {
+        width: 100%;
       }
       .sans-card.selected {
         border: 2px dashed var(--sys-color-surface-variant);

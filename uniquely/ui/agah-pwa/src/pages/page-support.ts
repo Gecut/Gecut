@@ -56,15 +56,6 @@ export class PageSupport extends AlwatrDummyElement {
         border-radius: var(--sys-radius-xlarge);
       }
 
-      .logo {
-        display: flex;
-
-        margin: calc(2 * var(--sys-spacing-track)) 0;
-        max-height: calc(30 * var(--sys-spacing-track));
-        height: 20vh;
-        width: auto;
-      }
-
       .title {
         margin: 0 0 var(--sys-spacing-track);
 
@@ -96,11 +87,11 @@ export class PageSupport extends AlwatrDummyElement {
         min-height: calc(15 * var(--sys-spacing-track));
         min-width: calc(15 * var(--sys-spacing-track));
 
-        max-height: calc(23 * var(--sys-spacing-track));
-        max-width: calc(23 * var(--sys-spacing-track));
+        max-height: calc(20 * var(--sys-spacing-track));
+        max-width: calc(20 * var(--sys-spacing-track));
 
-        height: 20vh;
-        width: 20vh;
+        height: 18vh;
+        width: 18vh;
       }
 
       gecut-button {

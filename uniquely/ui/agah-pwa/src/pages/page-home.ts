@@ -73,8 +73,8 @@ export class PageHome extends AlwatrDummyElement {
         display: flex;
 
         margin: calc(2 * var(--sys-spacing-track)) 0;
-        max-height: calc(40 * var(--sys-spacing-track));
-        height: 35vh;
+        max-height: calc(25 * var(--sys-spacing-track));
+        height: 30vh;
         width: auto;
       }
 
