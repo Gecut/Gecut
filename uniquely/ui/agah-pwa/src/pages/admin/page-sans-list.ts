@@ -7,6 +7,7 @@ import {
   state,
 } from '@alwatr/element';
 import {serviceRequest} from '@alwatr/fetch';
+import trashIcon from '@gecut/iconsax-cdn/linear/trash?raw';
 
 import '@gecut/ui-kit/icon/icon.js';
 
@@ -50,14 +51,6 @@ function sansInactive(inactive: SansInterface['inactive']): string {
   }
 
   return 'غیرفعال';
-}
-
-function sansListSort(
-  sansList: Record<string, SansInterface>,
-): Record<string, SansInterface> {
-  return Object.fromEntries(
-    Object.values(sansList).map((sans) => [sans.id, sans]),
-  );
 }
 
 @customElement('page-admin-sans-list')
@@ -177,6 +170,13 @@ export class PageAdminSansList extends AlwatrDummyElement {
       .gender gecut-icon {
         font-size: calc(4 * var(--sys-spacing-track));
       }
+
+      .remove gecut-icon {
+        cursor: pointer;
+        user-select: none;
+        color: var(--sys-color-error);
+        font-size: calc(3.5 * var(--sys-spacing-track));
+      }
     `,
   ];
 
@@ -249,6 +249,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
               <th>تا</th>
               <th>جنس</th>
               <th>وضعیت</th>
+              <th>حذف</th>
             </tr>
           </thead>
           <tbody>
@@ -274,10 +275,9 @@ export class PageAdminSansList extends AlwatrDummyElement {
     }).then((sansResponse) => {
       if (sansResponse.ok) {
         this.sansList = sansResponse.data;
+        this.sansListMemory = sansResponse.data;
 
-        this.sansListSort();
-
-        this.sansListMemory = this.sansList;
+        this.requestUpdate();
       }
     });
   }
@@ -304,6 +304,12 @@ export class PageAdminSansList extends AlwatrDummyElement {
         <td class="age-limit-max">${sans.ageLimit.max}</td>
         <td class="gender">${sansGender(sans.gender)}</td>
         <td class="inactive">${sansInactive(sans.inactive)}</td>
+        <td class="remove">
+          <gecut-icon
+            .svgContent=${trashIcon}
+            @dblclick=${this.deleteSans(sans.id)}
+          ></gecut-icon>
+        </td>
       </tr>
     `;
   }
@@ -389,6 +395,12 @@ export class PageAdminSansList extends AlwatrDummyElement {
             @change=${this.dataChanged('inactive', sans.id)}
           ></gecut-checkbox>
         </td>
+        <td class="remove">
+          <gecut-icon
+            .svgContent=${trashIcon}
+            @click=${this.deleteSans(sans.id)}
+          ></gecut-icon>
+        </td>
       </tr>
     `;
   }
@@ -413,11 +425,19 @@ export class PageAdminSansList extends AlwatrDummyElement {
       ) {
         value = +(target.value ?? -1);
       } else if (name === 'ageLimit.min') {
+        name = 'ageLimit' as TName;
+
         value = {
+          ...(this.sansListMemory[id][name] as Record<'min' | 'max', number>),
+
           min: value,
         };
       } else if (name === 'ageLimit.max') {
+        name = 'ageLimit' as TName;
+
         value = {
+          ...(this.sansListMemory[id][name] as Record<'min' | 'max', number>),
+
           max: value,
         };
       } else if (name === 'gender') {
@@ -445,10 +465,6 @@ export class PageAdminSansList extends AlwatrDummyElement {
         },
       });
     };
-  }
-
-  private sansListSort(): void {
-    this.sansList = sansListSort(this.sansList);
   }
 
   private convert2EditableRow(id: string): (event: Event) => void {
@@ -502,15 +518,43 @@ export class PageAdminSansList extends AlwatrDummyElement {
       }).then((sansResponse) => {
         if (sansResponse.ok) {
           this.sansList = sansResponse.data;
-
-          this.sansListSort();
-
-          this.sansListMemory = this.sansList;
+          this.sansListMemory = sansResponse.data;
         }
 
         this.loadData('update_cache');
       });
     }
+  }
+
+  private deleteSans(sansId: string) {
+    return (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const userID = localStorage.getItem('user.id');
+      const userToken = localStorage.getItem('user.token');
+
+      this._logger.logMethodArgs('deleteSans', {id: sansId});
+
+      if (userID != null && userToken != null) {
+        this.editableRows = [];
+        serviceRequest<Record<string, SansInterface>>({
+          url: config.api + '/admin/sans',
+          method: 'DELETE',
+          queryParameters: {id: userID, sansId},
+          token: userToken,
+          retry: 3,
+          retryDelay: 1_000,
+        }).then((sansResponse) => {
+          if (sansResponse.ok) {
+            this.sansList = sansResponse.data;
+            this.sansListMemory = sansResponse.data;
+          }
+
+          this.loadData('update_cache');
+        });
+      }
+    };
   }
 }
 
