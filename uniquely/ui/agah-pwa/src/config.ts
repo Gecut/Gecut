@@ -1,6 +1,6 @@
 const config = {
-  version: '1.32.4',
-  api: 'http://37.152.179.225:8000',
+  version: '1.35.5',
+  api: 'https://api.agaah-group.ir',
 };
 
 export default config;
