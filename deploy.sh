@@ -6,7 +6,7 @@ projectRoot="/home/ubuntu/Gecut"
 storageServerRoot="$projectRoot/services/storage-server/"
 serverRoot="$projectRoot/server/agah-api/"
 pwaRoot="$projectRoot/uniquely/ui/agah-pwa/"
-pwaDist="/var/www/html"
+pwaDist="/var/www/pwa"
 
 cd "$projectRoot"
 
