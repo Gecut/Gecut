@@ -2,7 +2,7 @@ import {createLogger} from '@alwatr/logger';
 import {clamp} from '@alwatr/math';
 import {commandHandler, commandTrigger} from '@alwatr/signal';
 
-import '@gecut/ui-kit/snackbar/snackbar.js';
+import './snackbar';
 
 import type {SnackbarOptions, SnackbarResponse} from './type.js';
 
