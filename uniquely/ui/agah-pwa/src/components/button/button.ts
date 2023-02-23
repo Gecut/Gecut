@@ -58,7 +58,7 @@ export class Button extends AlwatrDummyElement {
       }
 
       :host([small]) {
-        min-height: calc(4 * var(--sys-spacing-track));
+        min-height: calc(6 * var(--sys-spacing-track));
 
         font-family: var(--sys-typescale-body-medium-font-family-name);
         font-size: var(--sys-typescale-body-medium-font-size);
