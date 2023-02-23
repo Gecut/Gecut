@@ -23,6 +23,7 @@ import '../../components/checkbox/checkbox';
 import maleIcon from '/icons/gender/man-outline.svg?raw';
 import femaleIcon from '/icons/gender/woman-outline.svg?raw';
 
+import type {SansInterface} from '../../types/sans.js';
 import type {LitRenderType} from '../../types/lit-render.js';
 import type {UserInterface, UserResponseData} from '../../types/user.js';
 
@@ -112,22 +113,43 @@ function userDeleted(deleted: UserResponseData['deleted']): string {
   }
   return 'وجود دارد';
 }
+function sansDate(sans: SansInterface | null): string {
+  if (sans?.date != null) {
+    return new Date(sans?.date ?? 0).toLocaleString(
+      'fa-IR',
+      sansDateLocaleConf,
+    );
+  }
+
+  return '-';
+}
 
 function userListSort(
-  userList: Record<string, UserResponseData>,
+  users: Record<string, UserResponseData>,
 ): Record<string, UserResponseData> {
+  const length = Object.keys(users).length;
+
   return Object.fromEntries(
-    Object.values(userList)
-      .sort()
-      .sort((a, b) => a.age - b.age)
-      .sort(
-        (a, b) =>
-          (a.gender === 'male' ? 1 : -1) - (b.gender === 'male' ? 1 : -1),
-      )
-      .sort((a, b) => (a.smsAddressSent ? -1 : 1) - (b.smsAddressSent ? -1 : 1))
-      .sort((a, b) => Number(a.sansCode) - Number(b.sansCode))
-      .sort((a, b) => a.groupId?.localeCompare(b.groupId ?? '') ?? -1)
-      .reverse()
+    Object.values(users)
+      .sort((a, b) => {
+        let i = 0;
+
+        if (a.sans != null && b.sans != null) {
+          const aDate = new Date(a.sans.date);
+          const bDate = new Date(b.sans.date);
+
+          if (aDate > bDate) i += length;
+          if (aDate < bDate) i += -length;
+        } else {
+          i += 10;
+        }
+
+        if (a.groupId != null && b.groupId != null) {
+          i += a.groupId.localeCompare(b.groupId);
+        }
+
+        return i;
+      })
       .map((user) => [user.id, user]),
   );
 }
@@ -259,6 +281,9 @@ export class PageAdminUserList extends AlwatrDummyElement {
   private userListMemory: Record<string, UserResponseData> = {};
 
   @state()
+  private sansList: Record<string, SansInterface> = {};
+
+  @state()
   private editableRows: string[] = [];
 
   @state()
@@ -272,29 +297,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
     const userToken = localStorage.getItem('user.token');
 
     if (userID != null && userToken != null) {
-      serviceRequest<Record<string, UserResponseData>>({
-        url: config.api + '/admin/users',
-        method: 'GET',
-        queryParameters: {id: userID},
-        token: userToken,
-        removeDuplicate: 'auto',
-        cacheStrategy: 'stale_while_revalidate',
-        retry: 10,
-        retryDelay: 3_000,
-      })
-        .then((userResponse) => {
-          if (userResponse.ok) {
-            this.userList = userResponse.data;
-
-            this.userListSort();
-
-            this.userListMemory = this.userList;
-          }
-        })
-        .catch(() => {
-          user.logOut();
-          redirect('/home');
-        });
+      this.loadData();
     }
 
     document.body.style.setProperty(
@@ -310,7 +313,8 @@ export class PageAdminUserList extends AlwatrDummyElement {
   }
 
   override render(): LitRenderType {
-    const userListTemplate = Object.values(this.userListMemory)
+    const userList = Object.values(this.userListMemory);
+    const userListTemplate = userList
       .reverse()
       .filter((user) => {
         let cond = true;
@@ -325,6 +329,8 @@ export class PageAdminUserList extends AlwatrDummyElement {
         return cond;
       })
       .map((user, index) => {
+        index = userList.length - 1 - index;
+
         if (this.editableRows.includes(user.id) === true) {
           return this.renderEditableRow(user, index);
         }
@@ -336,10 +342,10 @@ export class PageAdminUserList extends AlwatrDummyElement {
       <div class="header">
         <hr class="separator" />
 
-        <gecut-button background="neutral">
+        <gecut-button background="neutral" small>
           <span>خروجی اکسل</span>
         </gecut-button>
-        <gecut-button background="secondary" @click=${this.submit}>
+        <gecut-button background="secondary" small @click=${this.submit}>
           <span>ذخیره</span>
         </gecut-button>
       </div>
@@ -379,19 +385,14 @@ export class PageAdminUserList extends AlwatrDummyElement {
         )}`}
       >
         <td class="index" @dblclick=${this.convert2EditableRow(user.id)}>
-          ${index + 1}
+          ${index}
         </td>
         <td class="first-name">${user.firstName}</td>
         <td class="last-name">${user.lastName}</td>
         <td class="phone" dir="ltr">${formatPhoneNumber(user.phone)}</td>
         <td class="gender">${userGender(user.gender)}</td>
         <td class="age">${user.age.toLocaleString('fa-IR')}</td>
-        <td class="sans">
-          ${new Date(user.sans?.date ?? 0).toLocaleString(
-            'fa-IR',
-            sansDateLocaleConf,
-          )}
-        </td>
+        <td class="sans">${sansDate(user.sans)}</td>
         <td class="ticket-id" dir="ltr">${user.id}</td>
         <td class="group-id" dir="ltr">${user.groupId}</td>
         <td class="status">${userStatus(user.status)}</td>
@@ -430,6 +431,14 @@ export class PageAdminUserList extends AlwatrDummyElement {
           </option>
         `,
     );
+    const sansListTemplate = Object.values(this.sansList).map(
+      (sans) =>
+        html`
+          <option value=${sans.id} ?selected=${sans.id === user.sans?.id}>
+            ${sansDate(sans)}
+          </option>
+        `,
+    );
 
     return html`
       <tr class="editable">
@@ -438,7 +447,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
           @click=${this.convert2NormalRow()}
           @keyup=${this.convert2NormalRow()}
         >
-          ${index + 1}
+          ${index}
         </td>
         <td class="first-name">
           <input
@@ -478,10 +487,9 @@ export class PageAdminUserList extends AlwatrDummyElement {
           />
         </td>
         <td class="sans">
-          ${new Date(user.sans?.date ?? 0).toLocaleString(
-            'fa-IR',
-            sansDateLocaleConf,
-          )}
+          <select @change=${this.dataChanged('sansCode', user.id)}>
+            ${sansListTemplate}
+          </select>
         </td>
         <td class="ticket-id" dir="ltr">${user.id}</td>
         <td class="group-id" dir="ltr">
@@ -643,6 +651,54 @@ export class PageAdminUserList extends AlwatrDummyElement {
           }
         });
       });
+    }
+  }
+
+  private async loadData(
+    cacheStrategy:
+      | 'stale_while_revalidate'
+      | 'update_cache' = 'stale_while_revalidate',
+  ): Promise<void> {
+    serviceRequest<Record<string, SansInterface>>({
+      url: config.api + '/sans',
+      method: 'GET',
+      removeDuplicate: 'never',
+      cacheStrategy,
+      retry: 3,
+      retryDelay: 3_000,
+    }).then((sansResponse) => {
+      if (sansResponse.ok) {
+        this.sansList = sansResponse.data;
+      }
+    });
+
+    const userID = localStorage.getItem('user.id');
+    const userToken = localStorage.getItem('user.token');
+
+    if (userID != null && userToken != null) {
+      await serviceRequest<Record<string, UserResponseData>>({
+        url: config.api + '/admin/users',
+        method: 'GET',
+        queryParameters: {id: userID},
+        token: userToken,
+        removeDuplicate: 'never',
+        cacheStrategy,
+        retry: 3,
+        retryDelay: 3_000,
+      })
+        .then((userResponse) => {
+          if (userResponse.ok) {
+            this.userList = userResponse.data;
+
+            this.userListSort();
+
+            this.userListMemory = this.userList;
+          }
+        })
+        .catch(() => {
+          user.logOut();
+          redirect('/home');
+        });
     }
   }
 }
