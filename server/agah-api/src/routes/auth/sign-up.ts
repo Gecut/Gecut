@@ -43,7 +43,7 @@ async function signUp(
     return {
       ok: false,
       statusCode: 403,
-      errorCode: 'you_can_not_create_admin_user',
+      errorCode: 'user_forbidden',
     };
   }
 
@@ -51,7 +51,7 @@ async function signUp(
     return {
       ok: false,
       statusCode: 403,
-      errorCode: 'you_can_not_set_id',
+      errorCode: 'user_forbidden',
     };
   }
 
@@ -95,9 +95,9 @@ async function signUp(
   user.auth = config.token.generate(`${user.id}-${user.phone}`);
 
   if (user.role === 'user') {
-    const userSans = sansList.data[user.sansCode] as Partial<SansInterface>;
+    const userSans = sansList.data[user.sansCode] as SansInterface | undefined;
 
-    if (userSans?.id == null) {
+    if (userSans == null) {
       return {
         ok: false,
         statusCode: 404,
@@ -105,11 +105,21 @@ async function signUp(
       };
     }
 
-    if (userSans.gender !== user.gender) {
+    if (!(userSans.gender === user.gender)) {
       return {
         ok: false,
         statusCode: 403,
-        errorCode: 'bad_gender',
+        errorCode: 'sans_code_not_allowed_for_your_gender',
+      };
+    }
+
+    if (
+      !(user.age <= userSans.ageLimit.max && user.age >= userSans.ageLimit.min)
+    ) {
+      return {
+        ok: false,
+        statusCode: 403,
+        errorCode: 'sans_code_not_allowed_for_your_age',
       };
     }
   }

@@ -31,9 +31,17 @@ async function userCreateEdit(
   const params = connection.requireQueryParams<{
     id: string;
   }>({id: 'string'});
-  const admin = await requireUserVerify(params.id, connection.getToken());
+  const user = await requireUserVerify(params.id, connection.getToken());
 
-  if (admin.ok !== true || admin.data.user.role !== 'admin') {
+  if (user.ok !== true) {
+    return {
+      ok: false,
+      statusCode: 404,
+      errorCode: 'user_not_found',
+    };
+  }
+
+  if (user.data.user.role !== 'admin') {
     return {
       ok: false,
       statusCode: 403,
