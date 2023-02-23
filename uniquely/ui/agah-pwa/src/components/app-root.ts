@@ -1,10 +1,13 @@
+import {commandTrigger} from '@alwatr/signal';
 import {AlwatrSmartElement, customElement, html, css} from '@alwatr/element';
 import {routeContextConsumer, routerOutlet} from '@alwatr/router';
 
 import routes from '../routes.js';
+import config from '../config.js';
 
 import '../context';
 import '../director/index';
+import '../director/sw-notify-update';
 import '../styles/index.css';
 
 import type {PropertyValues} from '@alwatr/element';
@@ -54,6 +57,12 @@ export class AppRoot extends AlwatrSmartElement {
     requestAnimationFrame(() => {
       document.documentElement.removeAttribute('unresolved');
     });
+
+    if (localStorage.getItem('version') != config.version) {
+      localStorage.setItem('version', config.version);
+    }
+
+    commandTrigger.request('register_service_worker_command', {});
   }
 
   private _routeChanged(): void {
