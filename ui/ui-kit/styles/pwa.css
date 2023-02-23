@@ -15,6 +15,13 @@ html {
   -moz-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  transition-property: opacity;
+  transition-duration: calc(50 * var(--ref-motion-duration-frame));
+  transition-timing-function: var(--sys-motion-easing-in-out);
+}
+
+html[unresolved] {
+  opacity: 0;
 }
 
 body {
