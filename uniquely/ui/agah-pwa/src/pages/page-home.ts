@@ -10,9 +10,10 @@ import userAddIcon from '@gecut/iconsax-cdn/broken/user-add?raw';
 import clockIcon from '@gecut/iconsax-cdn/broken/clock?raw';
 import ticketIcon from '@gecut/iconsax-cdn/broken/ticket-2?raw';
 import callIcon from '@gecut/iconsax-cdn/broken/call-calling?raw';
+import refreshIcon from '@gecut/iconsax-cdn/broken/refresh-2?raw';
 
 import logoImage from '/images/logo.png?inline';
-import iconImage from '/images/icon.png?inline';
+import iconImage from '/images/icon.webp?inline';
 
 import baseElementStyle from '../styles/element.css?inline';
 import config from '../config.js';
@@ -40,6 +41,13 @@ export class PageHome extends AlwatrDummyElement {
 
         gap: var(--sys-spacing-track);
         padding: 2vh calc(3 * var(--sys-spacing-track));
+      }
+
+      gecut-icon[hidden] {
+        display: none;
+      }
+      gecut-icon.loader {
+        animation: rotate-center 1000ms linear infinite both;
       }
 
       .buttons {
@@ -98,6 +106,15 @@ export class PageHome extends AlwatrDummyElement {
         opacity: 40%;
         width: calc(5 * var(--sys-spacing-track));
       }
+
+      @keyframes rotate-center {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     `,
   ];
 
@@ -107,12 +124,10 @@ export class PageHome extends AlwatrDummyElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    userContextConsumer.subscribe((user) => {
-      setTimeout(() => {
-        if (user != null) {
-          this.user = user;
-        }
-      }, 2000);
+    userContextConsumer.subscribe((_user) => {
+      if (_user != null) {
+        this.user = _user;
+      }
     });
   }
 
@@ -120,8 +135,22 @@ export class PageHome extends AlwatrDummyElement {
     return html`
       <img .src=${logoImage} class="logo" alt="logo" />
       <div class="buttons">
-        <gecut-button href="/sign-up-details" ?hidden=${this.user != null}>
-          <gecut-icon slot="icon" .svgContent=${userAddIcon}></gecut-icon>
+        <gecut-button
+          href="/sign-up-details"
+          ?disabled=${this.loading}
+          ?hidden=${this.user != null}
+        >
+          <gecut-icon
+            slot="icon"
+            .svgContent=${userAddIcon}
+            ?hidden=${this.loading}
+          ></gecut-icon>
+          <gecut-icon
+            slot="icon"
+            class="loader"
+            .svgContent=${refreshIcon}
+            ?hidden=${!this.loading}
+          ></gecut-icon>
 
           <span>ثبت نام</span>
         </gecut-button>
@@ -171,6 +200,13 @@ export class PageHome extends AlwatrDummyElement {
         <span>v${config.version}</span>
       </div>
     `;
+  }
+
+  private get loading(): boolean {
+    const userID = localStorage.getItem('user.id');
+    const userToken = localStorage.getItem('user.token');
+
+    return userID != null && userToken != null && this.user == null;
   }
 }
 
