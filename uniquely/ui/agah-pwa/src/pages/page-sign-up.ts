@@ -81,6 +81,7 @@ export class PageSignUp extends AlwatrDummyElement {
       }
       footer gecut-button {
         min-width: auto;
+        max-width: 30%;
         flex-grow: 1;
       }
       footer gecut-button[hidden] {
@@ -98,6 +99,7 @@ export class PageSignUp extends AlwatrDummyElement {
         justify-content: center;
         gap: calc(0.5 * var(--sys-spacing-track));
         padding: var(--sys-spacing-track);
+        margin: auto;
       }
       footer .progress span {
         display: flex;
@@ -179,7 +181,18 @@ export class PageSignUp extends AlwatrDummyElement {
         <gecut-button
           class="first"
           background="neutral"
+          ?hidden=${!(this.slideIndex === 0)}
+          small
+          href="/sign-up-details"
+        >
+          <span>بازگشت</span>
+        </gecut-button>
+        <gecut-button
+          class="first"
+          background="neutral"
           ?disabled=${!this.canPerv}
+          ?hidden=${!(this.slideIndex > 0)}
+          small
           @click=${this.pervSlide}
         >
           <span>قبلی</span>
@@ -192,6 +205,7 @@ export class PageSignUp extends AlwatrDummyElement {
           ?disabled=${!this.canNext}
           ?hidden=${this.canSubmit}
           @click=${this.nextSlide}
+          small
         >
           <span>بعدی</span>
         </gecut-button>
@@ -200,6 +214,7 @@ export class PageSignUp extends AlwatrDummyElement {
           class="last"
           ?disabled=${!this.canNext}
           ?hidden=${!this.canSubmit}
+          small
           @click=${this.submit}
         >
           <span>پایان</span>
