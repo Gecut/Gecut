@@ -8,6 +8,7 @@ import {
 } from '@alwatr/element';
 import {serviceRequest} from '@alwatr/fetch';
 import {redirect} from '@alwatr/router';
+import trashIcon from '@gecut/iconsax-cdn/linear/trash?raw';
 
 import '@gecut/ui-kit/icon/icon.js';
 
@@ -106,12 +107,6 @@ function userSmsAddressSent(calls: UserResponseData['smsAddressSent']): string {
     return 'انجام شد';
   }
   return 'خیر';
-}
-function userDeleted(deleted: UserResponseData['deleted']): string {
-  if (deleted === true) {
-    return 'حذف شده';
-  }
-  return 'وجود دارد';
 }
 function sansDate(sans: SansInterface | null): string {
   if (sans?.date != null) {
@@ -271,6 +266,13 @@ export class PageAdminUserList extends AlwatrDummyElement {
       .gender gecut-icon {
         font-size: calc(4 * var(--sys-spacing-track));
       }
+
+      .delete gecut-icon {
+        cursor: pointer;
+        user-select: none;
+        color: var(--sys-color-error);
+        font-size: calc(3.5 * var(--sys-spacing-track));
+      }
     `,
   ];
 
@@ -366,7 +368,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
               <th>نقش</th>
               <th>وضعیت تماس</th>
               <th>پیامک آدرس</th>
-              <th>حذف شده</th>
+              <th>حذف</th>
             </tr>
           </thead>
           <tbody>
@@ -399,7 +401,12 @@ export class PageAdminUserList extends AlwatrDummyElement {
         <td class="role">${userRoll(user.role)}</td>
         <td class="calls">${userCallsNumber(user.callsNumber)}</td>
         <td class="sms-sent">${userSmsAddressSent(user.smsAddressSent)}</td>
-        <td class="deleted">${userDeleted(user.deleted)}</td>
+        <td class="delete">
+          <gecut-icon
+            .svgContent=${trashIcon}
+            @dblclick=${this.deleteUser(user.id)}
+          ></gecut-icon>
+        </td>
       </tr>
     `;
   }
@@ -520,11 +527,11 @@ export class PageAdminUserList extends AlwatrDummyElement {
             @change=${this.dataChanged('smsAddressSent', user.id)}
           ></gecut-checkbox>
         </td>
-        <td class="deleted">
-          <gecut-checkbox
-            .checked=${user.deleted}
-            @change=${this.dataChanged('deleted', user.id)}
-          ></gecut-checkbox>
+        <td class="delete">
+          <gecut-icon
+            .svgContent=${trashIcon}
+            @click=${this.deleteUser(user.id)}
+          ></gecut-icon>
         </td>
       </tr>
     `;
@@ -700,6 +707,41 @@ export class PageAdminUserList extends AlwatrDummyElement {
           redirect('/home');
         });
     }
+  }
+
+  private deleteUser(userId: string): (event: Event) => void {
+    return (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const userID = localStorage.getItem('user.id');
+      const userToken = localStorage.getItem('user.token');
+
+      this._logger.logMethodArgs('deleteUser', {id: userId});
+
+      if (userID != null && userToken != null) {
+        this.editableRows = [];
+
+        serviceRequest<Record<string, UserResponseData>>({
+          url: config.api + '/admin/user',
+          method: 'DELETE',
+          queryParameters: {id: userID, userId},
+          token: userToken,
+          retry: 3,
+          retryDelay: 1_000,
+        }).then((userResponse) => {
+          if (userResponse.ok) {
+            this.userList = userResponse.data;
+
+            this.userListSort();
+
+            this.userListMemory = this.userList;
+          }
+
+          this.loadData('update_cache');
+        });
+      }
+    };
   }
 }
 
