@@ -171,7 +171,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
         font-size: calc(4 * var(--sys-spacing-track));
       }
 
-      .remove gecut-icon {
+      .delete gecut-icon {
         cursor: pointer;
         user-select: none;
         color: var(--sys-color-error);
@@ -307,7 +307,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
         <td class="age-limit-max">${sans.ageLimit?.max}</td>
         <td class="gender">${sansGender(sans.gender)}</td>
         <td class="inactive">${sansInactive(sans.inactive)}</td>
-        <td class="remove">
+        <td class="delete">
           <gecut-icon
             .svgContent=${trashIcon}
             @dblclick=${this.deleteSans(sans.id)}
@@ -398,7 +398,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
             @change=${this.dataChanged('inactive', sans.id)}
           ></gecut-checkbox>
         </td>
-        <td class="remove">
+        <td class="delete">
           <gecut-icon
             .svgContent=${trashIcon}
             @click=${this.deleteSans(sans.id)}
@@ -524,9 +524,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
           this.sansListMemory = sansResponse.data;
         }
 
-        setTimeout(() => {
-          this.loadData('update_cache');
-        }, 500);
+        this.loadData('update_cache');
       });
     }
   }
@@ -557,9 +555,7 @@ export class PageAdminSansList extends AlwatrDummyElement {
             this.sansListMemory = sansResponse.data;
           }
 
-          setTimeout(() => {
-            this.loadData('update_cache');
-          }, 500);
+          this.loadData('update_cache');
         });
       }
     };
