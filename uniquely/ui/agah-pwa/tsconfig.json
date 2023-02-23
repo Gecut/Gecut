@@ -2,9 +2,8 @@
   "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "composite": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "rootDir": "src",
-    "outDir": "build",
+    "rootDir": "src/",
+    "outDir": "dist/",
     "noEmit": true,
     "types": [
       "../../../node_modules/vite/client",
