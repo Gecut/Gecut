@@ -6,6 +6,7 @@ import './routes/auth/sign-up.js';
 import './routes/auth/sign-in.js';
 import './routes/admin/sans/post.js';
 import './routes/admin/sans/delete.js';
+import './routes/admin/user/delete.js';
 import './routes/admin/user/post.js';
 import './routes/admin/user/get.js';
 import {logger} from './config.js';
