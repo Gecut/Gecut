@@ -4,7 +4,7 @@ import {VitePWA as vitePWA} from 'vite-plugin-pwa';
 import type {ManifestOptions} from 'vite-plugin-pwa';
 import type {GenerateSWOptions} from 'workbox-build';
 
-const DIST_PATH = 'build/';
+const DIST_PATH = 'dist/';
 const serviceWorker: Partial<GenerateSWOptions> = {
   skipWaiting: true,
   clientsClaim: true,
@@ -71,7 +71,7 @@ export default defineConfig({
       manifest: manifestJson,
       mode: 'production',
       outDir: DIST_PATH,
-      injectRegister: false,
+      injectRegister: null,
       useCredentials: true,
     }),
   ],
