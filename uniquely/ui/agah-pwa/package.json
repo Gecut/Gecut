@@ -44,6 +44,7 @@
     "vite-plugin-pwa": "^0.14.4"
   },
   "dependencies": {
+    "@alwatr/util": "^0.29.0",
     "@types/html2canvas": "^1.0.0",
     "html-to-image": "^1.11.11"
   }

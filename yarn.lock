@@ -160,6 +160,13 @@
   resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-0.29.0.tgz#a6472a219b21f02c71ea0e7fcdab585d920b50d2"
   integrity sha512-6HbZuKdPQKo3d/GWM/QFIQP+/vWpNGKXw6g+FJ4PKyb4FQkvQQyGapsbEsO+0/PH9pdMCjMh3yu2RmdrA6gdkg==
 
+"@alwatr/util@^0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@alwatr/util/-/util-0.29.0.tgz#95498c6a30056cdd8de4cf993ed8b43b49cbf785"
+  integrity sha512-Fm/gk7XbZkPwBluz94NpLQeUSH9xOSCrrkjJ3srzlItyHgyjMIc3lsf369s7jZnehhviNzRjycpt+me29Nwluw==
+  dependencies:
+    tslib "^2.5.0"
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
