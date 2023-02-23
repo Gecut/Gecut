@@ -12,9 +12,9 @@ import type {
   AlwatrServiceResponse,
 } from '@alwatr/nano-server';
 
-nanoServer.route('DELETE', '/admin/sans', userDelete);
+nanoServer.route('DELETE', '/admin/user', userDelete);
 /**
- * It creates a new sans
+ * It delete user
  *
  * @param {AlwatrConnection} connection - AlwatrConnection
  *
