@@ -151,7 +151,7 @@ export class PageSupport extends AlwatrDummyElement {
   ];
 
   @state()
-  private supportPhone = '09155595488';
+  private supportPhone = '09354366280';
 
   @state()
   private copySuccess = false;
@@ -166,7 +166,7 @@ export class PageSupport extends AlwatrDummyElement {
           لطفا جهت امور پشتیبانی با شماره زیر تماس حاصل فرمایید
         </div>
 
-        <a href="tel:09155595488" class="input-box">
+        <a href="tel:${this.supportPhone}" class="input-box">
           <gecut-icon
             .svgContent=${copyIcon}
             class="first"
