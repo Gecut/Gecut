@@ -15,6 +15,7 @@ import formStyle from '../styles/form.css?inline';
 import {validateData} from '../utilities/validate.js';
 import config from '../config.js';
 import {userContextProvider} from '../context.js';
+import {notifyError} from '../utilities/notify-fetch-error.js';
 
 import '../components/button/button';
 
@@ -52,6 +53,7 @@ export class PageSignIn extends AlwatrDummyElement {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding-top: 2vh;
 
         width: 100%;
         height: 100%;
@@ -59,6 +61,20 @@ export class PageSignIn extends AlwatrDummyElement {
         border: calc(var(--_box-border-size) * var(--sys-spacing-track)) dashed
           hsla(var(--sys-color-surface-hsl), 30%);
         border-radius: var(--sys-radius-large);
+      }
+
+      .main {
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin-bottom: auto;
+      }
+      .main .scrollable {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        height: max-content;
+        padding: 2vh 0 4vh;
       }
 
       .logo {
@@ -72,6 +88,8 @@ export class PageSignIn extends AlwatrDummyElement {
 
       .title {
         margin: 0 0 var(--sys-spacing-track);
+
+        text-align: center;
 
         font-weight: 800;
         font-family: var(--sys-typescale-title-large-font-family-name);
@@ -110,9 +128,10 @@ export class PageSignIn extends AlwatrDummyElement {
 
       .input-box {
         width: auto;
+        flex-shrink: 0;
         align-self: stretch;
         margin: calc(2 * var(--sys-spacing-track))
-          calc(2 * var(--sys-spacing-track)) auto;
+          calc(2 * var(--sys-spacing-track));
       }
 
       .submit-button {
@@ -129,6 +148,7 @@ export class PageSignIn extends AlwatrDummyElement {
         border: calc(var(--_box-border-size) * 1.5 * var(--sys-spacing-track))
           solid var(--sys-color-primary);
         border-top: none;
+        flex-shrink: 0;
       }
       .submit-button gecut-button {
         width: 100%;
@@ -160,31 +180,35 @@ export class PageSignIn extends AlwatrDummyElement {
       <div class="box">
         <gecut-icon .svgContent=${userIcon} class="icon"></gecut-icon>
 
-        <h2 class="title">ورود</h2>
-        <div class="description">
-          اگر قبلا ثبت نام نموده اید و با کد بلیط و شماره تلفن وارد شوید
-          <br />
-          اگر کد بلیط خود را فراموش کرده اید با پشتیبانی تماس حاصل فرمایید
-        </div>
+        <div class="main">
+          <div class="scrollable">
+            <h2 class="title">ورود</h2>
+            <div class="description">
+              اگر قبلا ثبت نام نموده اید و با کد بلیط و شماره تلفن وارد شوید
+              <br />
+              اگر کد بلیط خود را فراموش کرده اید با پشتیبانی تماس حاصل فرمایید
+            </div>
 
-        <div class="input-box">
-          <input
-            dir="ltr"
-            name="id"
-            type="text"
-            autocomplete="off"
-            placeholder="کد بلیط خود را وارد کنید"
-            @input=${this.dataItemChange('id')}
-          />
-          <hr class="separator" />
-          <input
-            dir="ltr"
-            name="phone"
-            type="text"
-            autocomplete="off"
-            placeholder="شماره تلفن همراه خود را وارد کنید"
-            @input=${this.dataItemChange('phone')}
-          />
+            <div class="input-box">
+              <input
+                dir="ltr"
+                name="id"
+                type="text"
+                autocomplete="off"
+                placeholder="کد بلیط خود را وارد کنید"
+                @input=${this.dataItemChange('id')}
+              />
+              <hr class="separator" />
+              <input
+                dir="ltr"
+                name="phone"
+                type="text"
+                autocomplete="off"
+                placeholder="شماره تلفن همراه خود را وارد کنید"
+                @input=${this.dataItemChange('phone')}
+              />
+            </div>
+          </div>
         </div>
 
         <div class="submit-button">
@@ -230,7 +254,7 @@ export class PageSignIn extends AlwatrDummyElement {
       url: config.api + '/authentication/sign-in',
       method: 'POST',
       bodyJson: this.data,
-    });
+    }).catch(notifyError);
 
     if (response.ok === true) {
       localStorage.setItem('user.id', response.data.id);
