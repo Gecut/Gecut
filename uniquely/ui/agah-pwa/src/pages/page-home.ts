@@ -56,6 +56,7 @@ export class PageHome extends AlwatrDummyElement {
         justify-content: center;
         align-items: center;
         width: 100%;
+        margin: auto;
         gap: var(--sys-spacing-track);
       }
       .buttons gecut-button {
@@ -80,8 +81,10 @@ export class PageHome extends AlwatrDummyElement {
       .logo {
         display: flex;
 
-        margin: calc(2 * var(--sys-spacing-track)) 0;
-        max-height: calc(25 * var(--sys-spacing-track));
+        margin: auto;
+
+        padding: calc(2 * var(--sys-spacing-track)) 0;
+        max-height: calc(30 * var(--sys-spacing-track));
         height: 30vh;
         width: auto;
       }
@@ -95,6 +98,7 @@ export class PageHome extends AlwatrDummyElement {
         width: 100%;
         color: var(--sys-color-surface);
         opacity: 40%;
+        user-select: none;
 
         font-weight: 200;
         font-family: var(--sys-typescale-label-large-font-family-name);
