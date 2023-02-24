@@ -6,7 +6,7 @@ export type Options = {
   /**
    * Service worker path
    *
-   * @default 'service-worker.js'
+   * @default 'sw.js'
    */
   path?: string;
 
