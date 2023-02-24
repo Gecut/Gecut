@@ -370,7 +370,6 @@ export class PageUser extends AlwatrDummyElement {
       hour: 'numeric',
       minute: 'numeric',
     });
-    const sansDuration = this.user.sans.duration.toLocaleString('fa-IR');
     const groupId = this.user.groupId;
     const ticketId = this.user.id;
 
@@ -386,7 +385,7 @@ export class PageUser extends AlwatrDummyElement {
               رزرو شده برای ${sansDateLocale}، ساعت ${sansTime}
             </span>
             <span class="information-large">
-              مدت این برنامه ${sansDuration} دقیقه می باشد
+              لطفا بلیط خود را به همراه داشته باشید تغییر کند
             </span>
           </div>
 
