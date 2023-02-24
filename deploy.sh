@@ -12,7 +12,7 @@ cd "$projectRoot"
 
 git pull --prune --progress --autostash --rebase
 
-yarn build
+yarn install && yarn build
 
 pm2 stop all
 pm2 del all
