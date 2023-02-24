@@ -5,6 +5,7 @@ import {
   customElement,
   unsafeCSS,
   state,
+  repeat,
 } from '@alwatr/element';
 import {serviceRequest} from '@alwatr/fetch';
 import {redirect} from '@alwatr/router';
@@ -17,6 +18,7 @@ import config from '../../config.js';
 import {user} from '../../utilities/user.js';
 import formatPhoneNumber from '../../utilities/format-number.js';
 import {generateColorFromString} from '../../utilities/colorize.js';
+import {notifyError} from '../../utilities/notify-fetch-error.js';
 
 import '../../components/button/button';
 import '../../components/checkbox/checkbox';
@@ -28,7 +30,10 @@ import type {SansInterface} from '../../types/sans.js';
 import type {LitRenderType} from '../../types/lit-render.js';
 import type {UserResponseData} from '../../types/user.js';
 
-type UserListFilters = Pick<UserResponseData, 'smsAddressSent'> & {
+type UserListFilters = Pick<
+  UserResponseData,
+  'smsAddressSent' | 'status' | 'sans'
+> & {
   search: string;
 };
 
@@ -59,23 +64,15 @@ const userCallsNumberList: UserResponseData['callsNumber'][] = [
 const userRoleList: UserResponseData['role'][] = ['admin', 'user'];
 
 const smsAddressSentFilter: (UserResponseData['smsAddressSent'] | null)[] = [
+  null,
   true,
   false,
+];
+const statusFilter: (UserResponseData['status'] | null)[] = [
   null,
+  ...userStatusList,
 ];
 
-function userSmsAddressSentFilter(
-  smsAddressSent: UserResponseData['smsAddressSent'] | null,
-): string | null {
-  if (smsAddressSent === true) {
-    return 'بله';
-  }
-  if (smsAddressSent === false) {
-    return 'خیر';
-  }
-
-  return 'ارسال پیامک آدرس';
-}
 function userStatus(status: UserResponseData['status']): string {
   switch (status) {
   case 'awaiting-confirmation':
@@ -126,7 +123,7 @@ function userRoll(calls: UserResponseData['role']): string {
 }
 function userSmsAddressSent(calls: UserResponseData['smsAddressSent']): string {
   if (calls === true) {
-    return 'انجام شد';
+    return 'بله';
   }
   return 'خیر';
 }
@@ -139,6 +136,32 @@ function sansDate(sans: SansInterface | null): string {
   }
 
   return '-';
+}
+
+function userSmsAddressSentFilter(
+  smsAddressSent: UserResponseData['smsAddressSent'] | null,
+): string | null {
+  if (smsAddressSent != null) {
+    return userSmsAddressSent(smsAddressSent);
+  }
+
+  return 'ارسال پیامک آدرس';
+}
+function userStatusFilter(
+  status: UserResponseData['status'] | null,
+): string | null {
+  if (status != null) {
+    return userStatus(status);
+  }
+
+  return 'وضعیت کاربر';
+}
+function sansDateFilter(sans: SansInterface | null): string | null {
+  if (sans != null) {
+    return sansDate(sans);
+  }
+
+  return 'سانس اجرا';
 }
 
 function userListSort(
@@ -236,6 +259,10 @@ export class PageAdminUserList extends AlwatrDummyElement {
         background-color: hsl(var(--ref-palette-neutral-variant10));
         border-radius: var(--sys-radius-large);
         overflow: hidden;
+        max-height: 100%;
+      }
+      tbody {
+        overflow-y: auto;
       }
 
       thead {
@@ -250,11 +277,16 @@ export class PageAdminUserList extends AlwatrDummyElement {
         min-width: 135px;
       }
       tbody tr {
+        overflow: hidden;
         height: calc(7 * var(--sys-spacing-track));
         background-image: linear-gradient(
           hsla(var(--_random-group-id-color), 80%),
           hsla(var(--_random-group-id-color), 100%)
         );
+
+        transition-property: height;
+        transition-duration: var(--sys-motion-duration-small);
+        transition-timing-function: var(--sys-motion-easing-normal);
       }
 
       th,
@@ -345,23 +377,10 @@ export class PageAdminUserList extends AlwatrDummyElement {
 
   override render(): LitRenderType {
     const userList = Object.values(this.userListMemory);
-    const userListTemplate = userList
-      .reverse()
-      .filter((user) => {
-        let cond = true;
-
-        if (this.filters.smsAddressSent != null) {
-          cond &&= this.filters.smsAddressSent === user.smsAddressSent;
-        }
-        if (this.filters.search != null) {
-          cond &&= [user.firstName, user.lastName, user.groupId, user.phone]
-            .join('-')
-            .includes(this.filters.search);
-        }
-
-        return cond;
-      })
-      .map((user, index) => {
+    const userListTemplate = repeat(
+      userList.reverse().filter((user) => this.userFilter(user)),
+      (user) => user.id,
+      (user, index) => {
         index = userList.length - 1 - index;
 
         if (this.editableRows.includes(user.id) === true) {
@@ -369,7 +388,9 @@ export class PageAdminUserList extends AlwatrDummyElement {
         }
 
         return this.renderRow(user, index);
-      });
+      },
+    );
+
     const smsAddressSentListTemplate = smsAddressSentFilter.map(
       (smsAddressSent) => {
         const selected =
@@ -377,10 +398,31 @@ export class PageAdminUserList extends AlwatrDummyElement {
 
         return html`
           <option
-            value=${String(smsAddressSent) ?? 'all'}
+            value=${String(smsAddressSent ?? 'all')}
             ?selected=${selected}
           >
             ${userSmsAddressSentFilter(smsAddressSent)}
+          </option>
+        `;
+      },
+    );
+    const statusListTemplate = statusFilter.map((status) => {
+      const selected = (status ?? 'all') === (this.filters.status ?? 'all');
+
+      return html`
+        <option value=${status ?? 'all'} ?selected=${selected}>
+          ${userStatusFilter(status)}
+        </option>
+      `;
+    });
+    const sansListTemplate = [null, ...Object.values(this.sansList)].map(
+      (sans) => {
+        const selected =
+          (sans?.id ?? 'all') === (this.filters.sans?.id ?? 'all');
+
+        return html`
+          <option value=${sans ?? 'all'} ?selected=${selected}>
+            ${sansDateFilter(sans)}
           </option>
         `;
       },
@@ -399,6 +441,9 @@ export class PageAdminUserList extends AlwatrDummyElement {
         <gecut-button background="neutral" small>
           <span>خروجی اکسل</span>
         </gecut-button>
+        <gecut-button href="/home" background="neutral" small>
+          <span>بازگشت</span>
+        </gecut-button>
         <gecut-button background="secondary" small @click=${this.submit}>
           <span>ذخیره</span>
         </gecut-button>
@@ -413,10 +458,18 @@ export class PageAdminUserList extends AlwatrDummyElement {
               <th>شماره تماس</th>
               <th>جنسیت</th>
               <th>سن</th>
-              <th>سانس اجرا</th>
+              <th>
+                <select class="sans" @change=${this.filterChanged('sans')}>
+                  ${sansListTemplate}
+                </select>
+              </th>
               <th>کد بلیط</th>
               <th>کد گروه</th>
-              <th>وضعیت</th>
+              <th>
+                <select class="status" @change=${this.filterChanged('status')}>
+                  ${statusListTemplate}
+                </select>
+              </th>
               <th>نقش</th>
               <th>وضعیت تماس</th>
               <th>
@@ -439,11 +492,14 @@ export class PageAdminUserList extends AlwatrDummyElement {
   }
 
   private renderRow(user: UserResponseData, index: number): LitRenderType {
+    const hidden = !this.userFilter(user);
+
     return html`
       <tr
         style=${`--_random-group-id-color:${generateColorFromString(
           user.groupId ?? '',
         )}`}
+        ?hidden=${hidden}
       >
         <td class="index" @dblclick=${this.convert2EditableRow(user.id)}>
           ${index}
@@ -558,6 +614,8 @@ export class PageAdminUserList extends AlwatrDummyElement {
         <td class="sans">
           <select @change=${this.dataChanged('sansCode', user.id)}>
             ${sansListTemplate}
+
+            <option value="" ?selected=${user.sans?.id == null}>-</option>
           </select>
         </td>
         <td class="ticket-id" dir="ltr">${user.id}</td>
@@ -650,6 +708,8 @@ export class PageAdminUserList extends AlwatrDummyElement {
       event.preventDefault();
       event.stopPropagation();
 
+      this.editableRows = [];
+
       const target = event.target as Partial<HTMLInputElement>;
       let value: string | number | boolean | undefined = target.value;
 
@@ -730,25 +790,8 @@ export class PageAdminUserList extends AlwatrDummyElement {
         retry: 3,
         retryDelay: 1_000,
         bodyJson: serializedUserList,
-      }).then((userResponse) => {
-        if (userResponse.ok) {
-          this.userList = userResponse.data;
-
-          this.userListSort();
-
-          this.userListMemory = this.userList;
-        }
-
-        serviceRequest<Record<string, UserResponseData>>({
-          url: config.api + '/admin/users',
-          method: 'GET',
-          queryParameters: {id: userID},
-          token: userToken,
-          removeDuplicate: 'auto',
-          cacheStrategy: 'update_cache',
-          retry: 10,
-          retryDelay: 3_000,
-        }).then((userResponse) => {
+      })
+        .then((userResponse) => {
           if (userResponse.ok) {
             this.userList = userResponse.data;
 
@@ -756,8 +799,29 @@ export class PageAdminUserList extends AlwatrDummyElement {
 
             this.userListMemory = this.userList;
           }
-        });
-      });
+
+          serviceRequest<Record<string, UserResponseData>>({
+            url: config.api + '/admin/users',
+            method: 'GET',
+            queryParameters: {id: userID},
+            token: userToken,
+            removeDuplicate: 'auto',
+            cacheStrategy: 'update_cache',
+            retry: 10,
+            retryDelay: 3_000,
+          })
+            .then((userResponse) => {
+              if (userResponse.ok) {
+                this.userList = userResponse.data;
+
+                this.userListSort();
+
+                this.userListMemory = this.userList;
+              }
+            })
+            .catch(notifyError);
+        })
+        .catch(notifyError);
     }
   }
 
@@ -773,11 +837,13 @@ export class PageAdminUserList extends AlwatrDummyElement {
       cacheStrategy,
       retry: 3,
       retryDelay: 3_000,
-    }).then((sansResponse) => {
-      if (sansResponse.ok) {
-        this.sansList = sansResponse.data;
-      }
-    });
+    })
+      .then((sansResponse) => {
+        if (sansResponse.ok) {
+          this.sansList = sansResponse.data;
+        }
+      })
+      .catch(notifyError);
 
     const userID = localStorage.getItem('user.id');
     const userToken = localStorage.getItem('user.token');
@@ -802,6 +868,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
             this.userListMemory = this.userList;
           }
         })
+        .catch(notifyError)
         .catch(() => {
           user.logOut();
           redirect('/home');
@@ -830,20 +897,43 @@ export class PageAdminUserList extends AlwatrDummyElement {
             token: userToken,
             retry: 3,
             retryDelay: 1_000,
-          }).then((userResponse) => {
-            if (userResponse.ok) {
-              this.userList = userResponse.data;
+          })
+            .then((userResponse) => {
+              if (userResponse.ok) {
+                this.userList = userResponse.data;
 
-              this.userListSort();
+                this.userListSort();
 
-              this.userListMemory = this.userList;
-            }
+                this.userListMemory = this.userList;
+              }
 
-            this.loadData('update_cache');
-          });
+              this.loadData('update_cache');
+            })
+            .catch(notifyError);
         }
       }
     };
+  }
+
+  private userFilter(user: UserResponseData): boolean {
+    let cond = true;
+
+    if (this.filters.status != null) {
+      cond &&= this.filters.status === user.status;
+    }
+    if (this.filters.status != null) {
+      cond &&= this.filters.status === user.status;
+    }
+    if (this.filters.smsAddressSent != null) {
+      cond &&= this.filters.smsAddressSent === user.smsAddressSent;
+    }
+    if (this.filters.search != null) {
+      cond &&= [user.firstName, user.lastName, user.groupId, user.phone]
+        .join('-')
+        .includes(this.filters.search);
+    }
+
+    return cond;
   }
 }
 
