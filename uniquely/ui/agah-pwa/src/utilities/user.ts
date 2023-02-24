@@ -4,6 +4,8 @@ import {provideUserContext} from '../director/user-context.js';
 import config from '../config.js';
 import {userContextProvider} from '../context.js';
 
+import {notifyError} from './notify-fetch-error.js';
+
 import type {UserInterface, UserResponseData} from '../types/user.js';
 
 async function signUp(user: Partial<UserInterface>): Promise<UserResponseData> {
@@ -11,7 +13,7 @@ async function signUp(user: Partial<UserInterface>): Promise<UserResponseData> {
     url: config.api + '/authentication/sign-up',
     method: 'POST',
     bodyJson: user,
-  });
+  }).catch(notifyError);
 
   if (response.ok === true) {
     localStorage.setItem('user.id', response.data.id);

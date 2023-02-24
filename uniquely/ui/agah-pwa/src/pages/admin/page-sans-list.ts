@@ -16,6 +16,7 @@ import baseElementStyle from '../../styles/element.css?inline';
 import maleIcon from '/icons/gender/man-outline.svg?raw';
 import femaleIcon from '/icons/gender/woman-outline.svg?raw';
 
+import {notifyError} from '../../utilities/notify-fetch-error.js';
 import config from '../../config.js';
 
 import '../../components/button/button.js';
@@ -226,10 +227,10 @@ export class PageAdminSansList extends AlwatrDummyElement {
       <div class="header">
         <hr class="separator" />
 
-        <gecut-button background="neutral">
-          <span>خروجی اکسل</span>
+        <gecut-button href="/home" background="neutral" small>
+          <span>بازگشت</span>
         </gecut-button>
-        <gecut-button background="secondary" @click=${this.createSans}>
+        <gecut-button background="neutral" @click=${this.createSans}>
           <span>افزودن سانس</span>
         </gecut-button>
         <gecut-button background="secondary" @click=${this.submit}>
@@ -275,14 +276,16 @@ export class PageAdminSansList extends AlwatrDummyElement {
       cacheStrategy,
       retry: 10,
       retryDelay: 3_000,
-    }).then((sansResponse) => {
-      if (sansResponse.ok) {
-        this.sansList = sansResponse.data;
-        this.sansListMemory = sansResponse.data;
+    })
+      .then((sansResponse) => {
+        if (sansResponse.ok) {
+          this.sansList = sansResponse.data;
+          this.sansListMemory = sansResponse.data;
 
-        this.requestUpdate();
-      }
-    });
+          this.requestUpdate();
+        }
+      })
+      .catch(notifyError);
   }
 
   private renderRow(sans: SansInterface): LitRenderType {
@@ -518,14 +521,16 @@ export class PageAdminSansList extends AlwatrDummyElement {
         retry: 3,
         retryDelay: 1_000,
         bodyJson: serializedSansList,
-      }).then((sansResponse) => {
-        if (sansResponse.ok) {
-          this.sansList = sansResponse.data;
-          this.sansListMemory = sansResponse.data;
-        }
+      })
+        .then((sansResponse) => {
+          if (sansResponse.ok) {
+            this.sansList = sansResponse.data;
+            this.sansListMemory = sansResponse.data;
+          }
 
-        this.loadData('update_cache');
-      });
+          this.loadData('update_cache');
+        })
+        .catch(notifyError);
     }
   }
 
@@ -549,14 +554,16 @@ export class PageAdminSansList extends AlwatrDummyElement {
           token: userToken,
           retry: 3,
           retryDelay: 1_000,
-        }).then((sansResponse) => {
-          if (sansResponse.ok) {
-            this.sansList = sansResponse.data;
-            this.sansListMemory = sansResponse.data;
-          }
+        })
+          .then((sansResponse) => {
+            if (sansResponse.ok) {
+              this.sansList = sansResponse.data;
+              this.sansListMemory = sansResponse.data;
+            }
 
-          this.loadData('update_cache');
-        });
+            this.loadData('update_cache');
+          })
+          .catch(notifyError);
       }
     };
   }
