@@ -26,7 +26,11 @@ import femaleIcon from '/icons/gender/woman-outline.svg?raw';
 
 import type {SansInterface} from '../../types/sans.js';
 import type {LitRenderType} from '../../types/lit-render.js';
-import type {UserInterface, UserResponseData} from '../../types/user.js';
+import type {UserResponseData} from '../../types/user.js';
+
+type UserListFilters = Pick<UserResponseData, 'smsAddressSent'> & {
+  search: string;
+};
 
 const sansDateLocaleConf: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -54,6 +58,24 @@ const userCallsNumberList: UserResponseData['callsNumber'][] = [
 ];
 const userRoleList: UserResponseData['role'][] = ['admin', 'user'];
 
+const smsAddressSentFilter: (UserResponseData['smsAddressSent'] | null)[] = [
+  true,
+  false,
+  null,
+];
+
+function userSmsAddressSentFilter(
+  smsAddressSent: UserResponseData['smsAddressSent'] | null,
+): string | null {
+  if (smsAddressSent === true) {
+    return 'بله';
+  }
+  if (smsAddressSent === false) {
+    return 'خیر';
+  }
+
+  return 'ارسال پیامک آدرس';
+}
 function userStatus(status: UserResponseData['status']): string {
   switch (status) {
   case 'awaiting-confirmation':
@@ -219,6 +241,14 @@ export class PageAdminUserList extends AlwatrDummyElement {
       thead {
         height: calc(8 * var(--sys-spacing-track));
       }
+      thead tr select {
+        background-color: hsl(var(--ref-palette-neutral-variant10));
+        color: var(--sys-color-on-primary);
+        border: 0;
+      }
+      thead tr select.sms-sent {
+        min-width: 135px;
+      }
       tbody tr {
         height: calc(7 * var(--sys-spacing-track));
         background-image: linear-gradient(
@@ -289,8 +319,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
   private editableRows: string[] = [];
 
   @state()
-  private filters: Partial<Pick<UserInterface, 'smsAddressSent' | 'deleted'>> =
-      {};
+  private filters: Partial<UserListFilters> = {};
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -321,11 +350,13 @@ export class PageAdminUserList extends AlwatrDummyElement {
       .filter((user) => {
         let cond = true;
 
-        if (this.filters.deleted != null) {
-          cond &&= this.filters.deleted === user.deleted;
-        }
         if (this.filters.smsAddressSent != null) {
           cond &&= this.filters.smsAddressSent === user.smsAddressSent;
+        }
+        if (this.filters.search != null) {
+          cond &&= [user.firstName, user.lastName, user.groupId, user.phone]
+            .join('-')
+            .includes(this.filters.search);
         }
 
         return cond;
@@ -339,9 +370,30 @@ export class PageAdminUserList extends AlwatrDummyElement {
 
         return this.renderRow(user, index);
       });
+    const smsAddressSentListTemplate = smsAddressSentFilter.map(
+      (smsAddressSent) => {
+        const selected =
+          (smsAddressSent ?? 'all') === (this.filters.smsAddressSent ?? 'all');
+
+        return html`
+          <option
+            value=${String(smsAddressSent) ?? 'all'}
+            ?selected=${selected}
+          >
+            ${userSmsAddressSentFilter(smsAddressSent)}
+          </option>
+        `;
+      },
+    );
 
     return html`
       <div class="header">
+        <input
+          type="search"
+          placeholder="جستجو"
+          @input=${this.filterChanged('search')}
+        />
+
         <hr class="separator" />
 
         <gecut-button background="neutral" small>
@@ -367,7 +419,14 @@ export class PageAdminUserList extends AlwatrDummyElement {
               <th>وضعیت</th>
               <th>نقش</th>
               <th>وضعیت تماس</th>
-              <th>پیامک آدرس</th>
+              <th>
+                <select
+                  class="sms-sent"
+                  @change=${this.filterChanged('smsAddressSent')}
+                >
+                  ${smsAddressSentListTemplate}
+                </select>
+              </th>
               <th>حذف</th>
             </tr>
           </thead>
@@ -404,7 +463,10 @@ export class PageAdminUserList extends AlwatrDummyElement {
         <td class="delete">
           <gecut-icon
             .svgContent=${trashIcon}
-            @dblclick=${this.deleteUser(user.id)}
+            @dblclick=${this.deleteUser(
+              user.id,
+              `${user.firstName} ${user.lastName}`,
+            )}
           ></gecut-icon>
         </td>
       </tr>
@@ -530,7 +592,10 @@ export class PageAdminUserList extends AlwatrDummyElement {
         <td class="delete">
           <gecut-icon
             .svgContent=${trashIcon}
-            @click=${this.deleteUser(user.id)}
+            @click=${this.deleteUser(
+              user.id,
+              `${user.firstName} ${user.lastName}`,
+            )}
           ></gecut-icon>
         </td>
       </tr>
@@ -575,6 +640,41 @@ export class PageAdminUserList extends AlwatrDummyElement {
           value: this.userListMemory[id][name],
         },
       });
+    };
+  }
+
+  private filterChanged<TName extends keyof UserListFilters>(
+    name: TName,
+  ): (event: Event) => void {
+    return (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const target = event.target as Partial<HTMLInputElement>;
+      let value: string | number | boolean | undefined = target.value;
+
+      if (name === 'smsAddressSent') {
+        value = value == 'null' ? 'all' : String(value) == 'true';
+      }
+
+      this.filters = {
+        ...this.filters,
+
+        [name]: value,
+      };
+
+      this._logger.logMethodArgs('filterChanged', {
+        target,
+        event,
+        changed: {
+          name,
+          value: this.filters[name],
+        },
+      });
+
+      if (value === 'all' || value?.toString().trim() == '') {
+        delete this.filters[name];
+      }
     };
   }
 
@@ -709,37 +809,39 @@ export class PageAdminUserList extends AlwatrDummyElement {
     }
   }
 
-  private deleteUser(userId: string): (event: Event) => void {
+  private deleteUser(userId: string, userName: string): (event: Event) => void {
     return (event: Event) => {
       event.preventDefault();
       event.stopPropagation();
 
-      const userID = localStorage.getItem('user.id');
-      const userToken = localStorage.getItem('user.token');
+      if (confirm(`آیا از حذف کاربر ${userName} اطمینان دارید ؟`)) {
+        const userID = localStorage.getItem('user.id');
+        const userToken = localStorage.getItem('user.token');
 
-      this._logger.logMethodArgs('deleteUser', {id: userId});
+        this._logger.logMethodArgs('deleteUser', {id: userId});
 
-      if (userID != null && userToken != null) {
-        this.editableRows = [];
+        if (userID != null && userToken != null) {
+          this.editableRows = [];
 
-        serviceRequest<Record<string, UserResponseData>>({
-          url: config.api + '/admin/user',
-          method: 'DELETE',
-          queryParameters: {id: userID, userId},
-          token: userToken,
-          retry: 3,
-          retryDelay: 1_000,
-        }).then((userResponse) => {
-          if (userResponse.ok) {
-            this.userList = userResponse.data;
+          serviceRequest<Record<string, UserResponseData>>({
+            url: config.api + '/admin/user',
+            method: 'DELETE',
+            queryParameters: {id: userID, userId},
+            token: userToken,
+            retry: 3,
+            retryDelay: 1_000,
+          }).then((userResponse) => {
+            if (userResponse.ok) {
+              this.userList = userResponse.data;
 
-            this.userListSort();
+              this.userListSort();
 
-            this.userListMemory = this.userList;
-          }
+              this.userListMemory = this.userList;
+            }
 
-          this.loadData('update_cache');
-        });
+            this.loadData('update_cache');
+          });
+        }
       }
     };
   }
