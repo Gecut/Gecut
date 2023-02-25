@@ -26,9 +26,12 @@ import '../../components/checkbox/checkbox';
 import maleIcon from '/icons/gender/man-outline.svg?raw';
 import femaleIcon from '/icons/gender/woman-outline.svg?raw';
 
+import {downloadBlob} from '../../utilities/download-blob.js';
+
 import type {SansInterface} from '../../types/sans.js';
 import type {LitRenderType} from '../../types/lit-render.js';
 import type {UserResponseData} from '../../types/user.js';
+import type {Stringifyable} from '@alwatr/type';
 
 type UserListFilters = Pick<
   UserResponseData,
@@ -113,7 +116,7 @@ function userCallsNumber(calls: UserResponseData['callsNumber']): string {
     return 'تماس چهارم';
   }
 }
-function userRoll(calls: UserResponseData['role']): string {
+function userRole(calls: UserResponseData['role']): string {
   switch (calls) {
   case 'admin':
     return 'ادمین';
@@ -438,7 +441,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
 
         <hr class="separator" />
 
-        <gecut-button background="neutral" small>
+        <gecut-button background="neutral" small @click=${this.csvGenerate}>
           <span>خروجی اکسل</span>
         </gecut-button>
         <gecut-button href="/home" background="neutral" small>
@@ -513,7 +516,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
         <td class="ticket-id" dir="ltr">${user.id}</td>
         <td class="group-id" dir="ltr">${user.groupId}</td>
         <td class="status">${userStatus(user.status)}</td>
-        <td class="role">${userRoll(user.role)}</td>
+        <td class="role">${userRole(user.role)}</td>
         <td class="calls">${userCallsNumber(user.callsNumber)}</td>
         <td class="sms-sent">${userSmsAddressSent(user.smsAddressSent)}</td>
         <td class="delete">
@@ -552,7 +555,7 @@ export class PageAdminUserList extends AlwatrDummyElement {
       (role) =>
         html`
           <option value=${role} ?selected=${role === user.role}>
-            ${userRoll(role)}
+            ${userRole(role)}
           </option>
         `,
     );
@@ -934,6 +937,48 @@ export class PageAdminUserList extends AlwatrDummyElement {
     }
 
     return cond;
+  }
+
+  private csvGenerate(): void {
+    const tableHead = [
+      'ردیف',
+      'نام',
+      'نام خانوادگی',
+      'شماره تماس',
+      'جنسیت',
+      'سن',
+      'سانس اجرا',
+      'کد بلیط',
+      'کد گروه',
+      'وضعیت کاربر',
+      'نقش',
+      'وضعیت تماس',
+      'ارسال پیامک آدرس',
+    ];
+    const userCsvArray: Stringifyable[][] = Object.values(this.userList).map(
+      (user, index) => [
+        index,
+        user.firstName,
+        user.lastName,
+        user.phone,
+        userGender(user.gender),
+        user.age,
+        sansDateFilter(user.sans),
+        user.id,
+        user.groupId,
+        userStatus(user.status),
+        userRole(user.role),
+        userCallsNumber(user.callsNumber),
+        userSmsAddressSent(user.smsAddressSent),
+      ],
+    );
+
+    const csv =
+      tableHead.join(',') +
+      '\n' +
+      userCsvArray.map((row) => row.join(',')).join('\n');
+
+    downloadBlob(csv, 'users.csv');
   }
 }
 
