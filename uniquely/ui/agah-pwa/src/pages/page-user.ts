@@ -384,8 +384,8 @@ export class PageUser extends AlwatrDummyElement {
             <span class="information-small">
               رزرو شده برای ${sansDateLocale}، ساعت ${sansTime}
             </span>
-            <span class="information-large">
-              لطفا بلیط خود را به همراه داشته باشید تغییر کند
+            <span class="information-small">
+              لطفا بلیط خود را به همراه داشته باشید
             </span>
           </div>
 
