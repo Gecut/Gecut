@@ -31,7 +31,7 @@ const errorsMessages: Record<Errors, string> = {
 const errMessage = (error: Errors) => errorsMessages[error];
 
 const config = {
-  version: '1.43.2',
+  version: '1.64.0',
   api: 'https://api.agaah-group.ir',
   errorsMessages,
   errMessage,
