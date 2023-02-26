@@ -6,16 +6,17 @@ import {
   unsafeCSS,
   state,
   unsafeHTML,
+  property,
 } from '@alwatr/element';
 import {styleMap} from 'lit/directives/style-map.js';
 import {classMap} from 'lit/directives/class-map.js';
 import {redirect} from '@alwatr/router';
+import refreshIcon from '@gecut/iconsax-cdn/broken/refresh-2?raw';
 
 import baseElementStyle from '../styles/element.css?inline';
 import {validateData} from '../utilities/validate.js';
 import {user} from '../utilities/user.js';
 
-import '../components/button/button';
 import '../components/sign-up-slider/nickname';
 import '../components/sign-up-slider/age';
 import '../components/sign-up-slider/teammate';
@@ -26,6 +27,7 @@ import '../components/sign-up-slider/phone';
 import type {PropertyValues} from '@alwatr/element';
 import type {UserInterface} from '../types/user.js';
 import type {LitRenderType} from '../types/lit-render.js';
+import type {Button} from '../components/button/button.js';
 import type {Slider} from '../components/sign-up-slider/slider.js';
 
 @customElement('page-sign-up')
@@ -118,8 +120,27 @@ export class PageSignUp extends AlwatrDummyElement {
         box-shadow: inset 0 0 calc(2 * var(--sys-spacing-track))
           var(--sys-color-surface);
       }
+
+      gecut-icon[hidden] {
+        display: none;
+      }
+      gecut-icon.loader {
+        animation: rotate-center 1000ms linear infinite both;
+      }
+
+      @keyframes rotate-center {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     `,
   ];
+
+  @property({type: Boolean, reflect: true})
+    loading = false;
 
   @state()
   private slideIndex = 0;
@@ -211,13 +232,22 @@ export class PageSignUp extends AlwatrDummyElement {
         </gecut-button>
 
         <gecut-button
+          id="submit-button"
           class="last"
           ?disabled=${!this.canNext}
           ?hidden=${!this.canSubmit}
           small
           @click=${this.submit}
         >
-          <span>پایان</span>
+          <gecut-icon
+            slot="icon"
+            class="loader"
+            .svgContent=${refreshIcon}
+            ?hidden=${!this.loading}
+          ></gecut-icon>
+
+          <span ?hidden=${this.loading}>ثبت نام</span>
+          <span ?hidden=${!this.loading}>در حال ارسال به سرور ...</span>
         </gecut-button>
       </footer>
     `;
@@ -264,8 +294,29 @@ export class PageSignUp extends AlwatrDummyElement {
   private async submit(event: PointerEvent): Promise<void> {
     event.preventDefault();
 
-    await user.signUp(this.data);
-    redirect('/user');
+    const submitButton = this.renderRoot.querySelector<Button>(
+      'gecut-button#submit-button',
+    );
+
+    if (submitButton != null) {
+      submitButton.disabled = true;
+    }
+
+    this.loading = true;
+    try {
+      await user.signUp(this.data).then((response) => {
+        if (response.ok === true) {
+          redirect('/user');
+        }
+      });
+    } catch (error) {
+      this._logger.error('submit', 'submit_error', error);
+    }
+    this.loading = false;
+
+    if (submitButton != null) {
+      submitButton.disabled = false;
+    }
   }
 
   private get canSubmit(): boolean {

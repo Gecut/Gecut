@@ -147,6 +147,9 @@ export class Button extends AlwatrDummyElement {
     iconButton = false;
 
   @property({reflect: true, type: Boolean})
+    disabled = false;
+
+  @property({reflect: true, type: Boolean})
     small = false;
 
   @property({reflect: true, type: Boolean})
