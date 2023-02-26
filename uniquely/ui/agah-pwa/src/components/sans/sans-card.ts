@@ -141,6 +141,10 @@ export class SansCard extends localizeMixin(AlwatrSmartElement) {
       this.disabled = true;
     }
 
+    if (this.sans.inactive === true && this.disabled !== true) {
+      this.disabled = true;
+    }
+
     return html`
       <span class="time">${timeLocale}</span>
       <div class="date">
