@@ -118,6 +118,19 @@ async function signUp(
       };
     }
 
+    const group = Object.values(userList.data).filter(
+      (_user) =>
+        _user.groupId === user.groupId && _user.sansCode === user.sansCode,
+    );
+
+    if (group.length > 0 && group.length < userSans.groupsCapacityNumber) {
+      return {
+        ok: false,
+        statusCode: 401,
+        errorCode: 'group_not_have_capacity',
+      };
+    }
+
     if (!(userSans.gender === user.gender)) {
       return {
         ok: false,

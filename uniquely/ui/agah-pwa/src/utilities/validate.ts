@@ -22,7 +22,7 @@ export function validateData<T extends keyof UserInterface>(
   }
 
   if (name === 'age') {
-    return value != null && isNumber(value) && value >= 15 && value <= 22;
+    return value != null && isNumber(value) && value >= 15 && value <= 23;
   }
 
   if (name === 'gender') {

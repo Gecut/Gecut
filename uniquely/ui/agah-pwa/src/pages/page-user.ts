@@ -16,6 +16,7 @@ import userRemoveIcon from '@gecut/iconsax-cdn/broken/user-remove?raw';
 import messageAddIcon from '@gecut/iconsax-cdn/broken/message-add-1?raw';
 import copyIcon from '@gecut/iconsax-cdn/broken/copy?raw';
 import copySuccessIcon from '@gecut/iconsax-cdn/broken/copy-success?raw';
+import {snackbarSignalTrigger} from '@gecut/ui-kit/snackbar/controller.js';
 
 import '@gecut/ui-kit/icon/icon.js';
 
@@ -324,8 +325,10 @@ export class PageUser extends AlwatrDummyElement {
   }
 
   static async logout(): Promise<void> {
-    await user.logOut();
-    redirect('/sign-in');
+    if (confirm('لطفا کد بلیط رو ذخیره کنید، برای خروجی اطمینان دارید ؟')) {
+      await user.logOut();
+      redirect('/sign-in');
+    }
   }
 
   private renderInformationCard(): LitRenderType {
@@ -459,7 +462,7 @@ export class PageUser extends AlwatrDummyElement {
             <span>هم گروهی ها</span>
           </gecut-button>
 
-          <gecut-button background="secondary">
+          <gecut-button background="secondary" @click=${this.invite}>
             <gecut-icon .svgContent=${messageAddIcon} slot="icon"></gecut-icon>
 
             <span>دعوت دوستان</span>
@@ -490,7 +493,7 @@ export class PageUser extends AlwatrDummyElement {
 
       if (this.groupCopySuccess === false && value != null) {
         await navigator.clipboard
-          .write([new ClipboardItem({'text/plain': value})])
+          .writeText(value)
           .then(() => {
             setTimeout(() => {
               this.groupCopySuccess = false;
@@ -508,7 +511,7 @@ export class PageUser extends AlwatrDummyElement {
 
       if (this.ticketCopySuccess === false && value != null) {
         await navigator.clipboard
-          .write([new ClipboardItem({'text/plain': value})])
+          .writeText(value)
           .then(() => {
             setTimeout(() => {
               this.ticketCopySuccess = false;
@@ -534,6 +537,35 @@ export class PageUser extends AlwatrDummyElement {
           link.href = canvas.toDataURL('image/jpeg');
           link.click();
         });
+    }
+  }
+
+  private invite(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.user?.groupId == null) return;
+
+    const shareDate: ShareData = {
+      text: `
+سلام
+من در عینک ۲ ثبت نام کردم
+وقتی داشتی ثبت نام میکردی
+کد زیر رو وارد کن تا همگروه باشیم
+
+کد همگروه من: ${this.user.groupId.toUpperCase()}
+
+سایت: agaah-group.ir
+پیج اینستاگرام: instagram.com/agaah_group
+`,
+    };
+
+    if ('share' in navigator && navigator.canShare(shareDate) === true) {
+      navigator.share(shareDate);
+    } else {
+      snackbarSignalTrigger.request({
+        message: 'مرورگر شما از اشتراک گذاری متن دعوت پشتیبانی نمیکند',
+      });
     }
   }
 }

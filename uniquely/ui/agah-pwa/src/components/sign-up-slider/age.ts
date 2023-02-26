@@ -22,7 +22,7 @@ export class AgeSlider extends Slider {
       <gecut-icon .svgContent=${calendarIcon} class="title-icon"></gecut-icon>
       <h1 class="title-text">سن</h1>
       <p class="description">
-        این برنامه برای عزیزان ۱۵ الی ۱۸ سال می‌باشد
+        این برنامه برای عزیزان ۱۵ الی ۲۳ سال می‌باشد
         <br />
         اگر در این بازه سنی قرار ندارید، ثبت نام خودداری کنید
       </p>
@@ -34,7 +34,7 @@ export class AgeSlider extends Slider {
           placeholder="سن خود را وارد کنید"
           value="15"
           min="15"
-          max="18"
+          max="23"
           @input=${this.dataItemChange('age')}
         />
       </div>
