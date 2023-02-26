@@ -6,6 +6,7 @@ import {
   generateUniqueTicketCode,
 } from '../../libs/unique-code.js';
 import getUser from '../../libs/get-user.js';
+import getSans from '../../libs/get-sans.js';
 
 import type {StringifyableRecord} from '@alwatr/type';
 import type {
@@ -29,7 +30,7 @@ async function signUp(
 ): Promise<AlwatrServiceResponse<UserResponseData, StringifyableRecord>> {
   logger.logMethod('signUp');
 
-  const sansList = await storageClient.getStorage<SansInterface>('sans');
+  const sansList = await getSans();
   const userList = await storageClient.getStorage<UserInterface>('user');
   const phones = Object.values(userList.data)
     .filter((user) => user.deleted === false)
@@ -102,6 +103,14 @@ async function signUp(
         ok: false,
         statusCode: 404,
         errorCode: 'sans_code_not_found',
+      };
+    }
+
+    if (!(userSans.guestsNumber != null && userSans.guestsNumber > 0)) {
+      return {
+        ok: false,
+        statusCode: 401,
+        errorCode: 'sans_not_have_capacity',
       };
     }
 

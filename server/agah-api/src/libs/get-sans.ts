@@ -14,9 +14,9 @@ export default async function getSans(): Promise<
     for (const sansKey of Object.keys(sansList.data)) {
       const sans = sansList.data[sansKey];
 
-      const guestsKeys = Object.keys(userList.data).filter(
-        (userKey) => userList.data[userKey].sansCode === sansKey,
-      );
+      const guestsKeys = Object.keys(userList.data)
+        .filter((userKey) => userList.data[userKey].sansCode === sansKey)
+        .filter((userKey) => userList.data[userKey].status !== 'was-rejected');
       const confirmedGuestsKeys = guestsKeys.filter(
         (userKey) => userList.data[userKey].status === 'confirmed',
       );
