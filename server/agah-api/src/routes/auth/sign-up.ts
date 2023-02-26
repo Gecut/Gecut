@@ -106,7 +106,11 @@ async function signUp(
       };
     }
 
-    if (userSans.guestsNumber != null && userSans.guestsNumber < 1) {
+    if (
+      userSans.guestsNumber != null &&
+      userSans.hallCapacityNumber != null &&
+      userSans.hallCapacityNumber - userSans.guestsNumber < 1
+    ) {
       return {
         ok: false,
         statusCode: 401,

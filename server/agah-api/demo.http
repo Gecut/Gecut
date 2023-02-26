@@ -1,8 +1,8 @@
-@apiUrl = http://37.152.179.225:8000
+@apiUrl = https://api.agaah-group.ir
 @apiVersion = v0
 @token = YOUR_SECRET_TOKEN
-@userId = L4555
-@userToken = C9NZJXKgvRDQQ2Kwm3X5HiOpX6f-_nfXMR6MxBBDUwa78FE_zPktOdhBTwSetuRbc99KYZLzbJScPft1PYm2ug
+@userId = WK783
+@userToken = Cm43P-lt00sZXOeprTWxUN9xdU0xvlKG9DJJnIEF7w82LVyw_DnE4_EDmObvE1m-184j4AKMo7l6-q1wqcWNGA
 @userPhone = 09155595488
 
 ### Home
