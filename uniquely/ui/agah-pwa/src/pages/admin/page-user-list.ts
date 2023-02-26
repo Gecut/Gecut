@@ -356,6 +356,8 @@ export class PageAdminUserList extends AlwatrDummyElement {
   @state()
   private filters: Partial<UserListFilters> = {};
 
+  private loadDateTimer?: number;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -846,7 +848,10 @@ export class PageAdminUserList extends AlwatrDummyElement {
           this.sansList = sansResponse.data;
         }
       })
-      .catch(notifyError);
+      .catch(notifyError)
+      .finally(() => {
+        this.loadDateTimer = undefined;
+      });
 
     const userID = localStorage.getItem('user.id');
     const userToken = localStorage.getItem('user.token');
@@ -876,6 +881,12 @@ export class PageAdminUserList extends AlwatrDummyElement {
           user.logOut();
           redirect('/home');
         });
+    }
+
+    if (this.loadDateTimer == null) {
+      this.loadDateTimer = setTimeout(() => {
+        this.loadData('update_cache');
+      }, 10_000);
     }
   }
 
