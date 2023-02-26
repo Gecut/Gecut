@@ -104,6 +104,9 @@ export class SansCard extends localizeMixin(AlwatrSmartElement) {
   @property({type: String})
     value = '';
 
+  @property({type: Boolean, reflect: true})
+    disabled = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -127,8 +130,16 @@ export class SansCard extends localizeMixin(AlwatrSmartElement) {
       day: 'numeric',
       month: 'long',
     });
-    const capacityLocale =
-      this.sans.hallCapacityNumber?.toLocaleString('fa-iR');
+    const capacityLocale = (
+      this.sans.hallCapacityNumber - this.sans.guestsNumber
+    )?.toLocaleString('fa-iR');
+
+    if (
+      (this.sans.hallCapacityNumber - this.sans.guestsNumber ?? 0) === 0 &&
+      this.disabled !== true
+    ) {
+      this.disabled = true;
+    }
 
     return html`
       <span class="time">${timeLocale}</span>
