@@ -6,14 +6,24 @@ import {userContextProvider} from '../context.js';
 
 import {notifyError} from './notify-fetch-error.js';
 
+import type {StringifyableRecord} from '@alwatr/type';
+import type {
+  AlwatrServiceResponseSuccess,
+  AlwatrServiceResponseSuccessWithMeta,
+} from '@alwatr/fetch';
 import type {UserInterface, UserResponseData} from '../types/user.js';
 
-async function signUp(user: Partial<UserInterface>): Promise<UserResponseData> {
+async function signUp(
+  user: Partial<UserInterface>,
+): Promise<
+  | AlwatrServiceResponseSuccess<UserResponseData>
+  | AlwatrServiceResponseSuccessWithMeta<UserResponseData, StringifyableRecord>
+> {
   const response = await serviceRequest<UserResponseData>({
     url: config.api + '/authentication/sign-up',
     method: 'POST',
     bodyJson: user,
-  }).catch(notifyError);
+  }).catch((error) => notifyError(error));
 
   if (response.ok === true) {
     localStorage.setItem('user.id', response.data.id);
@@ -21,7 +31,11 @@ async function signUp(user: Partial<UserInterface>): Promise<UserResponseData> {
     userContextProvider.setValue(response.data);
   }
 
-  return response.data;
+  if (response.ok === false) {
+    throw new Error(response.errorCode);
+  }
+
+  return response;
 }
 
 async function logOut(): Promise<void> {

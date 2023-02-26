@@ -304,11 +304,11 @@ export class PageSignUp extends AlwatrDummyElement {
 
     this.loading = true;
     try {
-      await user.signUp(this.data).then((response) => {
-        if (response.ok === true) {
-          redirect('/user');
-        }
-      });
+      const response = await user.signUp(this.data);
+
+      if (response.ok) {
+        redirect('/user');
+      }
     } catch (error) {
       this._logger.error('submit', 'submit_error', error);
     }
