@@ -32,7 +32,7 @@
   "devDependencies": {
     "@alwatr/logger": "^0.29.0",
     "@alwatr/math": "^0.29.0",
-    "@alwatr/nano-server": "^0.28.0",
+    "@alwatr/nano-server": "^0.29.0",
     "@alwatr/storage-client": "^0.28.0",
     "@alwatr/token": "^0.29.0",
     "@alwatr/type": "^0.29.0",
