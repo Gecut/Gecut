@@ -152,8 +152,7 @@ export class PageSansList extends AlwatrDummyElement {
     return html`
       <div class="box">
         <img .src=${logoImage} class="logo" alt="logo" />
-        <h2 class="title">زمان سانس های برنامه</h2>
-        <div class="description">توضیحات متنی که در این قسمت قرار می گیرد</div>
+        <h2 class="title">اطلاعات سانس های برنامه</h2>
 
         <div class="sans-box">
           <div class="sans-list">${sansListTemplate}</div>
