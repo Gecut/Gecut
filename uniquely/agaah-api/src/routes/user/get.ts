@@ -1,7 +1,7 @@
 import {logger} from '../../config.js';
-import {nanoServer} from '../../libs/nano-server.js';
-import {requireUserVerify} from '../../libs/require-user-verify.js';
-import getUser from '../../libs/get-user.js';
+import {nanoServer} from '../../libraries/nano-server.js';
+import {requireUserVerify} from '../../utilities/require-user-verify.js';
+import getUser from '../../utilities/get-user.js';
 
 import type {StringifyableRecord} from '@alwatr/type';
 import type {

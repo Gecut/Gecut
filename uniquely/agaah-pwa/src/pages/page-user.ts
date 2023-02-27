@@ -492,14 +492,12 @@ export class PageUser extends AlwatrDummyElement {
       event.stopPropagation();
 
       if (this.groupCopySuccess === false && value != null) {
-        await navigator.clipboard
-          .writeText(value)
-          .then(() => {
-            setTimeout(() => {
-              this.groupCopySuccess = false;
-            }, 1000);
-            this.groupCopySuccess = true;
-          });
+        await navigator.clipboard.writeText(value).then(() => {
+          setTimeout(() => {
+            this.groupCopySuccess = false;
+          }, 1000);
+          this.groupCopySuccess = true;
+        });
       }
     };
   }
@@ -510,14 +508,12 @@ export class PageUser extends AlwatrDummyElement {
       event.stopPropagation();
 
       if (this.ticketCopySuccess === false && value != null) {
-        await navigator.clipboard
-          .writeText(value)
-          .then(() => {
-            setTimeout(() => {
-              this.ticketCopySuccess = false;
-            }, 1000);
-            this.ticketCopySuccess = true;
-          });
+        await navigator.clipboard.writeText(value).then(() => {
+          setTimeout(() => {
+            this.ticketCopySuccess = false;
+          }, 1000);
+          this.ticketCopySuccess = true;
+        });
       }
     };
   }

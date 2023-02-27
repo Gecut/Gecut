@@ -1,12 +1,12 @@
 import {config, logger} from '../../config.js';
-import {nanoServer} from '../../libs/nano-server.js';
-import {storageClient} from '../../libs/storage.js';
+import {nanoServer} from '../../libraries/nano-server.js';
+import {storageClient} from '../../libraries/storage.js';
 import {
   generateUniqueGroupId,
   generateUniqueTicketCode,
-} from '../../libs/unique-code.js';
-import getUser from '../../libs/get-user.js';
-import getSans from '../../libs/get-sans.js';
+} from '../../utilities/unique-code.js';
+import getUser from '../../utilities/get-user.js';
+import getSans from '../../utilities/get-sans.js';
 
 import type {StringifyableRecord} from '@alwatr/type';
 import type {

@@ -1,4 +1,5 @@
-import {storageClient} from './storage.js';
+import {storageClient} from '../libraries/storage.js';
+
 import getSans from './get-sans.js';
 
 import type {AlwatrServiceResponse, StringifyableRecord} from '@alwatr/type';

@@ -1,4 +1,4 @@
-import {storageClient} from './storage.js';
+import {storageClient} from '../libraries/storage.js';
 
 import type {AlwatrServiceResponseSuccess} from '@alwatr/type';
 import type {SansInterface} from '../types/sans.js';

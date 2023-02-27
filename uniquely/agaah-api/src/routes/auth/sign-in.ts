@@ -1,7 +1,7 @@
 import {config, logger} from '../../config.js';
-import {nanoServer} from '../../libs/nano-server.js';
-import {storageClient} from '../../libs/storage.js';
-import getUser from '../../libs/get-user.js';
+import {nanoServer} from '../../libraries/nano-server.js';
+import {storageClient} from '../../libraries/storage.js';
+import getUser from '../../utilities/get-user.js';
 
 import type {StringifyableRecord} from '@alwatr/type';
 import type {

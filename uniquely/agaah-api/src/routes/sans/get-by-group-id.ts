@@ -1,7 +1,7 @@
 import {logger} from '../../config.js';
-import {nanoServer} from '../../libs/nano-server.js';
-import getSans from '../../libs/get-sans.js';
-import {storageClient} from '../../libs/storage.js';
+import {nanoServer} from '../../libraries/nano-server.js';
+import {storageClient} from '../../libraries/storage.js';
+import getSans from '../../utilities/get-sans.js';
 
 import type {StringifyableRecord} from '@alwatr/type';
 import type {

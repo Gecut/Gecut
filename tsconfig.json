@@ -9,11 +9,11 @@
   "exclude": [],
   "references": [
     {"path": "./services/storage-server"},
-    {"path": "./server/agah-api"},
 
     {"path": "./ui/ui-kit"},
     {"path": "./ui/iconsax-cdn"},
 
-    {"path": "./uniquely/ui/agah-pwa"}
+    {"path": "./uniquely/agaah-api"},
+    {"path": "./uniquely/agaah-pwa"}
   ]
 }

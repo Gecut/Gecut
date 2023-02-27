@@ -1,6 +1,5 @@
 import {config, logger} from '../config.js';
-
-import {storageClient} from './storage.js';
+import {storageClient} from '../libraries/storage.js';
 
 import type {AlwatrServiceResponse, StringifyableRecord} from '@alwatr/type';
 import type {UserInterface} from '../types/user.js';

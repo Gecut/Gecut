@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "rootDir": "src/",
+    "outDir": "dist/",
+    "noEmit": true,
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [],
+  "references": [{"path": "../../ui/ui-kit"}, {"path": "../../ui/iconsax-cdn"}]
+}
