@@ -1,7 +1,7 @@
 {
-  "name": "@alwatr/agah-api",
+  "name": "@alwatr/agaah-api",
   "version": "0.28.0",
-  "description": "Agah Project API",
+  "description": "agaah Project API",
   "type": "module",
   "author": "MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
   "private": true,

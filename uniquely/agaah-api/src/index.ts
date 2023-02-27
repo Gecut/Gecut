@@ -11,4 +11,4 @@ import './routes/admin/user/post.js';
 import './routes/admin/user/get.js';
 import {logger} from './config.js';
 
-logger.logOther('⚞ Gecut Agah Api ⚟');
+logger.logOther('⚞ Gecut agaah Api ⚟');

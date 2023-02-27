@@ -25,7 +25,7 @@ const manifestJson: Partial<ManifestOptions> = {
   /* info */
   name: 'آگاه',
   short_name: 'آگاه',
-  description: 'Agah PWA',
+  description: 'agaah PWA',
 
   /* screen */
   display: 'standalone',
