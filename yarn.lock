@@ -6373,6 +6373,11 @@ libnpmpublish@^6.0.4:
     semver "^7.3.7"
     ssri "^9.0.0"
 
+lilconfig@^2.0.6:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.1.0.tgz#78e23ac89ebb7e1bfbf25b18043de756548e7f52"
+  integrity sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
@@ -7645,13 +7650,14 @@ postcss-html@^1.5.0:
     postcss-safe-parser "^6.0.0"
 
 postcss-lit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-lit/-/postcss-lit-1.0.1.tgz#cb4283c2fc3e794aaa057a57e5348e536b723305"
-  integrity sha512-x3E2+5RxaDIleL/lhJVyXgimO77uLPvgoq/3U5rHmHEHfhnPtED/jm+a52jy2cSOzqf2JTTEcHbNh5N4K954yg==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-lit/-/postcss-lit-1.1.0.tgz#ab058d123a8cef44dc0e407c2b89057cb1e4649a"
+  integrity sha512-JGrJOVKkSTOHp8dEooq+IzmwiLlx+v7muXXZIV59URcwCpTN53szlrmQA2i7r4cdFxTfPFXId5O0cWjEg6rkQQ==
   dependencies:
     "@babel/generator" "^7.16.5"
     "@babel/parser" "^7.16.2"
     "@babel/traverse" "^7.16.0"
+    lilconfig "^2.0.6"
 
 postcss-safe-parser@^6.0.0:
   version "6.0.0"
