@@ -26,8 +26,8 @@
     "pp": "run-s pull clean build:ts build:r ver-patch push",
     "lint": "run-s lint:*",
     "lint:ts": "eslint . --config .eslintrc.yml --ext .ts --ignore-path .gitignore",
-    "build": "yarn build:ts",
-    "build:ts": "tsc --build",
+    "build": "wireit",
+    "build:ts": "wireit",
     "build:r": "lerna run build",
     "format": "run-s format:prettier format:eslint",
     "format:eslint": "yarn lint:ts --fix",
@@ -41,6 +41,18 @@
     "pull": "git pull",
     "push": "git push && git push --tags",
     "publish": "lerna publish from-package"
+  },
+  "wireit": {
+    "build": {
+      "command": "lerna run build",
+      "dependencies": [
+        "build:ts"
+      ]
+    },
+    "build:ts": {
+      "clean": true,
+      "command": "tsc --build"
+    }
   },
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
