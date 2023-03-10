@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@alwatr/logger": "^0.29.0",
-    "@alwatr/nano-server": "^0.29.0",
+    "@alwatr/nano-server": "^0.30.0",
     "@alwatr/storage-engine": "^0.29.0",
     "@alwatr/type": "^0.29.0",
     "@types/node": "^18.15.0",
