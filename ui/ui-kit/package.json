@@ -35,6 +35,7 @@
     "@alwatr/element": "^0.30.0",
     "@alwatr/icon": "^0.30.0",
     "@alwatr/util": "^0.30.0",
+    "@gecut/iconsax-cdn": "^0.1.0",
     "tslib": "^2.5.0"
   }
 }

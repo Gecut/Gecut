@@ -10,5 +10,8 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["build"],
-  "references": [{"path": "../../ui/ui-kit"}, {"path": "../../ui/iconsax-cdn"}]
+  "references": [
+    {"path": "../../ui/ui-kit/"},
+    {"path": "../../ui/iconsax-cdn/"}
+  ]
 }

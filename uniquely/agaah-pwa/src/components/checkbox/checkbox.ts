@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   customElement,
   html,
@@ -17,7 +17,7 @@ import type {PropertyValues} from '@alwatr/element';
 import type {LitRenderType} from '../../types/lit-render.js';
 
 @customElement('gecut-checkbox')
-export class Checkbox extends AlwatrDummyElement {
+export class Checkbox extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     unsafeCSS(surfaceStyle),

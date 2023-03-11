@@ -4,7 +4,7 @@ import {
   customElement,
   property,
   when,
-  AlwatrDummyElement,
+  AlwatrBaseElement,
 } from '@alwatr/element';
 import {untilEvent} from '@alwatr/util';
 
@@ -13,7 +13,7 @@ import surface from '../card/surface.js';
 import type {TemplateResult} from '@alwatr/element';
 
 @customElement('gecut-snackbar')
-export class Snackbar extends AlwatrDummyElement {
+export class Snackbar extends AlwatrBaseElement {
   static override styles = [
     surface,
     css`

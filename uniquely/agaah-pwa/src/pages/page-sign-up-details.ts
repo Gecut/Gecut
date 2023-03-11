@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -17,7 +17,7 @@ import '../components/checkbox/checkbox';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-sign-up-details')
-export class PageSignUpDetails extends AlwatrDummyElement {
+export class PageSignUpDetails extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

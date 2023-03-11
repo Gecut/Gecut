@@ -1,5 +1,5 @@
 import {commandTrigger} from '@alwatr/signal';
-import {AlwatrSmartElement, customElement, html, css} from '@alwatr/element';
+import {AlwatrBaseElement, customElement, html, css} from '@alwatr/element';
 import {routeContextConsumer, routerOutlet} from '@alwatr/router';
 
 import routes from '../routes.js';
@@ -15,7 +15,7 @@ import type {RoutesConfig} from '@alwatr/router';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('app-root')
-export class AppRoot extends AlwatrSmartElement {
+export class AppRoot extends AlwatrBaseElement {
   static override styles = css`
     :host {
       position: relative;
@@ -40,9 +40,7 @@ export class AppRoot extends AlwatrSmartElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this._signalListenerList.push(
-      routeContextConsumer.subscribe(this._routeChanged.bind(this)),
-    );
+    routeContextConsumer.subscribe(this._routeChanged.bind(this));
   }
 
   override render(): LitRenderType {

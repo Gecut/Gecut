@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -21,7 +21,7 @@ import type {LitRenderType} from '../types/lit-render.js';
 import type {UserResponseData} from '../types/user.js';
 
 @customElement('page-group')
-export class PageGroup extends AlwatrDummyElement {
+export class PageGroup extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

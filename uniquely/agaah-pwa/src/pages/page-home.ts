@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -27,7 +27,7 @@ import type {UserResponseData} from '../types/user.js';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-home')
-export class PageHome extends AlwatrDummyElement {
+export class PageHome extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

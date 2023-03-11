@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   customElement,
   html,
@@ -19,7 +19,7 @@ import type {LitRenderType} from '../../types/lit-render.js';
  *
  * @prop {Boolean} iconButton
  */
-export class Button extends AlwatrDummyElement {
+export class Button extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     unsafeCSS(surfaceStyle),

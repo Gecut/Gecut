@@ -1,10 +1,11 @@
 import {
-  AlwatrSmartElement,
+  AlwatrBaseElement,
   css,
   customElement,
   html,
   LocalizeMixin as localizeMixin,
   property,
+  SignalMixin as signalMixin,
   unsafeCSS,
 } from '@alwatr/element';
 
@@ -17,7 +18,7 @@ import type {SansInterface} from '../../types/sans.js';
 import type {LitRenderType} from '../../types/lit-render.js';
 
 @customElement('gecut-sans-card')
-export class SansCard extends localizeMixin(AlwatrSmartElement) {
+export class SansCard extends localizeMixin(signalMixin(AlwatrBaseElement)) {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

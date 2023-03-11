@@ -3,7 +3,7 @@ import {
   html,
   css,
   map,
-  AlwatrDummyElement,
+  AlwatrBaseElement,
 } from '@alwatr/element';
 import {random} from '@alwatr/math';
 import {range} from 'lit/directives/range.js';
@@ -74,7 +74,7 @@ import '@gecut/ui-kit/icon/icon.js';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('color-palette')
-export class ColorPalette extends AlwatrDummyElement {
+export class ColorPalette extends AlwatrBaseElement {
   static override styles = css`
     * {
       box-sizing: border-box;

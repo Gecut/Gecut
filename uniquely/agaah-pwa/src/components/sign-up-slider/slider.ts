@@ -1,4 +1,4 @@
-import {AlwatrDummyElement, css, property, unsafeCSS} from '@alwatr/element';
+import {AlwatrBaseElement, css, property, unsafeCSS} from '@alwatr/element';
 
 import {sansByGroupIdContextCommandTrigger} from '../../context.js';
 import baseElementStyle from '../../styles/element.css?inline';
@@ -7,7 +7,7 @@ import formStyle from '../../styles/form.css?inline';
 import type {SansInterface} from '../../types/sans.js';
 import type {UserInterface} from '../../types/user.js';
 
-export class Slider extends AlwatrDummyElement {
+export class Slider extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     unsafeCSS(formStyle),

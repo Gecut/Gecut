@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -25,7 +25,7 @@ import type {LitRenderType} from '../types/lit-render.js';
 type SignInData = Pick<UserInterface, 'id' | 'phone'>;
 
 @customElement('page-sign-in')
-export class PageSignIn extends AlwatrDummyElement {
+export class PageSignIn extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     unsafeCSS(formStyle),

@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -198,7 +198,7 @@ function userListSort(
 }
 
 @customElement('page-admin-user-list')
-export class PageAdminUserList extends AlwatrDummyElement {
+export class PageAdminUserList extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

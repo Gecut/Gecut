@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -19,7 +19,7 @@ import type {SansInterface} from '../types/sans.js';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-sans-list')
-export class PageSansList extends AlwatrDummyElement {
+export class PageSansList extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

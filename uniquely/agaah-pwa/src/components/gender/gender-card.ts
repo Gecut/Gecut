@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   customElement,
   html,
@@ -17,7 +17,7 @@ import type {Gender} from '../../types/user.js';
 import type {LitRenderType} from '../../types/lit-render.js';
 
 @customElement('gecut-gender-card')
-export class GenderCard extends AlwatrDummyElement {
+export class GenderCard extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

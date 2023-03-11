@@ -14,6 +14,6 @@
   },
   // files, include and exclude from the inheriting config are always overwritten.
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "."],
+  "exclude": ["node_modules", "**/*.d.ts", "**/*.js"],
   "references": [{"path": "../../ui/iconsax-cdn"}]
 }

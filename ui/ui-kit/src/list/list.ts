@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   customElement,
   html,
@@ -16,7 +16,7 @@ import type {ItemData} from './type.js';
 import type {TemplateResult, PropertyValues} from '@alwatr/element';
 
 @customElement('gecut-list')
-export class List extends AlwatrDummyElement {
+export class List extends AlwatrBaseElement {
   static override styles = [
     surface,
     css`

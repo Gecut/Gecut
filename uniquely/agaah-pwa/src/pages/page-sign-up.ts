@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -31,7 +31,7 @@ import type {Button} from '../components/button/button.js';
 import type {Slider} from '../components/sign-up-slider/slider.js';
 
 @customElement('page-sign-up')
-export class PageSignUp extends AlwatrDummyElement {
+export class PageSignUp extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

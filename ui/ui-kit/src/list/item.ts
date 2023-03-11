@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   customElement,
   html,
@@ -21,7 +21,7 @@ function isString(str?: string): boolean {
 }
 
 @customElement('gecut-item')
-export class Item extends AlwatrDummyElement {
+export class Item extends AlwatrBaseElement {
   static override styles = [
     surface,
     css`

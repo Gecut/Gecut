@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -55,7 +55,7 @@ function sansInactive(inactive: SansInterface['inactive']): string {
 }
 
 @customElement('page-admin-sans-list')
-export class PageAdminSansList extends AlwatrDummyElement {
+export class PageAdminSansList extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     css`

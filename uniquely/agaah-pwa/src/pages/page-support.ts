@@ -1,5 +1,5 @@
 import {
-  AlwatrDummyElement,
+  AlwatrBaseElement,
   css,
   html,
   customElement,
@@ -19,7 +19,7 @@ import '../components/button/button';
 import type {LitRenderType} from '../types/lit-render.js';
 
 @customElement('page-support')
-export class PageSupport extends AlwatrDummyElement {
+export class PageSupport extends AlwatrBaseElement {
   static override styles = [
     unsafeCSS(baseElementStyle),
     unsafeCSS(formStyle),
