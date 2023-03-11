@@ -1,6 +1,6 @@
 {
   "name": "@gecut/storage-server",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Gecut Storage Server, Elegant micro in-memory json-like storage nanoservice with disk backed, Fastest NoSQL Database.",
   "type": "module",
   "keywords": [
