@@ -1,0 +1,1 @@
+{"fullyTracked":true,"platform":"linux","arch":"x64","nodeVersion":"v19.7.0","command":"rm -rf build","extraArgs":[],"clean":true,"files":{"/home/alwatr/Programming/Gecut/yarn.lock":"2e49bd0572676f9c74969d5bfbc045260d7116ecd5097e9784c689ef5a8c035e"},"output":[],"dependencies":{},"env":{}}

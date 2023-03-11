@@ -37,11 +37,13 @@ settings:
 rules:
   indent:
     - error
-    - tab
+    - 2
     - ignoredNodes:
         - TemplateLiteral > *
   wc/guard-super-call: off
-  require-jsdoc: warn
+  no-misleading-character-class: off
+  no-throw-literal: off
+  require-jsdoc: off
   valid-jsdoc: off
   class-methods-use-this:
     - error
@@ -55,6 +57,25 @@ rules:
         - updated
         - createRenderRoot
         - render
+
+  # import
+  import/no-unresolved: off
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - - sibling
+          - index
+        - type
+      newlines-between: always
+
+  '@typescript-eslint/consistent-type-imports':
+    - error
+    - prefer: type-imports
+      fixStyle: separate-type-imports
   '@typescript-eslint/member-ordering':
     - 'error'
     - default:
@@ -70,22 +91,6 @@ rules:
         - protected-method
         - private-method
         - method
-
-  # import
-  import/no-unresolved: warn
-  import/order:
-    - error
-    - groups:
-        - builtin
-        - external
-        - internal
-        - parent
-        - - sibling
-          - index
-        - type
-  import/consistent-type-specifier-style:
-    - error
-    - prefer-top-level
 
   # eslint-plugin-lit
   lit/no-template-bind: error

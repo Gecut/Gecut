@@ -1,0 +1,1 @@
+{"fullyTracked":false,"platform":"linux","arch":"x64","nodeVersion":"v19.7.0","command":"tsc --build","extraArgs":[],"clean":true,"files":{},"output":["build","!.git/","!.hg/","!.svn/","!.wireit/","!.yarn/","!CVS/","!node_modules/"],"dependencies":{},"env":{}}

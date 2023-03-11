@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "target": "ESNext",
+    "composite": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "rootDir": "src",
+    "outDir": "build",
+    "preserveSymlinks": true
+    // "noEmit": true
+  },
+
+  "include": ["src/**/*.ts"],
+  "exclude": []
+}

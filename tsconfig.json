@@ -1,5 +1,4 @@
 // https://www.typescriptlang.org/tsconfig
-
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
@@ -9,6 +8,12 @@
   "files": [],
   "exclude": [],
   "references": [
-    {"path": "./ui/style"},
+    {"path": "./services/storage-server"},
+
+    {"path": "./ui/ui-kit"},
+    {"path": "./ui/iconsax-cdn"},
+
+    {"path": "./uniquely/agaah-api"},
+    {"path": "./uniquely/agaah-pwa"}
   ]
 }

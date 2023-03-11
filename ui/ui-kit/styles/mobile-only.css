@@ -1,0 +1,4 @@
+app-root {
+  max-width: var(--_max-mobile-size, var(--sys-breakpoint-handset));
+  margin: 0 auto;
+}

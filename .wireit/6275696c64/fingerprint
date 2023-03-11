@@ -1,0 +1,1 @@
+{"fullyTracked":false,"platform":"linux","arch":"x64","nodeVersion":"v19.7.0","command":"lerna run build","extraArgs":[],"clean":true,"files":{},"output":[],"dependencies":{"[\"/home/alwatr/Programming/Gecut\",\"build:ts\"]":"eb23b834a822d9318688ee2b6ff57c293e2cbff395e3a2b682f9eb1ea53ef515"},"env":{}}

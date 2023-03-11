@@ -14,17 +14,19 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "files.exclude": {
     "**/*.map": true,
-    "**/*.d.ts": true,
     "**/*.tsbuildinfo": true
   },
   "cSpell.language": "en,fa,fa-IR",
   "cSpell.words": [
+    "agaah",
+    "agaah",
     "alwatr",
     "calt",
     "cssprop",
     "currentcolor",
     "esbuild",
     "gecut",
+    "iconsax",
     "Kubernetes",
     "metafile",
     "nanoserver",
@@ -34,6 +36,7 @@
     "outdir",
     "preconnect",
     "preload",
+    "requestable",
     "roundot",
     "Superfast",
     "tnum",
@@ -42,5 +45,6 @@
     "vazirmatn",
     "Zamanian",
     "zindex"
-  ]
+  ],
+  "docwriter.style": "JSDoc"
 }

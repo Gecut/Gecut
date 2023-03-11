@@ -1,0 +1,88 @@
+@apiUrl = https://api.agaah-group.ir
+@apiVersion = v0
+@token = YOUR_SECRET_TOKEN
+@userId = WK783
+@userToken = Cm43P-lt00sZXOeprTWxUN9xdU0xvlKG9DJJnIEF7w82LVyw_DnE4_EDmObvE1m-184j4AKMo7l6-q1wqcWNGA
+@userPhone = 09155595488
+
+### Home
+GET {{apiUrl}}/{{apiVersion}}
+
+### Get Sans List
+GET {{apiUrl}}/{{apiVersion}}/sans
+
+### Get Sans By Group Id
+GET {{apiUrl}}/{{apiVersion}}/sans/group-id?id=M86D
+
+### Get User Data
+GET {{apiUrl}}/{{apiVersion}}/user?id={{userId}}
+Authorization: Bearer {{userToken}}
+
+### Get User List {Admin}
+GET {{apiUrl}}/{{apiVersion}}/admin/users?id={{userId}}&&token={{userToken}}
+Authorization: Bearer {{userToken}}
+
+### Add Sans
+POST {{apiUrl}}/{{apiVersion}}/admin/sans?id={{userId}}
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "groupsNumber": 5,
+  "groupsCapacityNumber": 6,
+  "duration": 40,
+  "inactive": false,
+  "ageLimit": {
+    "min": 18,
+    "max": 22
+  },
+  "gender": "female"
+}
+
+### Create User
+POST {{apiUrl}}/{{apiVersion}}/authentication/sign-up
+Content-Type: application/json
+
+{
+  "phone": "09151154220",
+  "firstName": "سید مهدیار",
+  "lastName": "زمانیان",
+  "sansCode": "0",
+  "age": 18
+}
+
+### Create Admin User
+POST {{apiUrl}}/{{apiVersion}}/authentication/sign-up
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "phone": "09155595488",
+  "firstName": "سید محمدمهدی",
+  "lastName": "زمانیان",
+  "role": "admin",
+  "gender": "male",
+  "age": 18
+}
+
+### Edit User
+PUT {{apiUrl}}/{{apiVersion}}/user
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "id":"MZ404",
+  "sansCode": "0"
+}
+
+### User Sign In
+POST {{apiUrl}}/{{apiVersion}}/authentication/sign-in
+Content-Type: application/json
+
+{
+  "id": "ON291",
+  "phone":"09155595488"
+}
+
+### Health
+GET {{apiUrl}}/{{apiVersion}}/health
