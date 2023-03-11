@@ -10,6 +10,12 @@
   ],
   "author": "S. MohammadMahdi Zamanian <mm25zamanian@gmail.com> (https://mm25zamanian.ir)",
   "license": "MIT",
+  "files": [
+    "**/**/*.{d.ts.map,d.ts,js.map,js,md,svg}"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./*": "./src/*.svg"
   },
