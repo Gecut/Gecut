@@ -9,7 +9,7 @@
   "workspaces": [
     "ui/*",
     "services/*",
-    "uniquely/*/*"
+    "uniquely/**/*"
   ],
   "scripts": {
     "l": "yarn lint",
