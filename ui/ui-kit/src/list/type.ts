@@ -4,7 +4,15 @@ export type ItemData = {
   headline: string;
 
   supportingText?: string;
+  supportingTextMultiLine?: boolean;
   href?: string;
+
+  events?: Partial<
+    Record<
+      keyof HTMLElementEventMap,
+      (event: HTMLElementEventMap[keyof HTMLElementEventMap]) => unknown
+    >
+  >;
 
   leading?:
     | ItemDataIconLeading
