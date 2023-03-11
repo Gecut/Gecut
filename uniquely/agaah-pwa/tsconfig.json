@@ -3,12 +3,12 @@
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": ".tsbuildinfo",
-    "rootDir": "src/",
-    "outDir": "dist/",
+    "rootDir": "src",
+    "outDir": "build",
     "noEmit": true,
     "types": ["vite/client"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": [],
+  "exclude": ["build"],
   "references": [{"path": "../../ui/ui-kit"}, {"path": "../../ui/iconsax-cdn"}]
 }
