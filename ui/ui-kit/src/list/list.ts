@@ -25,21 +25,41 @@ export class List extends AlwatrDummyElement {
       }
 
       :host {
+        --_surface-tint-opacity: 0 !important;
+        --_surface-state-opacity: 0 !important;
+
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         overflow: hidden;
         border-radius: var(--sys-radius-medium);
-        padding: 0;
+        padding: calc(0.5 * var(--sys-spacing-track));
       }
 
       .list {
+        --sys-scrollbar-size: calc(0.5 * var(--sys-spacing-track));
+
         display: flex;
         flex-direction: column;
         height: max-content;
         overflow-y: auto;
         width: 100%;
+        border-radius: var(--sys-radius-medium);
+      }
+
+      .list::-webkit-scrollbar {
+        width: var(--sys-scrollbar-size);
+        height: var(--sys-scrollbar-size);
+      }
+      .list::-webkit-scrollbar-corner,
+      .list::-webkit-scrollbar-track {
+        background-color: var(--sys-scrollbar-background);
+        border-radius: var(--sys-scrollbar-radius);
+      }
+      .list::-webkit-scrollbar-thumb {
+        background-color: var(--sys-scrollbar-color);
+        border-radius: var(--sys-scrollbar-radius);
       }
     `,
   ];
@@ -50,12 +70,18 @@ export class List extends AlwatrDummyElement {
   @property({type: Boolean, reflect: true, attribute: 'order-animation'})
     orderAnimation = false;
 
+  @property({type: Boolean, reflect: true})
+    animating = false;
+
+  @property({type: Number, reflect: true, attribute: 'animating-items'})
+    animatingItems = 0;
+
   private listState: Record<string, DOMRect> = {};
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('elevated', '3');
+    this.setAttribute('elevated', '2');
   }
 
   override render(): TemplateResult {
@@ -80,44 +106,67 @@ export class List extends AlwatrDummyElement {
     const list = this.itemsList;
 
     for (const item of list) {
-      const newBox = item.getBoundingClientRect();
-      const oldBox =
-        this.listState[item.id] ??
-        this.getBoundingClientRectItems(list)[item.id];
+      item.style.zIndex = this.getZIndexItem(item, true) + '';
 
-      if (newBox != null && oldBox != null) {
-        const deltaY = oldBox.top - newBox.top;
-        const displacementVectorLength = Math.abs(deltaY);
-        const duration = clamp(displacementVectorLength * 7.5, 0, 1_500);
-        const transition = `box-shadow 200ms, border-radius 200ms`;
+      if (item.dragging === false) {
+        const newBox = item.getBoundingClientRect();
+        const oldBox =
+          this.listState[item.id] ??
+          this.getBoundingClientRectItems(list)[item.id];
 
-        if (displacementVectorLength > newBox.height) {
-          item.dragging = true;
+        if (newBox != null && oldBox != null) {
+          const deltaY = oldBox.top - newBox.top;
+          const isMoving = deltaY > 0;
+          const displacementVectorLength = Math.abs(deltaY);
+          const duration = clamp(displacementVectorLength * 2.5, 0, 1_000);
+          const transition = `box-shadow ${duration / 4}ms, border-radius ${
+            duration / 4
+          }ms`;
 
-          const zIndex = this.getZIndexItem(item);
+          if (isMoving) {
+            this.animatingItems++;
 
-          item.style.zIndex = zIndex + 10 + '';
-        }
-
-        untilNextFrame()
-          .then(() => {
-            item.style.transform = `translate(${0}px, ${deltaY}px)`;
-            item.style.transition = `${transition}, transform 0s`;
-          })
-          .then(() => untilNextFrame())
-          .then(() => {
-            item.style.transform = '';
-            item.style.transition = `${transition}, transform ${duration}ms`;
-          })
-          .then(() => delay(duration))
-          .then(() => {
-            if (item.dragging === true) {
-              item.dragging = false;
-
-              const zIndex = this.getZIndexItem(item);
-              item.style.zIndex = zIndex - 10 + '';
+            if (this.animatingItems > 0) {
+              this.animating = true;
             }
-          });
+          }
+
+          if (displacementVectorLength > newBox.height) {
+            item.dragging = true;
+
+            const zIndex = this.getZIndexItem(item, true);
+
+            item.style.zIndex = zIndex + 10 + '';
+          }
+
+          untilNextFrame()
+            .then(() => {
+              item.style.transform = `translate(${0}px, ${deltaY}px)`;
+              item.style.transition = `${transition}, transform 0s`;
+            })
+            .then(() => untilNextFrame())
+            .then(() => {
+              item.style.transform = '';
+              item.style.transition = `${transition}, transform ${duration}ms`;
+            })
+            .then(() => delay(duration))
+            .then(() => {
+              if (item.dragging === true) {
+                item.dragging = false;
+
+                const zIndex = this.getZIndexItem(item);
+                item.style.zIndex = zIndex - 10 + '';
+              }
+
+              if (isMoving) {
+                this.animatingItems--;
+
+                if (this.animatingItems <= 0) {
+                  this.animating = false;
+                }
+              }
+            });
+        }
       }
     }
 
@@ -128,10 +177,10 @@ export class List extends AlwatrDummyElement {
     return new Array(...this.renderRoot.querySelectorAll<Item>('gecut-item'));
   }
 
-  private getZIndexItem(item: Item): number {
+  private getZIndexItem(item: Item, force = false): number {
     let zIndex = Number(item.style.zIndex);
 
-    if (!zIndex && item.id) {
+    if ((!zIndex && item.id) || force === true) {
       const items = Object.keys(this.data);
 
       zIndex = items.length - items.indexOf(item.id) + 10 ?? 10;
