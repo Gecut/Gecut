@@ -22,20 +22,20 @@
     "f": "yarn format",
     "fl": "yarn format:eslint",
     "fp": "yarn format:prettier",
-    "pm": "run-s pull clean build:ts build:r ver-minor push",
-    "pp": "run-s pull clean build:ts build:r ver-patch push",
+    "pm": "run-s pull clean build:tsc build:r ver-minor push",
+    "pp": "run-s pull clean build:tsc build:r ver-patch push",
     "lint": "run-s lint:*",
     "lint:ts": "eslint . --config .eslintrc.yml --ext .ts --ignore-path .gitignore",
     "build": "wireit",
-    "build:ts": "wireit",
+    "build:tsc": "wireit",
     "build:r": "lerna run build",
     "format": "run-s format:prettier format:eslint",
     "format:eslint": "yarn lint:ts --fix",
     "format:prettier": "prettier . --ignore-path .gitignore --write",
-    "clean": "yarn build:ts --clean && lerna run clean",
+    "clean": "wireit",
     "serve": "wds",
     "watch": "run-p watch:* serve",
-    "watch:ts": "yarn build:ts --watch --preserveWatchOutput",
+    "watch:ts": "yarn build:tsc --watch --preserveWatchOutput",
     "ver-minor": "lerna version minor --no-push",
     "ver-patch": "lerna version patch --no-push",
     "pull": "git pull",
@@ -43,13 +43,22 @@
     "publish": "lerna publish from-package"
   },
   "wireit": {
+    "clean": {
+      "command": "lerna run clean",
+      "dependencies": [
+        "clean:tsc"
+      ]
+    },
+    "clean:tsc": {
+      "command": "tsc --build --clean"
+    },
     "build": {
       "command": "lerna run build",
       "dependencies": [
-        "build:ts"
+        "build:tsc"
       ]
     },
-    "build:ts": {
+    "build:tsc": {
       "clean": true,
       "command": "tsc --build"
     }

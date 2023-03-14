@@ -7,9 +7,10 @@
   "private": true,
   "scripts": {
     "build": "wireit",
-    "build:ts": "wireit",
+    "build:tsc": "wireit",
     "build:es": "vite build",
-    "dev": "vite dev",
+    "watch": "wireit",
+    "watch:root": "wireit",
     "clean": "wireit"
   },
   "wireit": {
@@ -25,7 +26,7 @@
       "clean": true,
       "command": "vite build",
       "dependencies": [
-        "build:ts"
+        "build:tsc"
       ],
       "files": [
         "index.html",
@@ -36,21 +37,29 @@
         "dist"
       ]
     },
-    "build:ts": {
-      "command": "tsc --build",
-      "output": [
-        "build"
-      ]
+    "build:tsc": {
+      "command": "tsc --build"
+    },
+    "build:root": {
+      "command": "cd ../../ && yarn clean && yarn build"
     },
     "watch": {
       "clean": true,
       "command": "vite",
+      "dependencies": [
+        "build:root",
+        "watch:root"
+      ],
       "files": [
         "index.html",
         "src/**/*.ts",
         "public/**/*"
       ],
       "output": []
+    },
+    "watch:root": {
+      "service": true,
+      "command": "cd ../../ && yarn watch:ts"
     }
   },
   "devDependencies": {
