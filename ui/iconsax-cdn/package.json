@@ -29,11 +29,23 @@
     "url": "https://github.com/gecut/gecut/issues"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--enable-source-maps run-s clean build serve",
-    "build": "run-s clean build:ts build:icon",
-    "build:ts": "tsc --build",
-    "build:icon": "node build/convertor.js",
+    "build": "wireit",
+    "build:tsc": "wireit",
+    "build:icon": "wireit",
     "clean": "rimraf dist build .tsbuildinfo **/*.{d.ts,map} scripts/**/*.{js,cjs,mjs}"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:tsc"
+      ]
+    },
+    "build:tsc": {
+      "command": "tsc --build"
+    },
+    "build:icon": {
+      "command": "node build/convertor.js"
+    }
   },
   "devDependencies": {
     "@types/node": "^18.15.0",

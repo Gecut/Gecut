@@ -10,7 +10,7 @@ const iconTypeList = fs
   .map((i) => path.resolve(`${preDIR}/${srcDIR}/${i}`))
   .slice(0, 10);
 
-const icons = Object.fromEntries(
+const icons: Record<string, string[]> = Object.fromEntries(
   iconTypeList.map((iconType) => {
     const iconTypeSplitted = iconType.split('/');
     const _type = iconTypeSplitted[iconTypeSplitted.length - 1];
@@ -43,10 +43,10 @@ for (const icon of Object.values(icons).flat()) {
   iconSource = iconSource.replaceAll(`#292D32`, `currentColor`);
   iconSource = iconSource.replaceAll(
     ` stroke-width="1.5"`,
-    ' stroke-width="var(--_size, 1.5)"',
+    ' stroke-width="var(--_size, 1.3)"',
   );
 
   fs.writeFileSync(dist, iconSource);
 }
 
-console.log(`${icons.length} Passed convert icons`);
+console.log(`${Object.values(icons).flat().length} Passed convert icons`);
