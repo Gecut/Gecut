@@ -69,7 +69,7 @@
     "@typescript-eslint/parser": "^5.54.1",
     "@typescript/lib-dom": "npm:@types/web",
     "@web/dev-server": "^0.1.35",
-    "@web/dev-server-esbuild": "^0.3.3",
+    "@web/dev-server-esbuild": "^0.3.4",
     "eslint": "^8.36.0",
     "eslint-config-google": "^0.14.0",
     "eslint-import-resolver-typescript": "^3.5.3",

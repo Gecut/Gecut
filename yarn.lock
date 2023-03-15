@@ -2225,14 +2225,38 @@
     picomatch "^2.2.2"
     ws "^7.4.2"
 
-"@web/dev-server-esbuild@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@web/dev-server-esbuild/-/dev-server-esbuild-0.3.3.tgz#e82af2e5acec0e645b920400be9601601b3921c5"
-  integrity sha512-hB9C8X9NsFWUG2XKT3W+Xcw3IZ/VObf4LNbK14BTjApnNyZfV6hVhSlJfvhgOoJ4DxsImfhIB5+gMRKOG9NmBw==
+"@web/dev-server-core@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-0.4.0.tgz#46a34acbf7499f252411a8a3e18828d8c4219fd7"
+  integrity sha512-fuba+meLFo7at+wgH6tEhZYdQGK+mWNYRoaYcCCRstGC3Gb7d1vj3SjK1CyRVVen4n+LExvdUz9UTscIMZXg/w==
+  dependencies:
+    "@types/koa" "^2.11.6"
+    "@types/ws" "^7.4.0"
+    "@web/parse5-utils" "^1.2.0"
+    chokidar "^3.4.3"
+    clone "^2.1.2"
+    es-module-lexer "^1.0.0"
+    get-stream "^6.0.0"
+    is-stream "^2.0.0"
+    isbinaryfile "^4.0.6"
+    koa "^2.13.0"
+    koa-etag "^4.0.0"
+    koa-send "^5.0.1"
+    koa-static "^5.0.0"
+    lru-cache "^6.0.0"
+    mime-types "^2.1.27"
+    parse5 "^6.0.1"
+    picomatch "^2.2.2"
+    ws "^7.4.2"
+
+"@web/dev-server-esbuild@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-esbuild/-/dev-server-esbuild-0.3.4.tgz#e3981af801d2322f1f19a8b6371cff4aaf98d56f"
+  integrity sha512-B8wcqt7ulbNjbJhHTShkKrbkydoO++tbMSmL1K9MW/oPVshtibvTdOGLMVJ6IeIBiTP9/vGzmtqrynCl0T3brw==
   dependencies:
     "@mdn/browser-compat-data" "^4.0.0"
-    "@web/dev-server-core" "^0.3.19"
-    esbuild "^0.12 || ^0.13 || ^0.14"
+    "@web/dev-server-core" "^0.4.0"
+    esbuild "^0.16 || ^0.17"
     parse5 "^6.0.1"
     ua-parser-js "^1.0.2"
 
@@ -3754,7 +3778,7 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-"esbuild@^0.12 || ^0.13 || ^0.14", esbuild@^0.16.14, esbuild@^0.16.4, esbuild@^0.17.11:
+"esbuild@^0.16 || ^0.17", esbuild@^0.16.14, esbuild@^0.16.4, esbuild@^0.17.11:
   version "0.16.17"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.16.17.tgz#fc2c3914c57ee750635fee71b89f615f25065259"
   integrity sha512-G8LEkV0XzDMNwXKgM0Jwu3nY3lSTwSGY6XbxM9cr9+s0T/qSV1q1JVPBGzm3dcjhCic9+emZDmMffkwgPeOeLg==
